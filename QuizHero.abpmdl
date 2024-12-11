@@ -1,0 +1,101 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.0.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.0.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.0.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.0.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.0.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.0.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.0.0",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.0.0",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "QuizHero.Application": {
+      "path": "src/QuizHero.Application/QuizHero.Application.abppkg",
+      "folder": "src"
+    },
+    "QuizHero.Application.Tests": {
+      "path": "test/QuizHero.Application.Tests/QuizHero.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "QuizHero.Domain.Shared": {
+      "path": "src/QuizHero.Domain.Shared/QuizHero.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "QuizHero.Application.Contracts": {
+      "path": "src/QuizHero.Application.Contracts/QuizHero.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "QuizHero.HttpApi": {
+      "path": "src/QuizHero.HttpApi/QuizHero.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "QuizHero.HttpApi.Client": {
+      "path": "src/QuizHero.HttpApi.Client/QuizHero.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "QuizHero.EntityFrameworkCore.Tests": {
+      "path": "test/QuizHero.EntityFrameworkCore.Tests/QuizHero.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "QuizHero.EntityFrameworkCore": {
+      "path": "src/QuizHero.EntityFrameworkCore/QuizHero.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "QuizHero.TestBase": {
+      "path": "test/QuizHero.TestBase/QuizHero.TestBase.abppkg",
+      "folder": "test"
+    },
+    "QuizHero.Domain.Tests": {
+      "path": "test/QuizHero.Domain.Tests/QuizHero.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "QuizHero.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/QuizHero.HttpApi.Client.ConsoleTestApp/QuizHero.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "QuizHero.DbMigrator": {
+      "path": "src/QuizHero.DbMigrator/QuizHero.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "QuizHero.HttpApi.Host": {
+      "path": "src/QuizHero.HttpApi.Host/QuizHero.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "QuizHero.Domain": {
+      "path": "src/QuizHero.Domain/QuizHero.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
