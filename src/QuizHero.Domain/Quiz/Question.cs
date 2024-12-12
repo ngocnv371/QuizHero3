@@ -7,7 +7,7 @@ using Volo.Abp.Identity;
 
 namespace QuizHero.Quiz
 {
-	public class Question : AuditedEntityWithUser<Guid, IdentityUser>
+	public class Question : AuditedAggregateRootWithUser<Guid, IdentityUser>
 	{
 		[Required]
 		public Guid QuizId { get; protected set; }
@@ -31,6 +31,16 @@ namespace QuizHero.Quiz
 			QuizId = quizId;
 			Text = text;
 			Answers = new List<Answer>();
+		}
+
+		public void AddAnswer(Guid id, string text, bool isCorrect)
+		{
+			Answers.Add(new Answer(id, Id, text, isCorrect));
+		}
+
+		public void RemoveAnswer(Guid id)
+		{
+			Answers.RemoveAll(a => a.Id == id);
 		}
 	}
 }

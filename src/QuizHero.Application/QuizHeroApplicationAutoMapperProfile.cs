@@ -12,7 +12,9 @@ public class QuizHeroApplicationAutoMapperProfile : Profile
          * into multiple profile classes for a better organization. */
 
 		CreateMap<Quiz.Quiz, QuizDto>();
+		CreateMap<CreateUpdateQuizDto, Quiz.Quiz>();
 		CreateMap<Question, QuestionDto>();
+		CreateMap<CreateUpdateQuestionDto, Question>();
 		CreateMap<Answer, AnswerDto>();
 	}
 }

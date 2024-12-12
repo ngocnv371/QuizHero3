@@ -5,7 +5,7 @@ using Volo.Abp.Application.Services;
 namespace QuizHero.Quiz
 {
 	public interface IQuizzesAppService
-		: ICrudAppService<QuizDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateQuizDto>
+		: ICrudAppService<QuizDto, Guid, QuizzesQueryDto, CreateUpdateQuizDto>
 	{
 	}
 }
