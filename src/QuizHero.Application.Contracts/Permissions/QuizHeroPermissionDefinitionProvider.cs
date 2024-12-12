@@ -1,7 +1,6 @@
 using QuizHero.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
-using Volo.Abp.MultiTenancy;
 
 namespace QuizHero.Permissions;
 
@@ -11,7 +10,10 @@ public class QuizHeroPermissionDefinitionProvider : PermissionDefinitionProvider
 	{
 		var myGroup = context.AddGroup(QuizHeroPermissions.GroupName);
 
-		//myGroup.AddPermission(QuizHeroPermissions.MyPermission1, L("Permission:MyPermission1"));
+		var quiz = myGroup.AddPermission(QuizHeroPermissions.Quizzes.Default, L("Permission:Quizzes"));
+		quiz.AddChild(QuizHeroPermissions.Quizzes.Create, L("Permission:Quizzes.Create"));
+		quiz.AddChild(QuizHeroPermissions.Quizzes.Edit, L("Permission:Quizzes.Edit"));
+		quiz.AddChild(QuizHeroPermissions.Quizzes.Delete, L("Permission:Quizzes.Delete"));
 	}
 
 	private static LocalizableString L(string name)

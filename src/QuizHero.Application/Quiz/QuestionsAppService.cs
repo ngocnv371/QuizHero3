@@ -1,4 +1,5 @@
 ﻿using QuizHero.Localization;
+using QuizHero.Permissions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,11 @@ namespace QuizHero.Quiz
 			: base(repository)
 		{
 			LocalizationResource = typeof(QuizHeroResource);
+			GetPolicyName = QuizHeroPermissions.Quizzes.Default;
+			GetListPolicyName = QuizHeroPermissions.Quizzes.Default;
+			CreatePolicyName = QuizHeroPermissions.Quizzes.Edit;
+			UpdatePolicyName = QuizHeroPermissions.Quizzes.Edit;
+			DeletePolicyName = QuizHeroPermissions.Quizzes.Edit;
 		}
 
 		protected override async Task<IQueryable<Question>> CreateFilteredQueryAsync(QuestionsQueryDto input)

@@ -8,15 +8,7 @@ public static class QuizHeroPermissions
 	{
 		public const string Default = GroupName + ".Quizzes";
 		public const string Create = Default + ".Create";
-		public const string Update = Default + ".Update";
-		public const string Delete = Default + ".Delete";
-	}
-
-	public static class Questions
-	{
-		public const string Default = GroupName + ".Questions";
-		public const string Create = Default + ".Create";
-		public const string Update = Default + ".Update";
+		public const string Edit = Default + ".Edit";
 		public const string Delete = Default + ".Delete";
 	}
 }

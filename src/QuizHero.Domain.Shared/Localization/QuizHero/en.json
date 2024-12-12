@@ -4,6 +4,12 @@
     "AppName": "QuizHero",
     "Menu:Home": "Home",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information visit",
-    "Welcome": "Welcome"
+    "Welcome": "Welcome",
+    "Permission:QuizHero": "Quiz Hero",
+    "Permission:Quizzes": "Quizzes Mangement",
+    "Permission:Quizzes.Create": "Creating new quizzes",
+    "Permission:Quizzes.Edit": "Editing the quizzes",
+    "Permission:Quizzes.Delete": "Deleting the quizzes",
+    "QuizHero.00001": "There is already an answer with the same text: {text}"
   }
 }
