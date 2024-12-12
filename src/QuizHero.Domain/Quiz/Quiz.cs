@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Identity;
 
@@ -7,7 +8,10 @@ namespace QuizHero.Quiz
 {
 	public class Quiz : AuditedAggregateRootWithUser<Guid, IdentityUser>
 	{
+		[Required(AllowEmptyStrings = false)]
+		[StringLength(256)]
 		public virtual string Title { get; protected set; }
+
 		public virtual string Description { get; protected set; }
 		public virtual List<Question> Questions { get; protected set; }
 		public virtual List<QuizResult> Results { get; protected set; }
