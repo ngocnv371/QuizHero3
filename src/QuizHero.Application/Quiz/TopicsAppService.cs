@@ -3,6 +3,8 @@ using QuizHero.Localization;
 using QuizHero.Permissions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -26,11 +28,17 @@ namespace QuizHero.Quiz
 		}
 
 		[Authorize(QuizHeroPermissions.Topics.Default)]
-		public async Task<ListResultDto<TopicDto>> GetTopicLookupAsync()
+		public async Task<ListResultDto<TopicLookupDto>> GetLookupAsync(string? term)
 		{
-			var topics = await Repository.GetListAsync();
-			return new ListResultDto<TopicDto>(
-				ObjectMapper.Map<List<Topic>, List<TopicDto>>(topics)
+			var query = await Repository.GetQueryableAsync();
+			if (!string.IsNullOrWhiteSpace(term))
+			{
+				query = query.Where(x => x.Name.Contains(term));
+			}
+
+			var topics = await AsyncExecuter.ToListAsync(query);
+			return new ListResultDto<TopicLookupDto>(
+				ObjectMapper.Map<List<Topic>, List<TopicLookupDto>>(topics)
 			);
 		}
 	}

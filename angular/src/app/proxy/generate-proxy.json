@@ -1564,6 +1564,400 @@
               "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<QuizHero.Quiz.QuizDto,QuizHero.Quiz.QuizDto,System.Guid,QuizHero.Quiz.QuizzesQueryDto>"
             }
           }
+        },
+        "QuizHero.Quiz.TopicsAppService": {
+          "controllerName": "Topics",
+          "controllerGroupName": "Topics",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "QuizHero.Quiz.TopicsAppService",
+          "interfaces": [
+            {
+              "type": "QuizHero.Quiz.ITopicsAppService",
+              "name": "ITopicsAppService",
+              "methods": [
+                {
+                  "name": "GetLookupAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "term",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Volo.Abp.Application.Dtos.ListResultDto<QuizHero.Quiz.TopicLookupDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.ListResultDto<QuizHero.Quiz.TopicLookupDto>"
+                  }
+                },
+                {
+                  "name": "GetAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "QuizHero.Quiz.TopicDto",
+                    "typeSimple": "QuizHero.Quiz.TopicDto"
+                  }
+                },
+                {
+                  "name": "GetListAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto, Volo.Abp.Ddd.Application.Contracts",
+                      "type": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+                      "typeSimple": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<QuizHero.Quiz.TopicDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<QuizHero.Quiz.TopicDto>"
+                  }
+                },
+                {
+                  "name": "CreateAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "QuizHero.Quiz.CreateUpdateTopicDto, QuizHero.Application.Contracts",
+                      "type": "QuizHero.Quiz.CreateUpdateTopicDto",
+                      "typeSimple": "QuizHero.Quiz.CreateUpdateTopicDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "QuizHero.Quiz.TopicDto",
+                    "typeSimple": "QuizHero.Quiz.TopicDto"
+                  }
+                },
+                {
+                  "name": "UpdateAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "input",
+                      "typeAsString": "QuizHero.Quiz.CreateUpdateTopicDto, QuizHero.Application.Contracts",
+                      "type": "QuizHero.Quiz.CreateUpdateTopicDto",
+                      "typeSimple": "QuizHero.Quiz.CreateUpdateTopicDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "QuizHero.Quiz.TopicDto",
+                    "typeSimple": "QuizHero.Quiz.TopicDto"
+                  }
+                },
+                {
+                  "name": "DeleteAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "GetLookupAsyncByTerm": {
+              "uniqueName": "GetLookupAsyncByTerm",
+              "name": "GetLookupAsync",
+              "httpMethod": "GET",
+              "url": "api/app/topics/lookup",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "term",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "term",
+                  "name": "term",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Application.Dtos.ListResultDto<QuizHero.Quiz.TopicLookupDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.ListResultDto<QuizHero.Quiz.TopicLookupDto>"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "QuizHero.Quiz.ITopicsAppService"
+            },
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/app/topics",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "QuizHero.Quiz.CreateUpdateTopicDto, QuizHero.Application.Contracts",
+                  "type": "QuizHero.Quiz.CreateUpdateTopicDto",
+                  "typeSimple": "QuizHero.Quiz.CreateUpdateTopicDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "QuizHero.Quiz.CreateUpdateTopicDto",
+                  "typeSimple": "QuizHero.Quiz.CreateUpdateTopicDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "QuizHero.Quiz.TopicDto",
+                "typeSimple": "QuizHero.Quiz.TopicDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<QuizHero.Quiz.TopicDto,QuizHero.Quiz.CreateUpdateTopicDto>"
+            },
+            "UpdateAsyncByIdAndInput": {
+              "uniqueName": "UpdateAsyncByIdAndInput",
+              "name": "UpdateAsync",
+              "httpMethod": "PUT",
+              "url": "api/app/topics/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "QuizHero.Quiz.CreateUpdateTopicDto, QuizHero.Application.Contracts",
+                  "type": "QuizHero.Quiz.CreateUpdateTopicDto",
+                  "typeSimple": "QuizHero.Quiz.CreateUpdateTopicDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "QuizHero.Quiz.CreateUpdateTopicDto",
+                  "typeSimple": "QuizHero.Quiz.CreateUpdateTopicDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "QuizHero.Quiz.TopicDto",
+                "typeSimple": "QuizHero.Quiz.TopicDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<QuizHero.Quiz.TopicDto,System.Guid,QuizHero.Quiz.CreateUpdateTopicDto>"
+            },
+            "DeleteAsyncById": {
+              "uniqueName": "DeleteAsyncById",
+              "name": "DeleteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/app/topics/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
+            },
+            "GetAsyncById": {
+              "uniqueName": "GetAsyncById",
+              "name": "GetAsync",
+              "httpMethod": "GET",
+              "url": "api/app/topics/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "QuizHero.Quiz.TopicDto",
+                "typeSimple": "QuizHero.Quiz.TopicDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<QuizHero.Quiz.TopicDto,QuizHero.Quiz.TopicDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
+            },
+            "GetListAsyncByInput": {
+              "uniqueName": "GetListAsyncByInput",
+              "name": "GetListAsync",
+              "httpMethod": "GET",
+              "url": "api/app/topics",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto, Volo.Abp.Ddd.Application.Contracts",
+                  "type": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+                  "typeSimple": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "Sorting",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SkipCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "MaxResultCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<QuizHero.Quiz.TopicDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<QuizHero.Quiz.TopicDto>"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<QuizHero.Quiz.TopicDto,QuizHero.Quiz.TopicDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
+            }
+          }
         }
       }
     },
@@ -4284,6 +4678,51 @@
         }
       ]
     },
+    "QuizHero.Quiz.CreateUpdateTopicDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "TopicId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": true,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": true,
+          "minLength": 0,
+          "maxLength": 256,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
     "QuizHero.Quiz.QuestionDto": {
       "baseType": "Volo.Abp.Application.Dtos.AuditedEntityWithUserDto<System.Guid,Volo.Abp.Identity.IdentityUserDto>",
       "isEnum": false,
@@ -4346,6 +4785,30 @@
       "genericArguments": null,
       "properties": [
         {
+          "name": "TopicId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TopicName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "Title",
           "jsonName": null,
           "type": "System.String",
@@ -4390,6 +4853,60 @@
       "enumValues": null,
       "genericArguments": null,
       "properties": []
+    },
+    "QuizHero.Quiz.TopicDto": {
+      "baseType": "Volo.Abp.Application.Dtos.AuditedEntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "QuizHero.Quiz.TopicLookupDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
     },
     "Volo.Abp.Account.ChangePasswordInput": {
       "baseType": null,

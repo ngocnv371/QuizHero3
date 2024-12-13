@@ -3,29 +3,29 @@
     <div class="row">
       <div class="col col-md-6">
         <h5 class="card-title">
-          {{ '::Menu:Quizzes' | abpLocalization }}
+          {{ '::Menu:Topics' | abpLocalization }}
         </h5>
       </div>
       <div class="text-end col col-md-6">
         <button
-          *abpPermission="'QuizHero.Quizzes.Create'"
-          id="btn-create-quiz"
+          *abpPermission="'QuizHero.Topics.Create'"
+          id="btn-create-topic"
           class="btn btn-primary"
           type="button"
           (click)="formModal.create()"
           [disabled]="list.isLoading$ | async"
         >
           <i class="fa fa-plus me-1"></i>
-          <span>{{ '::NewQuiz' | abpLocalization }}</span>
+          <span>{{ '::NewTopic' | abpLocalization }}</span>
         </button>
       </div>
     </div>
   </div>
   <div class="card-body">
     <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
-      <ngx-datatable-column [name]="'::Title' | abpLocalization" prop="title">
+      <ngx-datatable-column [name]="'::Name' | abpLocalization" prop="name">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <a [routerLink]="['/quizzes', row.id]">{{ row.title }}</a>
+          <a [routerLink]="['/topics', row.id]">{{ row.name }}</a>
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column
@@ -47,7 +47,7 @@
           <div ngbDropdown container="body" class="d-inline-block">
             <button
               class="btn btn-sm dropdown-toggle"
-              id="btn-quizzes-actions-dropdown"
+              id="btn-topics-actions-dropdown"
               data-toggle="dropdown"
               aria-haspopup="true"
               ngbDropdownToggle
@@ -56,8 +56,8 @@
             </button>
             <div ngbDropdownMenu>
               <button
-                *abpPermission="'QuizHero.Quizzes.Edit'"
-                id="btn-edit-quiz"
+                *abpPermission="'QuizHero.Topics.Edit'"
+                id="btn-edit-topic"
                 ngbDropdownItem
                 (click)="formModal.edit(row.id)"
                 [disabled]="list.isLoading$ | async"
@@ -65,8 +65,8 @@
                 {{ '::Edit' | abpLocalization }}
               </button>
               <button
-                *abpPermission="'QuizHero.Quizzes.Delete'"
-                id="btn-delete-quiz"
+                *abpPermission="'QuizHero.Topics.Delete'"
+                id="btn-delete-topic"
                 ngbDropdownItem
                 (click)="delete(row.id)"
                 [disabled]="list.isLoading$ | async"
@@ -81,4 +81,4 @@
   </div>
 </div>
 
-<app-quiz-form-modal (saved)="onSaved()"></app-quiz-form-modal>
+<app-topic-form-modal (saved)="onSaved()"></app-topic-form-modal>

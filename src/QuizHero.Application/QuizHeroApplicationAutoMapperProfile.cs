@@ -18,6 +18,7 @@ public class QuizHeroApplicationAutoMapperProfile : Profile
 		CreateMap<Answer, AnswerDto>();
 
 		CreateMap<Topic, TopicDto>();
+		CreateMap<Topic, TopicLookupDto>();
 		CreateMap<CreateUpdateTopicDto, Topic>();
 	}
 }

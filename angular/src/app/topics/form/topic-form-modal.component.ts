@@ -1,27 +1,27 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { QuizDto, QuizzesService } from '@proxy/quiz';
+import { TopicDto, TopicsService } from '@proxy/quiz';
 import { catchError, throwError } from 'rxjs';
 
 @Component({
-  selector: 'app-quiz-form-modal',
-  templateUrl: './quiz-form-modal.component.html',
+  selector: 'app-topic-form-modal',
+  templateUrl: './topic-form-modal.component.html',
 })
-export class QuizFormModalComponent {
+export class TopicFormModalComponent {
   @Output()
   saved = new EventEmitter();
 
-  selectedItem = {} as QuizDto;
+  selectedItem = {} as TopicDto;
 
   isModalOpen = false;
   isSaving = false;
 
   form: FormGroup;
 
-  constructor(private service: QuizzesService, private fb: FormBuilder) {}
+  constructor(private service: TopicsService, private fb: FormBuilder) {}
 
   create() {
-    this.selectedItem = {} as QuizDto;
+    this.selectedItem = {} as TopicDto;
     this.buildForm();
     this.isModalOpen = true;
   }
@@ -38,8 +38,7 @@ export class QuizFormModalComponent {
   buildForm() {
     this.isSaving = false;
     this.form = this.fb.group({
-      topicId: ['', Validators.required],
-      title: ['', Validators.required],
+      name: ['', Validators.required],
       description: [''],
     });
   }

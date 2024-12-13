@@ -16,6 +16,13 @@ function configureRoutes(routes: RoutesService) {
         layout: eLayoutType.application,
       },
       {
+        path: '/topics',
+        name: '::Menu:Topics',
+        iconClass: 'fas fa-book',
+        order: 100,
+        layout: eLayoutType.application,
+      },
+      {
         path: '/quizzes',
         name: '::Menu:Quizzes',
         iconClass: 'fas fa-question',

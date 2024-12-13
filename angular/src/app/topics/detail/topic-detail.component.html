@@ -1,0 +1,63 @@
+<app-detail-layout
+  *ngIf="topic.id"
+  header="{{ '::Topic' | abpLocalization }}"
+  tooltip="A group of questions addressing a certain topic"
+>
+  <div slot="primary">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col col-md-6">
+            <h5 class="card-title">
+              {{ topic.title }}
+              <app-topic-status-badge [status]="topic.status"></app-topic-status-badge>
+            </h5>
+          </div>
+          <div class="text-end col col-md-6">
+            <div class="text-lg-end pt-2">
+              <button
+                *abpPermission="'QuizHero.Topics.Edit'"
+                id="btn-edit-topic"
+                class="btn m-1"
+                type="button"
+                [disabled]="isLoading"
+                (click)="formModal.edit(topic.id)"
+              >
+                <i class="fa fa-pencil me-1"></i>
+                <span>{{ '::Edit' | abpLocalization }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6" *abpPermission="'QuizHero.Topics'">
+            <small class="d-block mb-1">
+              {{ '::Topic' | abpLocalization }}
+            </small>
+            <h5 class="text-dark">
+              <a *ngIf="topic.topicId" routerLink="/topics/{{ topic.topicId }}">
+                {{ topic.topicName }}
+              </a>
+              <span *ngIf="!topic.topicId">--</span>
+            </h5>
+          </div>
+          <div class="col-12">
+            <small class="d-block mb-1">
+              {{ '::Description' | abpLocalization }}
+            </small>
+            <p class="text-dark">
+              {{ topic.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="side">
+    <app-audit-card [info]="topic"></app-audit-card>
+  </div>
+</app-detail-layout>
+
+<app-topic-form-modal (saved)="onSaved()"></app-topic-form-modal>

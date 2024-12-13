@@ -8,6 +8,6 @@ namespace QuizHero.Quiz
 	public interface ITopicsAppService
 		: ICrudAppService<TopicDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateTopicDto>
 	{
-		Task<ListResultDto<TopicDto>> GetTopicLookupAsync();
+		Task<ListResultDto<TopicLookupDto>> GetLookupAsync(string? term);
 	}
 }

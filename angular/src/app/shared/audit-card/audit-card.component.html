@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">
+      {{ '::AuditDetails' | abpLocalization }}
+    </div>
+  </div>
+  <div class="card-body">
+    <small class="d-block text-muted">
+      {{ '::Created' | abpLocalization }}
+    </small>
+    <div class="mb-3">{{ info.creationTime | date : 'medium' }}</div>
+
+    <small class="d-block text-muted">
+      {{ '::LastModification' | abpLocalization }}
+    </small>
+    <div class="mb-3">{{ info.lastModificationTime | date : 'medium' }}</div>
+  </div>
+</div>

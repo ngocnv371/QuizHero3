@@ -1,0 +1,63 @@
+<app-detail-layout
+  *ngIf="quiz.id"
+  header="{{ '::Quiz' | abpLocalization }}"
+  tooltip="A group of questions addressing a certain topic"
+>
+  <div slot="primary">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col col-md-6">
+            <h5 class="card-title">
+              {{ quiz.title }}
+              <app-quiz-status-badge [status]="quiz.status"></app-quiz-status-badge>
+            </h5>
+          </div>
+          <div class="text-end col col-md-6">
+            <div class="text-lg-end pt-2">
+              <button
+                *abpPermission="'QuizHero.Quizzes.Edit'"
+                id="btn-edit-quiz"
+                class="btn m-1"
+                type="button"
+                [disabled]="isLoading"
+                (click)="formModal.edit(quiz.id)"
+              >
+                <i class="fa fa-pencil me-1"></i>
+                <span>{{ '::Edit' | abpLocalization }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6" *abpPermission="'QuizHero.Topics'">
+            <small class="d-block mb-1">
+              {{ '::Topic' | abpLocalization }}
+            </small>
+            <h5 class="text-dark">
+              <a *ngIf="quiz.topicId" routerLink="/topics/{{ quiz.topicId }}">
+                {{ quiz.topicName }}
+              </a>
+              <span *ngIf="!quiz.topicId">--</span>
+            </h5>
+          </div>
+          <div class="col-12">
+            <small class="d-block mb-1">
+              {{ '::Description' | abpLocalization }}
+            </small>
+            <p class="text-dark">
+              {{ quiz.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="side">
+    <app-audit-card [info]="quiz"></app-audit-card>
+  </div>
+</app-detail-layout>
+
+<app-quiz-form-modal (saved)="onSaved()"></app-quiz-form-modal>

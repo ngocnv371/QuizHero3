@@ -1,4 +1,4 @@
-import type { AuditedEntityWithUserDto, EntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
+import type { AuditedEntityDto, AuditedEntityWithUserDto, EntityDto, PagedAndSortedResultRequestDto } from '@abp/ng.core';
 import type { IdentityUserDto } from '../volo/abp/identity/models';
 
 export interface AnswerDto extends EntityDto<string> {
@@ -14,6 +14,12 @@ export interface CreateUpdateQuizDto {
   description?: string;
 }
 
+export interface CreateUpdateTopicDto {
+  topicId: string;
+  name: string;
+  description?: string;
+}
+
 export interface QuestionDto extends AuditedEntityWithUserDto<string, IdentityUserDto> {
   text?: string;
   answers: AnswerDto[];
@@ -24,10 +30,21 @@ export interface QuestionsQueryDto extends PagedAndSortedResultRequestDto {
 }
 
 export interface QuizDto extends AuditedEntityWithUserDto<string, IdentityUserDto> {
+  topicId?: string;
+  topicName?: string;
   title?: string;
   description?: string;
   questions: QuestionDto[];
 }
 
 export interface QuizzesQueryDto extends PagedAndSortedResultRequestDto {
+}
+
+export interface TopicDto extends AuditedEntityDto<string> {
+  name?: string;
+  description?: string;
+}
+
+export interface TopicLookupDto extends EntityDto<string> {
+  name?: string;
 }
