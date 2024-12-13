@@ -26,6 +26,7 @@ public class QuizHeroDbContext :
 	ITenantManagementDbContext,
 	IIdentityDbContext
 {
+	public DbSet<Topic> Topics { get; set; }
 	public DbSet<Quiz.Quiz> Quizzes { get; set; }
 	public DbSet<Question> Questions { get; set; }
 	public DbSet<Answer> Answers { get; set; }
@@ -97,6 +98,20 @@ public class QuizHeroDbContext :
 				.WithMany()
 				.HasForeignKey(q => q.AnswerId)
 				.OnDelete(DeleteBehavior.NoAction);
+		});
+
+		builder.Entity<Quiz.Quiz>(b =>
+		{
+			b.ConfigureByConvention();
+
+			b.HasIndex(k => k.Title);
+		});
+
+		builder.Entity<Topic>(b =>
+		{
+			b.ConfigureByConvention();
+
+			b.HasIndex(k => k.Name);
 		});
 	}
 }

@@ -11,11 +11,46 @@ namespace QuizHero.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "Quiz");
+
             migrationBuilder.CreateTable(
-                name: "Quizzes",
+                name: "Topics",
+                schema: "Quiz",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Topics", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Topics_AbpUsers_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "AbpUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Topics_AbpUsers_LastModifierId",
+                        column: x => x.LastModifierId,
+                        principalTable: "AbpUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Quizzes",
+                schema: "Quiz",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TopicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -38,15 +73,25 @@ namespace QuizHero.Migrations
                         column: x => x.LastModifierId,
                         principalTable: "AbpUsers",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Quizzes_Topics_TopicId",
+                        column: x => x.TopicId,
+                        principalSchema: "Quiz",
+                        principalTable: "Topics",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Questions",
+                schema: "Quiz",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     QuizId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -68,6 +113,7 @@ namespace QuizHero.Migrations
                     table.ForeignKey(
                         name: "FK_Questions_Quizzes_QuizId",
                         column: x => x.QuizId,
+                        principalSchema: "Quiz",
                         principalTable: "Quizzes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -75,6 +121,7 @@ namespace QuizHero.Migrations
 
             migrationBuilder.CreateTable(
                 name: "QuizResults",
+                schema: "Quiz",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -94,6 +141,7 @@ namespace QuizHero.Migrations
                     table.ForeignKey(
                         name: "FK_QuizResults_Quizzes_QuizId",
                         column: x => x.QuizId,
+                        principalSchema: "Quiz",
                         principalTable: "Quizzes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -101,6 +149,7 @@ namespace QuizHero.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Answers",
+                schema: "Quiz",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -114,6 +163,7 @@ namespace QuizHero.Migrations
                     table.ForeignKey(
                         name: "FK_Answers_Questions_QuestionId",
                         column: x => x.QuestionId,
+                        principalSchema: "Quiz",
                         principalTable: "Questions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -121,6 +171,7 @@ namespace QuizHero.Migrations
 
             migrationBuilder.CreateTable(
                 name: "QuestionResults",
+                schema: "Quiz",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -141,16 +192,19 @@ namespace QuizHero.Migrations
                     table.ForeignKey(
                         name: "FK_QuestionResults_Answers_AnswerId",
                         column: x => x.AnswerId,
+                        principalSchema: "Quiz",
                         principalTable: "Answers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_QuestionResults_Questions_QuestionId",
                         column: x => x.QuestionId,
+                        principalSchema: "Quiz",
                         principalTable: "Questions",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_QuestionResults_QuizResults_QuizResultId",
                         column: x => x.QuizResultId,
+                        principalSchema: "Quiz",
                         principalTable: "QuizResults",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -158,82 +212,133 @@ namespace QuizHero.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_QuestionId",
+                schema: "Quiz",
                 table: "Answers",
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionResults_AnswerId",
+                schema: "Quiz",
                 table: "QuestionResults",
                 column: "AnswerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionResults_CreatorId",
+                schema: "Quiz",
                 table: "QuestionResults",
                 column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionResults_QuestionId",
+                schema: "Quiz",
                 table: "QuestionResults",
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionResults_QuizResultId",
+                schema: "Quiz",
                 table: "QuestionResults",
                 column: "QuizResultId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Questions_CreatorId",
+                schema: "Quiz",
                 table: "Questions",
                 column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Questions_LastModifierId",
+                schema: "Quiz",
                 table: "Questions",
                 column: "LastModifierId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Questions_QuizId",
+                schema: "Quiz",
                 table: "Questions",
                 column: "QuizId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuizResults_CreatorId",
+                schema: "Quiz",
                 table: "QuizResults",
                 column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuizResults_QuizId",
+                schema: "Quiz",
                 table: "QuizResults",
                 column: "QuizId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Quizzes_CreatorId",
+                schema: "Quiz",
                 table: "Quizzes",
                 column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Quizzes_LastModifierId",
+                schema: "Quiz",
                 table: "Quizzes",
                 column: "LastModifierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Quizzes_Title",
+                schema: "Quiz",
+                table: "Quizzes",
+                column: "Title");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Quizzes_TopicId",
+                schema: "Quiz",
+                table: "Quizzes",
+                column: "TopicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Topics_CreatorId",
+                schema: "Quiz",
+                table: "Topics",
+                column: "CreatorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Topics_LastModifierId",
+                schema: "Quiz",
+                table: "Topics",
+                column: "LastModifierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Topics_Name",
+                schema: "Quiz",
+                table: "Topics",
+                column: "Name");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "QuestionResults");
+                name: "QuestionResults",
+                schema: "Quiz");
 
             migrationBuilder.DropTable(
-                name: "Answers");
+                name: "Answers",
+                schema: "Quiz");
 
             migrationBuilder.DropTable(
-                name: "QuizResults");
+                name: "QuizResults",
+                schema: "Quiz");
 
             migrationBuilder.DropTable(
-                name: "Questions");
+                name: "Questions",
+                schema: "Quiz");
 
             migrationBuilder.DropTable(
-                name: "Quizzes");
+                name: "Quizzes",
+                schema: "Quiz");
+
+            migrationBuilder.DropTable(
+                name: "Topics",
+                schema: "Quiz");
         }
     }
 }

@@ -7,6 +7,7 @@ using Volo.Abp.Identity;
 
 namespace QuizHero.Quiz
 {
+	[Table("Questions", Schema = QuizHeroConsts.DbSchema)]
 	public class Question : AuditedAggregateRootWithUser<Guid, IdentityUser>
 	{
 		[Required]

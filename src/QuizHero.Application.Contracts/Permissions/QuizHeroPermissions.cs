@@ -11,4 +11,12 @@ public static class QuizHeroPermissions
 		public const string Edit = Default + ".Edit";
 		public const string Delete = Default + ".Delete";
 	}
+
+	public static class Topics
+	{
+		public const string Default = GroupName + ".Topics";
+		public const string Create = Default + ".Create";
+		public const string Edit = Default + ".Edit";
+		public const string Delete = Default + ".Delete";
+	}
 }

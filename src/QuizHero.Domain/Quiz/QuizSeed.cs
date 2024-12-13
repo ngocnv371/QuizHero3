@@ -7,6 +7,7 @@ using Volo.Abp.Guids;
 namespace QuizHero.Quiz
 {
 	public class QuizSeed(
+		IRepository<Topic> topicRepository,
 		IRepository<Quiz> quizRepository,
 		IRepository<Question> questionRepository,
 		IGuidGenerator guidGenerator
@@ -15,9 +16,16 @@ namespace QuizHero.Quiz
 	{
 		public async Task SeedAsync(DataSeedContext context)
 		{
+			if (await topicRepository.GetCountAsync() == 0)
+			{
+				var topic = new Topic(guidGenerator.Create(), "General Knowledge", "General knowledge questions");
+				await topicRepository.InsertAsync(topic, true);
+			}
+
 			if (await quizRepository.GetCountAsync() == 0)
 			{
-				var quiz = new Quiz(guidGenerator.Create(), "Quiz 1", "Sample quiz");
+				var topic = await topicRepository.FirstOrDefaultAsync();
+				var quiz = new Quiz(guidGenerator.Create(), topic.Id, "Quiz 1", "Sample quiz");
 				await quizRepository.InsertAsync(quiz, true);
 
 				var question = new Question(guidGenerator.Create(), quiz.Id, "What is the color of the sky?");

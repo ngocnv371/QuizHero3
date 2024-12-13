@@ -6,6 +6,7 @@ using Volo.Abp.Identity;
 
 namespace QuizHero.Quiz
 {
+	[Table("QuizResults", Schema = QuizHeroConsts.DbSchema)]
 	public class QuizResult : CreationAuditedEntityWithUser<Guid, IdentityUser>
 	{
 		[Required]

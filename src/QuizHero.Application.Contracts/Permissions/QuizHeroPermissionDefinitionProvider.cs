@@ -14,6 +14,11 @@ public class QuizHeroPermissionDefinitionProvider : PermissionDefinitionProvider
 		quiz.AddChild(QuizHeroPermissions.Quizzes.Create, L("Permission:Quizzes.Create"));
 		quiz.AddChild(QuizHeroPermissions.Quizzes.Edit, L("Permission:Quizzes.Edit"));
 		quiz.AddChild(QuizHeroPermissions.Quizzes.Delete, L("Permission:Quizzes.Delete"));
+
+		var topic = myGroup.AddPermission(QuizHeroPermissions.Topics.Default, L("Permission:Topics"));
+		topic.AddChild(QuizHeroPermissions.Topics.Create, L("Permission:Topics.Create"));
+		topic.AddChild(QuizHeroPermissions.Topics.Edit, L("Permission:Topics.Edit"));
+		topic.AddChild(QuizHeroPermissions.Topics.Delete, L("Permission:Topics.Delete"));
 	}
 
 	private static LocalizableString L(string name)

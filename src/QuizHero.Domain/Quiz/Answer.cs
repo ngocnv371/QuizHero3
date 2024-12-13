@@ -5,6 +5,7 @@ using Volo.Abp.Domain.Entities;
 
 namespace QuizHero.Quiz
 {
+	[Table("Answers", Schema = QuizHeroConsts.DbSchema)]
 	public class Answer : Entity<Guid>
 	{
 		[Required(AllowEmptyStrings = false)]

@@ -43,7 +43,7 @@ namespace QuizHero.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", "Quiz");
                 });
 
             modelBuilder.Entity("QuizHero.Quiz.Question", b =>
@@ -94,7 +94,7 @@ namespace QuizHero.Migrations
 
                     b.HasIndex("QuizId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", "Quiz");
                 });
 
             modelBuilder.Entity("QuizHero.Quiz.QuestionResult", b =>
@@ -129,7 +129,7 @@ namespace QuizHero.Migrations
 
                     b.HasIndex("QuizResultId");
 
-                    b.ToTable("QuestionResults");
+                    b.ToTable("QuestionResults", "Quiz");
                 });
 
             modelBuilder.Entity("QuizHero.Quiz.Quiz", b =>
@@ -174,13 +174,20 @@ namespace QuizHero.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<Guid>("TopicId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
 
                     b.HasIndex("LastModifierId");
 
-                    b.ToTable("Quizzes");
+                    b.HasIndex("Title");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("Quizzes", "Quiz");
                 });
 
             modelBuilder.Entity("QuizHero.Quiz.QuizResult", b =>
@@ -208,7 +215,60 @@ namespace QuizHero.Migrations
 
                     b.HasIndex("QuizId");
 
-                    b.ToTable("QuizResults");
+                    b.ToTable("QuizResults", "Quiz");
+                });
+
+            modelBuilder.Entity("QuizHero.Quiz.Topic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExtraProperties")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("LastModifierId");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("Topics", "Quiz");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -2105,9 +2165,17 @@ namespace QuizHero.Migrations
                         .WithMany()
                         .HasForeignKey("LastModifierId");
 
+                    b.HasOne("QuizHero.Quiz.Topic", "Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Creator");
 
                     b.Navigation("LastModifier");
+
+                    b.Navigation("Topic");
                 });
 
             modelBuilder.Entity("QuizHero.Quiz.QuizResult", b =>
@@ -2125,6 +2193,21 @@ namespace QuizHero.Migrations
                     b.Navigation("Creator");
 
                     b.Navigation("Quiz");
+                });
+
+            modelBuilder.Entity("QuizHero.Quiz.Topic", b =>
+                {
+                    b.HasOne("Volo.Abp.Identity.IdentityUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
+
+                    b.HasOne("Volo.Abp.Identity.IdentityUser", "LastModifier")
+                        .WithMany()
+                        .HasForeignKey("LastModifierId");
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("LastModifier");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
