@@ -15,6 +15,13 @@ function configureRoutes(routes: RoutesService) {
         order: 1,
         layout: eLayoutType.application,
       },
+      {
+        path: '/quizzes',
+        name: '::Menu:Quizzes',
+        iconClass: 'fas fa-question',
+        order: 150,
+        layout: eLayoutType.application,
+      },
     ]);
   };
 }
