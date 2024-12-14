@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
 import { QuizFormModalComponent } from '../form/quiz-form-modal.component';
 import { QuizDto, QuizzesService } from '@proxy/quiz';
+import { QuestionFormModalComponent } from 'src/app/questions/form/question-form-modal.component';
 
 @Component({
   selector: 'app-quiz-detail',
@@ -10,6 +11,9 @@ import { QuizDto, QuizzesService } from '@proxy/quiz';
   styleUrl: './quiz-detail.component.scss',
 })
 export class QuizDetailComponent implements OnInit {
+  @ViewChild(QuestionFormModalComponent)
+  questionFormModal!: QuestionFormModalComponent;
+
   @ViewChild(QuizFormModalComponent)
   formModal!: QuizFormModalComponent;
 
@@ -47,5 +51,9 @@ export class QuizDetailComponent implements OnInit {
 
   onQuizUpdated(updatedQuiz: QuizDto) {
     this.quiz = updatedQuiz;
+  }
+
+  onQuestionAdded() {
+    console.debug('Question added');
   }
 }

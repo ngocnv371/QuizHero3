@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { QuestionDto, QuestionsService } from '@proxy/quiz';
 import { catchError, throwError } from 'rxjs';
@@ -20,9 +20,14 @@ export class QuestionFormModalComponent {
 
   constructor(private service: QuestionsService, private fb: FormBuilder) {}
 
-  create() {
+  create(quizId: string) {
     this.selectedItem = {} as QuestionDto;
     this.buildForm();
+    this.form.patchValue({ quizId });
+    this.answers.clear();
+    Array.of(0, 0, 0, 0).forEach(_ => {
+      this.answers.push(this.fb.group({ text: '', isCorrect: false }));
+    });
     this.isModalOpen = true;
   }
 

@@ -4,9 +4,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.ObjectMapping;
-using Volo.Abp.Uow;
 
 namespace QuizHero.Quiz
 {
@@ -14,13 +13,8 @@ namespace QuizHero.Quiz
 		CrudAppService<Question, QuestionDto, Guid, QuestionsQueryDto, CreateUpdateQuestionDto>,
 		IQuestionsAppService
 	{
-		private readonly QuestionManager QuestionManager;
-		private readonly IAnswersAppService AnswersAppService;
-
 		public QuestionsAppService(
-			IRepository<Question, Guid> repository,
-			QuestionManager questionManager,
-			IAnswersAppService answersAppService
+			IRepository<Question, Guid> repository
 			)
 			: base(repository)
 		{
@@ -30,9 +24,6 @@ namespace QuizHero.Quiz
 			CreatePolicyName = QuizHeroPermissions.Quizzes.Edit;
 			UpdatePolicyName = QuizHeroPermissions.Quizzes.Edit;
 			DeletePolicyName = QuizHeroPermissions.Quizzes.Edit;
-
-			QuestionManager = questionManager;
-			AnswersAppService = answersAppService;
 		}
 
 		protected override async Task<IQueryable<Question>> CreateFilteredQueryAsync(QuestionsQueryDto input)
@@ -50,21 +41,27 @@ namespace QuizHero.Quiz
 			return item;
 		}
 
-		//public override async Task<QuestionDto> CreateAsync(CreateUpdateQuestionDto input)
-		//{
-		//	await CheckCreatePolicyAsync();
+		public override async Task<QuestionDto> CreateAsync(CreateUpdateQuestionDto input)
+		{
+			await CheckCreatePolicyAsync();
 
-		//	var entity = await MapToEntityAsync(input);
-		//	//entity = await QuestionManager.CreateQuestionAsync(entity);
+			var entity = await MapToEntityAsync(input);
+			foreach (var item in entity.Answers)
+			{
+				EntityHelper.TrySetId(
+					item,
+					() => GuidGenerator.Create(),
+					true
+				);
+			}
 
-		//	TryToSetTenantId(entity);
+			TryToSetTenantId(entity);
 
-		//	await Repository.InsertAsync(entity, autoSave: true);
+			await Repository.InsertAsync(entity, autoSave: true);
 
-		//	return await MapToGetOutputDtoAsync(entity);
-		//}
+			return await MapToGetOutputDtoAsync(entity);
+		}
 
-		[UnitOfWork]
 		public override async Task<QuestionDto> UpdateAsync(Guid id, CreateUpdateQuestionDto input)
 		{
 			var query = await Repository.WithDetailsAsync(x => x.Answers);

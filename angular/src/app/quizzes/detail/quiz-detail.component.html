@@ -17,6 +17,17 @@
             <div class="text-lg-end pt-2">
               <button
                 *abpPermission="'QuizHero.Quizzes.Edit'"
+                id="btn-create-question"
+                class="btn btn-primary"
+                type="button"
+                (click)="questionFormModal.create(quizId)"
+                [disabled]="isLoading"
+              >
+                <i class="fa fa-plus me-1"></i>
+                <span>{{ '::NewQuestion' | abpLocalization }}</span>
+              </button>
+              <button
+                *abpPermission="'QuizHero.Quizzes.Edit'"
                 id="btn-edit-quiz"
                 class="btn m-1"
                 type="button"
@@ -61,3 +72,4 @@
 </app-detail-layout>
 
 <app-quiz-form-modal (saved)="onSaved()"></app-quiz-form-modal>
+<app-question-form-modal (saved)="onQuestionAdded()"></app-question-form-modal>

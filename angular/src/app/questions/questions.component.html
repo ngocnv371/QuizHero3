@@ -6,19 +6,7 @@
           {{ '::Menu:Questions' | abpLocalization }}
         </h5>
       </div>
-      <div class="text-end col col-md-6">
-        <button
-          *abpPermission="'QuizHero.Quizzes.Create'"
-          id="btn-create-question"
-          class="btn btn-primary"
-          type="button"
-          (click)="formModal.create()"
-          [disabled]="list.isLoading$ | async"
-        >
-          <i class="fa fa-plus me-1"></i>
-          <span>{{ '::NewQuestion' | abpLocalization }}</span>
-        </button>
-      </div>
+      <div class="text-end col col-md-6"></div>
     </div>
   </div>
   <div class="card-body">
