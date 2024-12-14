@@ -8,12 +8,14 @@
     "AreYouSureToDelete": "Are you sure to delete this item?",
 
     "NewTopic": "New Topic",
+    "NewQuestion": "New Question",
     "NewQuiz": "New Quiz",
     "Created": "Created",
     "Title": "Title",
     "Description": "Description",
 
     "Menu:Quizzes": "Quizzes",
+    "Menu:Questions": "Questions",
     "Menu:Topics": "Topics",
 
     "Permission:QuizHero": "Quiz Hero",

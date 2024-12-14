@@ -43,6 +43,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./topics/detail/topic-detail.module').then(m => m.TopicDetailModule),
   },
+  {
+    path: 'questions',
+    loadChildren: () => import('./questions/questions.module').then(m => m.QuestionsModule),
+  },
+  {
+    path: 'questions/:questionId',
+    loadChildren: () =>
+      import('./questions/detail/question-detail.module').then(m => m.QuestionDetailModule),
+  },
 ];
 
 @NgModule({

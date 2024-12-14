@@ -39,7 +39,7 @@ export class QuizzesService {
     this.restService.request<any, PagedResultDto<QuizDto>>({
       method: 'GET',
       url: '/api/app/quizzes',
-      params: { sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+      params: { topicId: input.topicId, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
   

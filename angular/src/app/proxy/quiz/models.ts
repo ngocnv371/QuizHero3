@@ -6,16 +6,24 @@ export interface AnswerDto extends EntityDto<string> {
   isCorrect: boolean;
 }
 
+export interface CreateUpdateAnswerDto {
+  text?: string;
+  isCorrect: boolean;
+}
+
 export interface CreateUpdateQuestionDto {
+  quizId: string;
+  text?: string;
+  answers: CreateUpdateAnswerDto[];
 }
 
 export interface CreateUpdateQuizDto {
+  topicId: string;
   title: string;
   description?: string;
 }
 
 export interface CreateUpdateTopicDto {
-  topicId: string;
   name: string;
   description?: string;
 }
@@ -38,6 +46,7 @@ export interface QuizDto extends AuditedEntityWithUserDto<string, IdentityUserDt
 }
 
 export interface QuizzesQueryDto extends PagedAndSortedResultRequestDto {
+  topicId?: string;
 }
 
 export interface TopicDto extends AuditedEntityDto<string> {

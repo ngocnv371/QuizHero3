@@ -25,9 +25,17 @@ namespace QuizHero.Quiz
 
 		protected override async Task<IQueryable<Question>> CreateFilteredQueryAsync(QuestionsQueryDto input)
 		{
-			var query = await Repository.WithDetailsAsync(x => x.Answers);
+			var query = await Repository.WithDetailsAsync(x => x.Answers, x => x.Quiz);
 			query = query.WhereIf(input.QuizId.HasValue, x => x.QuizId == input.QuizId);
 			return query;
+		}
+
+		protected override async Task<Question> GetEntityByIdAsync(Guid id)
+		{
+			var query = await Repository.WithDetailsAsync(x => x.Quiz);
+			query = query.Where(q => q.Id == id);
+			var item = await AsyncExecuter.FirstOrDefaultAsync(query);
+			return item;
 		}
 	}
 }

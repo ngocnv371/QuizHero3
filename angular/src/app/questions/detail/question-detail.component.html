@@ -1,7 +1,7 @@
 <app-detail-layout
-  *ngIf="topic.id"
-  header="{{ '::Topic' | abpLocalization }}"
-  tooltip="A logical group of quizzes"
+  *ngIf="question.id"
+  header="{{ '::Question' | abpLocalization }}"
+  tooltip="A certain question"
 >
   <div slot="primary">
     <div class="card">
@@ -9,18 +9,19 @@
         <div class="row">
           <div class="col col-md-6">
             <h5 class="card-title">
-              {{ topic.name }}
+              {{ question.text }}
+              <app-question-status-badge [status]="question.status"></app-question-status-badge>
             </h5>
           </div>
           <div class="text-end col col-md-6">
             <div class="text-lg-end pt-2">
               <button
-                *abpPermission="'QuizHero.Topics.Edit'"
-                id="btn-edit-topic"
+                *abpPermission="'QuizHero.Quizzes.Edit'"
+                id="btn-edit-question"
                 class="btn m-1"
                 type="button"
                 [disabled]="isLoading"
-                (click)="formModal.edit(topic.id)"
+                (click)="formModal.edit(question.id)"
               >
                 <i class="fa fa-pencil me-1"></i>
                 <span>{{ '::Edit' | abpLocalization }}</span>
@@ -31,21 +32,23 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12">
+          <div class="col-md-6" *abpPermission="'QuizHero.Quizzes'">
             <small class="d-block mb-1">
-              {{ '::Description' | abpLocalization }}
+              {{ '::Quiz' | abpLocalization }}
             </small>
-            <p class="text-dark">
-              {{ topic.description }}
-            </p>
+            <h5 class="text-dark">
+              <a routerLink="/questions/{{ question.quizId }}">
+                {{ question.quizTitle }}
+              </a>
+            </h5>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div slot="side">
-    <app-audit-card [info]="topic"></app-audit-card>
+    <app-audit-card [info]="question"></app-audit-card>
   </div>
 </app-detail-layout>
 
-<app-topic-form-modal (saved)="onSaved()"></app-topic-form-modal>
+<app-question-form-modal (saved)="onSaved()"></app-question-form-modal>
