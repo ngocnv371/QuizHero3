@@ -12,18 +12,24 @@
       <div class="mt-2">
         <label for="text">{{ '::Text' | abpLocalization }}</label>
         <span class="text-danger">*</span>
-        <input id="text" class="form-control" formControlName="text" required />
+        <textarea id="text" class="form-control" formControlName="text" required></textarea>
       </div>
-      <div class="mt-2" formArrayName="answers">
-        <div *ngFor="let answer of answers.controls; let i = index" [formGroupName]="i">
-          <abp-checkbox formControlName="isCorrect"></abp-checkbox>
-          <input
-            id="answer-text-{{ i }}"
-            placeholder="Enter answer {{ i + 1 }}"
-            class="form-control"
-            formControlName="text"
-            required
-          />
+      <div class="container mt-2" formArrayName="answers">
+        <div
+          *ngFor="let answer of answers.controls; let i = index"
+          [formGroupName]="i"
+          class="row mt-2"
+        >
+          <abp-checkbox formControlName="isCorrect" class="col-1"></abp-checkbox>
+          <div class="col-lg pe-0">
+            <textarea
+              id="answer-text-{{ i }}"
+              placeholder="Enter answer {{ i + 1 }}"
+              class="form-control"
+              formControlName="text"
+              required
+            ></textarea>
+          </div>
         </div>
       </div>
     </form>
