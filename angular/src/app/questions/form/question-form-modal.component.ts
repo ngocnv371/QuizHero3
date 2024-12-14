@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { QuestionDto, QuestionsService } from '@proxy/quiz';
 import { catchError, throwError } from 'rxjs';
 
@@ -31,6 +31,10 @@ export class QuestionFormModalComponent {
       this.selectedItem = req;
       this.buildForm();
       this.form.patchValue(req);
+      this.answers.clear();
+      req.answers.forEach(answer => {
+        this.answers.push(this.fb.group(answer));
+      });
       this.isModalOpen = true;
     });
   }
@@ -38,9 +42,22 @@ export class QuestionFormModalComponent {
   buildForm() {
     this.isSaving = false;
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      description: [''],
+      quizId: ['', Validators.required],
+      text: ['', Validators.required],
+      answers: this.fb.array([]),
     });
+  }
+
+  get answers() {
+    return this.form.get('answers') as FormArray;
+  }
+
+  addAnswer() {
+    this.answers.push(this.fb.group({ text: '', isCorrect: false }));
+  }
+
+  removeAnswer(index: number) {
+    this.answers.removeAt(index);
   }
 
   save() {

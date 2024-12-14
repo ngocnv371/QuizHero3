@@ -19,6 +19,7 @@ public class QuizHeroApplicationAutoMapperProfile : Profile
 			.ForMember(q => q.QuizTitle, opt => opt.MapFrom(o => o.Quiz.Title))
 			;
 		CreateMap<CreateUpdateQuestionDto, Question>();
+		CreateMap<CreateUpdateAnswerDto, Answer>();
 		CreateMap<Answer, AnswerDto>();
 
 		CreateMap<Topic, TopicDto>();

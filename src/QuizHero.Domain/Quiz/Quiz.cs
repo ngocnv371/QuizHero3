@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Identity;
 
 namespace QuizHero.Quiz
 {
 	[Table("Quizzes", Schema = QuizHeroConsts.DbSchema)]
-	public class Quiz : AuditedAggregateRootWithUser<Guid, IdentityUser>
+	public class Quiz : AuditedEntityWithUser<Guid, IdentityUser>
 	{
 		[Required]
 		public virtual Guid TopicId { get; protected set; }
@@ -21,23 +23,18 @@ namespace QuizHero.Quiz
 		public virtual string Title { get; protected set; }
 
 		public virtual string Description { get; protected set; }
-		public virtual List<Question> Questions { get; protected set; }
-		public virtual List<QuizResult> Results { get; protected set; }
 
 		protected Quiz()
 		{
-			Questions = new List<Question>();
-			Results = new List<QuizResult>();
 		}
 
-		public Quiz(Guid id, Guid topicId, string title, string description)
+		public Quiz(Guid id, Guid topicId, [NotNull] string title, string description)
 		{
+			Check.NotNullOrWhiteSpace(title, nameof(title));
 			Id = id;
 			TopicId = topicId;
 			Title = title;
 			Description = description;
-			Questions = new List<Question>();
-			Results = new List<QuizResult>();
 		}
 	}
 }

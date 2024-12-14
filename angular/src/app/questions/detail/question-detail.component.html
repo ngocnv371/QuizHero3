@@ -43,6 +43,17 @@
             </h5>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h5>{{ question.text }}</h5>
+            <ul>
+              <li *ngFor="let option of question.answers">
+                {{ option.text }}
+                <span class="fa fa-check" *ngIf="option.isCorrect"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>

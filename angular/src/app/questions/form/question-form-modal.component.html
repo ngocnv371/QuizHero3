@@ -3,21 +3,28 @@
     <h3 *ngIf="!selectedItem.id">{{ '::NewQuestion' | abpLocalization }}</h3>
     <h3 *ngIf="selectedItem.id">
       {{ '::Edit' | abpLocalization }}
-      {{ selectedItem.name }}
+      {{ selectedItem.text }}
     </h3>
   </ng-template>
 
   <ng-template #abpBody>
     <form [formGroup]="form" (ngSubmit)="save()">
       <div class="mt-2">
-        <label for="name">{{ '::Name' | abpLocalization }}</label>
+        <label for="text">{{ '::Text' | abpLocalization }}</label>
         <span class="text-danger">*</span>
-        <input id="name" class="form-control" formControlName="name" required />
+        <input id="text" class="form-control" formControlName="text" required />
       </div>
-
-      <div class="mt-2">
-        <label for="description">{{ '::Description' | abpLocalization }}</label>
-        <textarea id="description" class="form-control" formControlName="description"></textarea>
+      <div class="mt-2" formArrayName="answers">
+        <div *ngFor="let answer of answers.controls; let i = index" [formGroupName]="i">
+          <abp-checkbox formControlName="isCorrect"></abp-checkbox>
+          <input
+            id="answer-text-{{ i }}"
+            placeholder="Enter answer {{ i + 1 }}"
+            class="form-control"
+            formControlName="text"
+            required
+          />
+        </div>
       </div>
     </form>
   </ng-template>
