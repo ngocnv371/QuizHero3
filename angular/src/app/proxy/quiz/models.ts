@@ -7,6 +7,7 @@ export interface AnswerDto extends EntityDto<string> {
 }
 
 export interface CreateUpdateAnswerDto {
+  id?: string;
   text?: string;
   isCorrect: boolean;
 }
@@ -29,6 +30,8 @@ export interface CreateUpdateTopicDto {
 }
 
 export interface QuestionDto extends AuditedEntityWithUserDto<string, IdentityUserDto> {
+  quizId?: string;
+  quizTitle?: string;
   text?: string;
   answers: AnswerDto[];
 }
