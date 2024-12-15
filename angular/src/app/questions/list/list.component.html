@@ -5,7 +5,7 @@
   <div *ngIf="status === 'loading'" class="alert alert-info">Loading...</div>
   <div *ngIf="status !== 'error' && data.items.length">
     <div *ngFor="let item of data.items; trackBy: trackById" class="mb-3">
-      <app-question-editor [question]="item"></app-question-editor>
+      <app-question-editor [question]="item" (saved)="onSaved($event)"></app-question-editor>
     </div>
   </div>
 </div>

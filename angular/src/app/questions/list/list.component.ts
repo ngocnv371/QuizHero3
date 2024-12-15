@@ -36,8 +36,8 @@ export class QuestionsListComponent implements OnInit {
     });
   }
 
-  onSaved() {
-    this.list.get();
+  onSaved(question: QuestionDto) {
+    this.data.items = this.data.items.map(item => (item.id === question.id ? question : item));
   }
 
   trackById(index, item) {

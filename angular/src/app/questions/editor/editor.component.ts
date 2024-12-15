@@ -94,6 +94,7 @@ export class QuestionEditorComponent implements OnInit {
       .subscribe(data => {
         this.isSaving = false;
         this.saved.emit(data);
+        this.isPreview = true;
       });
   }
 
