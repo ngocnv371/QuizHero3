@@ -1,0 +1,11 @@
+<div *ngIf="list.requestStatus$ | async as status">
+  <div *ngIf="status === 'error'" class="alert alert-danger">
+    An error occurred while loading the data.
+  </div>
+  <div *ngIf="status === 'loading'" class="alert alert-info">Loading...</div>
+  <div *ngIf="status !== 'error' && data.items.length">
+    <div *ngFor="let item of data.items; trackBy: trackById" class="mb-3">
+      <app-question-editor [question]="item"></app-question-editor>
+    </div>
+  </div>
+</div>

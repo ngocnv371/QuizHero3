@@ -1,0 +1,53 @@
+<abp-card *ngIf="question">
+  <abp-card-header>
+    <h3>
+      {{ '::Question' | abpLocalization }}
+      1
+    </h3>
+  </abp-card-header>
+
+  <abp-card-body>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div>
+        <label for="text">{{ '::Text' | abpLocalization }}</label>
+        <span class="text-danger">*</span>
+        <textarea id="text" class="form-control" formControlName="text" required></textarea>
+      </div>
+      <div class="container mt-2" formArrayName="answers">
+        <div
+          *ngFor="let answer of answers.controls; let i = index"
+          [formGroupName]="i"
+          class="row mt-2"
+        >
+          <abp-checkbox formControlName="isCorrect" class="col-1"></abp-checkbox>
+          <div class="col-lg">
+            <textarea
+              id="answer-text-{{ i }}"
+              placeholder="Enter answer {{ i + 1 }}"
+              class="form-control"
+              formControlName="text"
+              required
+            ></textarea>
+          </div>
+          <i class="fa fa-trash text-danger col-1" (click)="removeAnswer(i)"></i>
+        </div>
+      </div>
+    </form>
+  </abp-card-body>
+
+  <abp-card-footer>
+    <button id="btn-add-answer" class="btn me-1" type="button" (click)="addAnswer()">
+      <i class="fa fa-plus me-1"></i>
+      {{ '::AddAnswer' | abpLocalization }}
+    </button>
+    <button
+      id="btn-save-question"
+      class="btn btn-primary"
+      (click)="save()"
+      [disabled]="form.invalid || isSaving"
+    >
+      <i class="fa fa-check mr-1"></i>
+      {{ '::Save' | abpLocalization }}
+    </button>
+  </abp-card-footer>
+</abp-card>

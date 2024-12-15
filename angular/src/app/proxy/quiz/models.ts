@@ -38,6 +38,7 @@ export interface QuestionDto extends AuditedEntityWithUserDto<string, IdentityUs
 
 export interface QuestionsQueryDto extends PagedAndSortedResultRequestDto {
   quizId?: string;
+  includeAnswers: boolean;
 }
 
 export interface QuizDto extends AuditedEntityWithUserDto<string, IdentityUserDto> {
