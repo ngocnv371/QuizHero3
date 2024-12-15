@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { QuestionDto, QuestionsService } from '@proxy/quiz';
 import { catchError, throwError } from 'rxjs';
@@ -14,10 +14,15 @@ export class QuestionEditorComponent implements OnInit {
   @Input({ required: true }) question!: QuestionDto;
 
   isSaving = false;
+  isPreview = true;
 
   form: FormGroup;
 
-  constructor(private service: QuestionsService, private fb: FormBuilder) {}
+  constructor(
+    private service: QuestionsService,
+    private fb: FormBuilder,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.buildForm();
@@ -60,10 +65,12 @@ export class QuestionEditorComponent implements OnInit {
 
   addAnswer() {
     this.answers.push(this.fb.group({ text: '', isCorrect: false }));
+    this.cd.detectChanges();
   }
 
   removeAnswer(index: number) {
     this.answers.removeAt(index);
+    this.cd.detectChanges();
   }
 
   save() {
@@ -88,5 +95,14 @@ export class QuestionEditorComponent implements OnInit {
         this.isSaving = false;
         this.saved.emit(data);
       });
+  }
+
+  onEditClicked() {
+    this.isPreview = false;
+  }
+
+  cancel() {
+    this.buildForm();
+    this.isPreview = true;
   }
 }

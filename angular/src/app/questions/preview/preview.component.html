@@ -1,0 +1,24 @@
+<abp-card>
+  <abp-card-header>
+    <div class="row">
+      <div class="col-lg">{{ '::Question' | abpLocalization }} 1</div>
+      <div class="col-1">
+        <button class="btn" type="button" (click)="onClicked()" title="Edit this question">
+          <i class="fa fa-pencil me-1"></i>
+        </button>
+      </div>
+    </div>
+  </abp-card-header>
+  <abp-card-body>
+    <h5>{{ question.text }}</h5>
+    <ul class="list-group">
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+        *ngFor="let option of question.answers"
+      >
+        {{ option.text }}
+        <span class="fa fa-check text-success" *ngIf="option.isCorrect"></span>
+      </li>
+    </ul>
+  </abp-card-body>
+</abp-card>
