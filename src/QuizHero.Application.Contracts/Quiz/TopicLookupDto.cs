@@ -6,5 +6,6 @@ namespace QuizHero.Quiz
 	public class TopicLookupDto : EntityDto<Guid>
 	{
 		public string Name { get; set; }
+		public string AvatarUrl { get; set; }
 	}
 }
