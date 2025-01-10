@@ -1,5 +1,6 @@
 provider "aws" {
   region = "ap-southeast-1"
+  profile = "quizhero"
 }
 
 resource "aws_vpc" "main" {
@@ -26,7 +27,7 @@ resource "aws_elastic_beanstalk_application" "quizhero" {
 resource "aws_elastic_beanstalk_environment" "quizhero_env" {
   name                = "quizhero-env"
   application         = aws_elastic_beanstalk_application.quizhero.name
-  solution_stack_name = ".NET 8 running on 64bit Amazon Linux 2023"
+  solution_stack_name = "64bit Amazon Linux 2023 v3.2.2 running .NET 8"
   
   setting {
     namespace = "aws:elasticbeanstalk:environment"
