@@ -65,6 +65,25 @@ resource "aws_security_group" "subnet2_access" {
   }
 }
 
+resource "aws_db_instance" "quizhero_db" {
+  allocated_storage    = 20
+  engine               = "sqlserver-ex"
+  engine_version       = "15.00.4415.2.v1"
+  instance_class       = "db.t3.micro"
+  username             = "foobarbaz"
+  password             = "foobarbaz"
+  parameter_group_name = "default.sqlserver-ex-15.0"
+  skip_final_snapshot  = true
+  vpc_security_group_ids = [aws_security_group.subnet2_access.id]
+  db_subnet_group_name = aws_db_subnet_group.quizhero_db_subnet_group.name
+}
+
+resource "aws_db_subnet_group" "quizhero_db_subnet_group" {
+  name       = "quizhero-db-subnet-group"
+  subnet_ids = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
+  description = "QuizHero DB subnet group"
+}
+
 resource "aws_elastic_beanstalk_application" "quizhero" {
   name        = "quizhero"
   description = "Elastic Beanstalk Application for .NET Core on Linux"
@@ -114,54 +133,6 @@ resource "aws_elastic_beanstalk_environment" "quizhero_env" {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.ec2-role-quizhero.name
-  }
-
-  setting {
-    namespace = "aws:rds:dbinstance"
-    name      = "DBAllocatedStorage"
-    value     = "20"
-  }
-
-  setting {
-    namespace = "aws:rds:dbinstance"
-    name      = "DBDeletionPolicy"
-    value     = "Delete"
-  }
-
-  setting {
-    namespace = "aws:rds:dbinstance"
-    name      = "HasCoupledDatabase"
-    value     = "true"
-  }
-
-  setting {
-    namespace = "aws:rds:dbinstance"
-    name      = "DBEngine"
-    value     = "sqlserver-ex"
-  }
-
-  setting {
-    namespace = "aws:rds:dbinstance"
-    name      = "DBEngineVersion"
-    value     = "15.00.4415.2.v1"
-  }
-
-  setting {
-    namespace = "aws:rds:dbinstance"
-    name      = "DBInstanceClass"
-    value     = "db.t3.micro"
-  }
-
-  setting {
-    namespace = "aws:rds:dbinstance"
-    name      = "DBPassword"
-    value     = "foobarbaz"
-  }
-
-  setting {
-    namespace = "aws:rds:dbinstance"
-    name      = "DBUser"
-    value     = "foobarbaz"
   }
 
   setting {
