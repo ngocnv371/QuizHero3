@@ -1,4 +1,5 @@
-﻿using QuizHero.Localization;
+﻿using Microsoft.AspNetCore.Authorization;
+using QuizHero.Localization;
 using QuizHero.Permissions;
 using System;
 using System.Linq;
@@ -8,6 +9,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace QuizHero.Quiz
 {
+	[Authorize(AuthenticationSchemes = "Zalo")]
 	public class QuizzesAppService :
 		CrudAppService<Quiz, QuizDto, Guid, QuizzesQueryDto, CreateUpdateQuizDto>,
 		IQuizzesAppService
