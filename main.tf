@@ -24,6 +24,29 @@ resource "aws_elastic_beanstalk_application" "quizhero" {
   description = "Elastic Beanstalk Application for .NET Core on Linux"
 }
 
+resource "aws_iam_role" "role-quizhero" {
+  name = "role-quizhero"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_instance_profile" "ec2-role-quizhero" {
+  name = "ec2-role-quizhero"
+
+  role = aws_iam_role.role-quizhero.name
+}
+
 resource "aws_elastic_beanstalk_environment" "quizhero_env" {
   name                = "quizhero-env"
   application         = aws_elastic_beanstalk_application.quizhero.name
@@ -39,6 +62,12 @@ resource "aws_elastic_beanstalk_environment" "quizhero_env" {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "InstanceType"
     value     = "t2.micro"
+  }
+
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "IamInstanceProfile"
+    value     = aws_iam_instance_profile.ec2-role-quizhero.name
   }
 
   setting {
