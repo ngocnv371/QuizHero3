@@ -86,7 +86,7 @@ resource "aws_db_subnet_group" "quizhero_db_subnet_group" {
 
 resource "aws_elastic_beanstalk_application" "quizhero" {
   name        = "quizhero"
-  description = "Elastic Beanstalk Application for .NET Core on Linux"
+  description = "Elastic Beanstalk Application for Docker"
 }
 
 resource "aws_iam_role" "role-quizhero" {
@@ -115,7 +115,7 @@ resource "aws_iam_instance_profile" "ec2-role-quizhero" {
 resource "aws_elastic_beanstalk_environment" "quizhero_env" {
   name                = "quizhero-env"
   application         = aws_elastic_beanstalk_application.quizhero.name
-  solution_stack_name = "64bit Amazon Linux 2023 v3.2.2 running .NET 8"
+  solution_stack_name = "64bit Amazon Linux 2023 v4.4.2 running Docker"
   
   setting {
     namespace = "aws:elasticbeanstalk:environment"
