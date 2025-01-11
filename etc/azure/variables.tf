@@ -4,17 +4,10 @@ variable "resource_group_location" {
   description = "Location of the resource group."
 }
 
-variable "resource_group_name_prefix" {
-  type        = string
-  default     = "rg"
-  description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
-}
-
-
 variable "sql_db_name" {
   type        = string
   description = "The name of the SQL Database."
-  default     = "SampleDB"
+  default     = "QuizHero"
 }
 
 variable "admin_username" {
@@ -28,4 +21,11 @@ variable "admin_password" {
   description = "The administrator password of the SQL logical server."
   sensitive   = true
   default     = null
+}
+
+variable "repo_url" {
+  type        = string
+  description = "URL to the public GitHub repo that contains the app code."
+  sensitive   = true
+  default     = "https://github.com/ngocnv371/QuizHero3"
 }

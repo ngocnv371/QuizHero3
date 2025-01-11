@@ -1,15 +1,10 @@
 # helper to generate random names for resources
-resource "random_pet" "rg_name" {
-  prefix = var.resource_group_name_prefix
+resource "random_pet" "app_name" {
 }
 
 resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
-  name     = random_pet.rg_name.id
-}
-
-resource "random_pet" "azurerm_mssql_server_name" {
-  prefix = "sql"
+  name     = "rg-${random_pet.app_name.id}"
 }
 
 resource "random_password" "admin_password" {
@@ -27,7 +22,7 @@ locals {
 }
 
 resource "azurerm_mssql_server" "server" {
-  name                         = random_pet.azurerm_mssql_server_name.id
+  name                         = "mssql-${random_pet.app_name.id}"
   resource_group_name          = azurerm_resource_group.rg.name
   location                     = azurerm_resource_group.rg.location
   administrator_login          = var.admin_username
@@ -42,7 +37,7 @@ resource "azurerm_mssql_database" "db" {
 
 # Create the Linux App Service Plan
 resource "azurerm_service_plan" "appserviceplan" {
-  name                = random_pet.rg_name.id
+  name                = "asp-${random_pet.app_name.id}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = "Linux"
@@ -51,7 +46,7 @@ resource "azurerm_service_plan" "appserviceplan" {
 
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
-  name                  = random_pet.rg_name.id
+  name                  = "webapp-${random_pet.app_name.id}"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   service_plan_id       = azurerm_service_plan.appserviceplan.id
@@ -73,7 +68,7 @@ resource "azurerm_linux_web_app" "webapp" {
 #  Deploy code from a public GitHub repo
 resource "azurerm_app_service_source_control" "sourcecontrol" {
   app_id             = azurerm_linux_web_app.webapp.id
-  repo_url           = "https://github.com/ngocnv371/QuizHero3"
+  repo_url           = var.repo_url
   branch             = "master"
   use_manual_integration = true
   use_mercurial      = false
