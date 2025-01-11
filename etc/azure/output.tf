@@ -7,3 +7,12 @@ output "container_registry_name" {
 output "container_registry_login_server" {
   value = azurerm_container_registry.acr.login_server
 }
+
+output "sql_server_name" {
+  value = azurerm_mssql_server.server.name
+}
+
+output "admin_password" {
+  sensitive = true
+  value     = local.admin_password
+}
