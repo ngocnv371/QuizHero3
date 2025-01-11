@@ -16,3 +16,7 @@ output "admin_password" {
   sensitive = true
   value     = local.admin_password
 }
+output "webapp_url" {
+  sensitive = true
+  value     = azurerm_linux_web_app.webapp.default_hostname
+}

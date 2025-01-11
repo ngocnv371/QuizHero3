@@ -63,6 +63,10 @@ resource "azurerm_linux_web_app" "webapp" {
     type  = "SQLServer"
     value = "Server=tcp:${azurerm_mssql_server.server.fully_qualified_domain_name},1433;Initial Catalog=${var.sql_db_name};Persist Security Info=False;User ID=${var.admin_username};Password=${local.admin_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
+  app_settings = {
+    "AuthServer__Authority" = "webapp-${random_pet.app_name.id}.azurewebsites.net"
+    "App__SelfUrl" = "webapp-${random_pet.app_name.id}.azurewebsites.net"
+  }
 }
 
 #  Deploy code from a public GitHub repo
