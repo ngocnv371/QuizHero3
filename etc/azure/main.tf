@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "rg" {
 resource "random_password" "admin_password" {
   count       = var.admin_password == null ? 1 : 0
   length      = 20
-  special     = true
+  special     = false
   min_numeric = 1
   min_upper   = 1
   min_lower   = 1
