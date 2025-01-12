@@ -36,4 +36,10 @@ Since I'm using a Students account, it does not support `az login` in Github Act
 
 # Deployment
 
-Manually deploy this solution with Terraform.
+Manually deploy this infrastructure with Terraform.
+
+Then deploy the app with Visual Studio publish profile - ZipDeploy.
+
+Worked, but still missing stuff in libs folder.
+
+Must try Docker next.
