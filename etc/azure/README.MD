@@ -45,3 +45,5 @@ Generate a new GUID: `e7bd9340-dcb8-41a0-bd7b-255bf2632750` and put to Github Se
 We got closer, still failed when running migrator, since it can't reach the SQL server behind the firewall. We either run a self hosted and add the host to whitelist, or run it behind the firewall somehow.
 
 For now, skip it.
+
+Problem: loading the certs in Azure returns error "wrong password", the same certs can be loaded locally just fine.
