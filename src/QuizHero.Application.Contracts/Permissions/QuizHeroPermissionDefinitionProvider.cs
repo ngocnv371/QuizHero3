@@ -10,6 +10,9 @@ public class QuizHeroPermissionDefinitionProvider : PermissionDefinitionProvider
 	{
 		var myGroup = context.AddGroup(QuizHeroPermissions.GroupName);
 
+		var certs = myGroup.AddPermission(QuizHeroPermissions.Certificates.Default, L("Permission:Certificates"));
+		certs.AddChild(QuizHeroPermissions.Certificates.Create, L("Permission:Certificates.Create"));
+
 		var quiz = myGroup.AddPermission(QuizHeroPermissions.Quizzes.Default, L("Permission:Quizzes"));
 		quiz.AddChild(QuizHeroPermissions.Quizzes.Create, L("Permission:Quizzes.Create"));
 		quiz.AddChild(QuizHeroPermissions.Quizzes.Edit, L("Permission:Quizzes.Edit"));

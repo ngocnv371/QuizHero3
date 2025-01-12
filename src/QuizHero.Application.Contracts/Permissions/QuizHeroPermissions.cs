@@ -4,6 +4,12 @@ public static class QuizHeroPermissions
 {
 	public const string GroupName = "QuizHero";
 
+	public static class Certificates
+	{
+		public const string Default = GroupName + ".Certificates";
+		public const string Create = Default + ".Create";
+	}
+
 	public static class Quizzes
 	{
 		public const string Default = GroupName + ".Quizzes";

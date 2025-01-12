@@ -11,7 +11,7 @@ namespace QuizHero.Certs
 {
 	public class CertsAppService(IConfiguration configuration) : QuizHeroAppService, ICertsAppService
 	{
-		[Authorize(QuizHeroPermissions.Topics.Default)]
+		[Authorize(QuizHeroPermissions.Certificates.Default)]
 		public async Task GenerateCertsAsync()
 		{
 			var passphrase = configuration["AuthServer:CertificatePassPhrase"];
