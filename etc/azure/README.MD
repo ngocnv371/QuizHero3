@@ -40,9 +40,13 @@ We use the default AZ CLI client id `04b07795-8ddb-461a-bbee-02f9e1bf7b46`
 
 ```json
 {
-    "clientId": "04b07795-8ddb-461a-bbee-02f9e1bf7b46",
-    "clientSecret": "",
     "tenantId": "808cc83e-a546-47e7-a03f-73a1ebba24f3",
     "subscriptionId": "c485c316-1495-42da-9c30-9260cd8fa5b6"
 }
 ```
+
+we can't us username & password in github actions
+
+so let's add a self hosted runner
+
+ugggh, so problematic
