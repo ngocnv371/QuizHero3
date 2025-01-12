@@ -82,8 +82,11 @@ public class QuizHeroHttpApiHostModule : AbpModule
 
 			PreConfigure<OpenIddictServerBuilder>(serverBuilder =>
 			{
-				serverBuilder.AddEncryptionCertificate(new X509Certificate2("server-encryption-certificate.pfx", configuration["AuthServer:CertificatePassPhrase"]!));
-				serverBuilder.AddSigningCertificate(new X509Certificate2("server-signing-certificate.pfx", configuration["AuthServer:CertificatePassPhrase"]!));
+				// FIXME: hard code to detect bug
+				var pass = "e7bd9340-dcb8-41a0-bd7b-255bf2632750";
+				Console.WriteLine("certificate pass: " + configuration["AuthServer:CertificatePassPhrase"]);
+				serverBuilder.AddEncryptionCertificate(new X509Certificate2("server-encryption-certificate.pfx", pass));
+				serverBuilder.AddSigningCertificate(new X509Certificate2("server-signing-certificate.pfx", pass));
 				serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));
 			});
 		}
