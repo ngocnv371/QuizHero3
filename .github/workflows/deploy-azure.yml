@@ -29,11 +29,11 @@ jobs:
         enable-AzPSSession: true
 
     - name: Azure CLI info
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
+      uses: azure/cli@v2
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az account show
 
     - name: Terraform Init
       run: terraform init
