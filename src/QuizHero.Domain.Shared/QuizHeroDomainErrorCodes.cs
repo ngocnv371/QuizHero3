@@ -2,5 +2,5 @@
 
 public static class QuizHeroDomainErrorCodes
 {
-    /* You can add your business exception error codes here, as constants */
+	public const string AnswerAlreadyExists = "QuizHero:00001";
 }

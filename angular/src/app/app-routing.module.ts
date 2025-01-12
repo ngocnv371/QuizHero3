@@ -26,6 +26,32 @@ const routes: Routes = [
     loadChildren: () =>
       import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
   },
+  {
+    path: 'quizzes',
+    loadChildren: () => import('./quizzes/quizzes.module').then(m => m.QuizzesModule),
+  },
+  {
+    path: 'quizzes/:quizId',
+    loadChildren: () => import('./quizzes/detail/quiz-detail.module').then(m => m.QuizDetailModule),
+  },
+  {
+    path: 'topics',
+    loadChildren: () => import('./topics/topics.module').then(m => m.TopicsModule),
+  },
+  {
+    path: 'topics/:topicId',
+    loadChildren: () =>
+      import('./topics/detail/topic-detail.module').then(m => m.TopicDetailModule),
+  },
+  {
+    path: 'questions',
+    loadChildren: () => import('./questions/questions.module').then(m => m.QuestionsModule),
+  },
+  {
+    path: 'questions/:questionId',
+    loadChildren: () =>
+      import('./questions/detail/question-detail.module').then(m => m.QuestionDetailModule),
+  },
 ];
 
 @NgModule({

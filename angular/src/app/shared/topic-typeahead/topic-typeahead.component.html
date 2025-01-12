@@ -1,0 +1,19 @@
+<label for="topic-typeahead"> {{ label || ('::Topic' | abpLocalization) }} </label>
+<input
+  id="topic-typeahead"
+  #instance="ngbTypeahead"
+  type="text"
+  class="form-control"
+  [(ngModel)]="model"
+  [ngbTypeahead]="search"
+  [inputFormatter]="formatter"
+  [resultFormatter]="formatter"
+  [editable]="false"
+  [disabled]="disabled"
+  (selectItem)="handleSelect($event)"
+  (focus)="focus$.next($any($event).target.value)"
+  (click)="click$.next($any($event).target.value)"
+/>
+<button *ngIf="model" class="btn position-absolute bottom-0 end-0" title="Clear" (click)="clear()">
+  <i class="fa fa-close"></i>
+</button>

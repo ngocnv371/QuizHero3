@@ -1,0 +1,49 @@
+<abp-modal [(visible)]="isModalOpen" [options]="{ windowClass: 'question-form-modal' }">
+  <ng-template #abpHeader>
+    <h3 *ngIf="!selectedItem.id">{{ '::NewQuestion' | abpLocalization }}</h3>
+    <h3 *ngIf="selectedItem.id">
+      {{ '::Edit' | abpLocalization }}
+      {{ selectedItem.text }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="mt-2">
+        <label for="text">{{ '::Text' | abpLocalization }}</label>
+        <span class="text-danger">*</span>
+        <textarea id="text" class="form-control" formControlName="text" required></textarea>
+      </div>
+      <div class="container mt-2" formArrayName="answers">
+        <div
+          *ngFor="let answer of answers.controls; let i = index"
+          [formGroupName]="i"
+          class="row mt-2"
+        >
+          <abp-checkbox formControlName="isCorrect" class="col-1"></abp-checkbox>
+          <div class="col-lg pe-0">
+            <textarea
+              id="answer-text-{{ i }}"
+              placeholder="Enter answer {{ i + 1 }}"
+              class="form-control"
+              formControlName="text"
+              required
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button
+      id="btn-save-question"
+      class="btn btn-primary"
+      (click)="save()"
+      [disabled]="form.invalid || isSaving"
+    >
+      <i class="fa fa-check mr-1"></i>
+      {{ '::Save' | abpLocalization }}
+    </button>
+  </ng-template>
+</abp-modal>

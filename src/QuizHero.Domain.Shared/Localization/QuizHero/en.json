@@ -4,6 +4,31 @@
     "AppName": "QuizHero",
     "Menu:Home": "Home",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information visit",
-    "Welcome": "Welcome"
+    "Welcome": "Welcome",
+    "AreYouSureToDelete": "Are you sure to delete this item?",
+
+    "NewTopic": "New Topic",
+    "NewQuestion": "New Question",
+    "AddAnswer": "Add Answer",
+    "NewQuiz": "New Quiz",
+    "Created": "Created",
+    "Title": "Title",
+    "Description": "Description",
+
+    "Menu:Quizzes": "Quizzes",
+    "Menu:Questions": "Questions",
+    "Menu:Topics": "Topics",
+
+    "Permission:QuizHero": "Quiz Hero",
+    "Permission:Topics": "Topics Mangement",
+    "Permission:Topics.Create": "Creating new topics",
+    "Permission:Topics.Edit": "Editing the topics",
+    "Permission:Topics.Delete": "Deleting the topics",
+
+    "Permission:Quizzes": "Quizzes Mangement",
+    "Permission:Quizzes.Create": "Creating new quizzes",
+    "Permission:Quizzes.Edit": "Editing the quizzes",
+    "Permission:Quizzes.Delete": "Deleting the quizzes",
+    "QuizHero.00001": "There is already an answer with the same text: {text}"
   }
 }

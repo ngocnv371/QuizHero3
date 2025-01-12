@@ -1,0 +1,16 @@
+<div>
+  <div class="row">
+    <div class="col d-flex align-items-baseline">
+      <h1 class="lpx-main-title">{{ header }}</h1>
+      <i class="bi bi-exclamation-circle opacity-50 ms-1" title="{{ tooltip }}"></i>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-xl-9">
+      <ng-content select="[slot='primary']"></ng-content>
+    </div>
+    <div class="col-12 col-xl-3">
+      <ng-content select="[slot='side']"></ng-content>
+    </div>
+  </div>
+</div>

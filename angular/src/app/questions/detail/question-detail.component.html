@@ -1,0 +1,65 @@
+<app-detail-layout
+  *ngIf="question.id"
+  header="{{ '::Question' | abpLocalization }}"
+  tooltip="A certain question"
+>
+  <div slot="primary">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col col-md-6">
+            <h5 class="card-title">
+              {{ question.text }}
+              <app-question-status-badge [status]="question.status"></app-question-status-badge>
+            </h5>
+          </div>
+          <div class="text-end col col-md-6">
+            <div class="text-lg-end pt-2">
+              <button
+                *abpPermission="'QuizHero.Quizzes.Edit'"
+                id="btn-edit-question"
+                class="btn m-1"
+                type="button"
+                [disabled]="isLoading"
+                (click)="formModal.edit(question.id)"
+              >
+                <i class="fa fa-pencil me-1"></i>
+                <span>{{ '::Edit' | abpLocalization }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6" *abpPermission="'QuizHero.Quizzes'">
+            <small class="d-block mb-1">
+              {{ '::Quiz' | abpLocalization }}
+            </small>
+            <h5 class="text-dark">
+              <a routerLink="/quizzes/{{ question.quizId }}">
+                {{ question.quizTitle }}
+              </a>
+            </h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h5>{{ question.text }}</h5>
+            <ul>
+              <li *ngFor="let option of question.answers">
+                {{ option.text }}
+                <span class="fa fa-check" *ngIf="option.isCorrect"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div slot="side">
+    <app-audit-card [info]="question"></app-audit-card>
+  </div>
+</app-detail-layout>
+
+<app-question-form-modal (saved)="onSaved()"></app-question-form-modal>
