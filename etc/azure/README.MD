@@ -37,3 +37,7 @@ Since I'm using a Students account, it does not support `az login` in Github Act
 # Deployment
 
 Manually deploy this solution with Terraform.
+
+# Certs
+
+Generate a new GUID: `e7bd9340-dcb8-41a0-bd7b-255bf2632750` and put to Github Secrets & WebApp vars
