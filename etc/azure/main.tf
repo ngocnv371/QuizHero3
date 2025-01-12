@@ -48,6 +48,10 @@ resource "azurerm_service_plan" "appserviceplan" {
   sku_name            = "B1"
 }
 
+locals {
+  webapp_url = "https://webapp-${random_pet.app_name.id}.azurewebsites.net"
+}
+
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
   name                  = "webapp-${random_pet.app_name.id}"
@@ -68,8 +72,8 @@ resource "azurerm_linux_web_app" "webapp" {
     value = local.connection_string
   }
   app_settings = {
-    "AuthServer__Authority" = "webapp-${random_pet.app_name.id}.azurewebsites.net"
-    "App__SelfUrl" = "webapp-${random_pet.app_name.id}.azurewebsites.net"
+    "AuthServer__Authority" = local.webapp_url
+    "App__SelfUrl" = local.webapp_url
     "WEBSITE_LOAD_CERTIFICATES" = "*"
   }
 }
