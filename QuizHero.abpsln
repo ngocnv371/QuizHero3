@@ -2,9 +2,11 @@
   "id": "fad0a120-ca58-4766-b944-ee82348a11d6",
   "template": "app",
   "versions": {
-    "AbpFramework": "9.0.0",
-    "AbpStudio": "0.9.13",
-    "TargetDotnetFramework": "net9.0"
+    "AbpFramework": "9.0.3",
+    "AbpStudio": "0.9.21",
+    "TargetDotnetFramework": "net9.0",
+    "AbpCommercial": "9.0.3",
+    "LeptonX": "4.0.4"
   },
   "modules": {
     "QuizHero": {

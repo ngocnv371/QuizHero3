@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using QuizHero.Permissions;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace QuizHero.Certs
 {
-	[Authorize(AuthenticationSchemes = "OpenIddict.Validation.AspNetCore")]
 	public class CertsAppService(IConfiguration configuration) : QuizHeroAppService, ICertsAppService
 	{
+		[Authorize(QuizHeroPermissions.Topics.Default)]
 		public async Task GenerateCertsAsync()
 		{
 			var passphrase = configuration["AuthServer:CertificatePassPhrase"];

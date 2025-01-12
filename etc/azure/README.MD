@@ -23,3 +23,13 @@ az account show
 ```
 
 Copy the tenant and subscription to `provider.tf`
+
+Deploy
+
+```ps1
+terraform apply
+```
+
+Even with a successful deployment, the app won't just start yet.
+
+It will say `FileNotFoundException: Signing Certificate couldn't found: openiddict.pfx`
