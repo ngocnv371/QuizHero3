@@ -33,7 +33,7 @@ namespace QuizHero.Certs
 			File.WriteAllBytes(fileName, certificate.Export(X509ContentType.Pfx, passphrase));
 		}
 
-		private static void GenerateSigningCert(string fileName = "server-encryption-certificate.pfx", string passphrase = "")
+		private static void GenerateSigningCert(string fileName = "server-signing-certificate.pfx", string passphrase = "")
 		{
 			using var algorithm = RSA.Create(keySizeInBits: 2048);
 
