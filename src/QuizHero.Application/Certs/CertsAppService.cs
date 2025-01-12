@@ -17,7 +17,6 @@ namespace QuizHero.Certs
 			var passphrase = configuration["AuthServer:CertificatePassPhrase"];
 			GenerateEncryptionCert(passphrase: passphrase);
 			GenerateSigningCert(passphrase: passphrase);
-			GenerateSigningCert("openiddict.pfx", passphrase);
 		}
 
 		private static void GenerateEncryptionCert(string fileName = "server-encryption-certificate.pfx", string passphrase = "")
