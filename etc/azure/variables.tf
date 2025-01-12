@@ -29,3 +29,10 @@ variable "repo_url" {
   sensitive   = true
   default     = "https://github.com/ngocnv371/QuizHero3"
 }
+
+variable "certificate_password" {
+  type        = string
+  description = "Passphrase to open the AuthServer certificates."
+  sensitive   = true
+  default     = "e7bd9340-dcb8-41a0-bd7b-255bf2632750"
+}

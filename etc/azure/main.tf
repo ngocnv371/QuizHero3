@@ -75,7 +75,7 @@ resource "azurerm_linux_web_app" "webapp" {
     "AuthServer__Authority" = local.webapp_url
     "App__SelfUrl" = local.webapp_url
     "WEBSITE_LOAD_CERTIFICATES" = "*"
-    "AuthServer__CertificatePassPhrase" = "e7bd9340-dcb8-41a0-bd7b-255bf2632750"
+    "AuthServer__CertificatePassPhrase" = var.certificate_password
   }
 }
 
