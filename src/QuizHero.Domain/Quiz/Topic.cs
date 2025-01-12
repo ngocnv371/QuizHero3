@@ -16,8 +16,8 @@ namespace QuizHero.Quiz
 		public string Name { get; protected set; }
 
 		public string Description { get; protected set; }
-		public string AvatarUrl { get; protected set; }
-		public string CoverUrl { get; protected set; }
+		public string AvatarUrl { get; protected set; } = string.Empty;
+		public string CoverUrl { get; protected set; } = string.Empty;
 
 		protected Topic()
 		{
