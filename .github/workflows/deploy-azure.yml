@@ -1,0 +1,37 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ./etc/azure
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ./etc/azure
+
+    # get connection string from terraform output
+    - name: Get Connection String
+      run: echo "::set-env name=ConnectionStrings__Default::$(terraform output --raw connection_string)"
+      working-directory: ./etc/azure
+
+    - name: (DEBUG) Shows Connection String
+      run: echo "The value of ConnectionStrings__Default is $ConnectionStrings__Default"
+      working-directory: ./etc/azure
+
+    - name: Run Migrator Console App
+      run: dotnet run --project ./src/QuizHero.DbMigrator

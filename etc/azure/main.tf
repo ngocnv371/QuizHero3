@@ -35,6 +35,10 @@ resource "azurerm_mssql_database" "db" {
   server_id = azurerm_mssql_server.server.id
 }
 
+locals {
+  connection_string = "Server=tcp:${azurerm_mssql_server.server.fully_qualified_domain_name},1433;Initial Catalog=${var.sql_db_name};Persist Security Info=False;User ID=${var.admin_username};Password=${local.admin_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+}
+
 # Create the Linux App Service Plan
 resource "azurerm_service_plan" "appserviceplan" {
   name                = "asp-${random_pet.app_name.id}"
@@ -61,27 +65,10 @@ resource "azurerm_linux_web_app" "webapp" {
   connection_string {
     name  = "default"
     type  = "SQLServer"
-    value = "Server=tcp:${azurerm_mssql_server.server.fully_qualified_domain_name},1433;Initial Catalog=${var.sql_db_name};Persist Security Info=False;User ID=${var.admin_username};Password=${local.admin_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    value = local.connection_string
   }
   app_settings = {
     "AuthServer__Authority" = "webapp-${random_pet.app_name.id}.azurewebsites.net"
     "App__SelfUrl" = "webapp-${random_pet.app_name.id}.azurewebsites.net"
   }
-}
-
-#  Deploy code from a public GitHub repo
-resource "azurerm_app_service_source_control" "sourcecontrol" {
-  app_id             = azurerm_linux_web_app.webapp.id
-  repo_url           = var.repo_url
-  branch             = "master"
-  use_manual_integration = true
-  use_mercurial      = false
-}
-
-resource "azurerm_container_registry" "acr" {
-  name                = "quizhero"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  sku                 = "Basic"
-  admin_enabled       = true
 }
