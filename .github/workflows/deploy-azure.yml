@@ -14,12 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v1
-
     - name: Azure CLI info
       uses: azure/cli@v2
       with:
@@ -33,6 +27,12 @@ jobs:
         azcliversion: latest
         inlineScript: |
           az account show
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
 
     - name: Terraform Init
       run: terraform init
