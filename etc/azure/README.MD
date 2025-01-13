@@ -47,3 +47,11 @@ We got closer, still failed when running migrator, since it can't reach the SQL 
 For now, skip it.
 
 Problem: loading the certs in Azure returns error "wrong password", the same certs can be loaded locally just fine.
+
+The file deployed to WebApp is not the same as in the artifact (checksum wrong)
+
+Check certificate against password
+
+```bash
+openssl pkcs12 -in server-encryption-certificate.pfx -password pass:e7bd9340-dcb8-41a0-bd7b-255bf2632750 -info -nokeys
+```
