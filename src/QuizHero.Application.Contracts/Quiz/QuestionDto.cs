@@ -8,8 +8,8 @@ namespace QuizHero.Quiz
 	public class QuestionDto : AuditedEntityWithUserDto<Guid, IdentityUserDto>
 	{
 		public Guid QuizId { get; set; }
-		public string QuizTitle { get; set; }
-		public string Text { get; set; }
-		public List<AnswerDto> Answers { get; set; }
+		public string QuizTitle { get; set; } = default!;
+		public string Text { get; set; } = default!;
+		public List<AnswerDto> Answers { get; set; } = [];
 	}
 }

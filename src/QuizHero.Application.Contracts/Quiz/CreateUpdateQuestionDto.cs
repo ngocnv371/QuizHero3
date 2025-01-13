@@ -9,7 +9,7 @@ namespace QuizHero.Quiz
 		[Required]
 		public Guid QuizId { get; set; }
 
-		public string Text { get; set; }
-		public IEnumerable<CreateUpdateAnswerDto> Answers { get; set; }
+		public string Text { get; set; } = default!;
+		public IEnumerable<CreateUpdateAnswerDto> Answers { get; set; } = [];
 	}
 }
