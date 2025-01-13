@@ -84,7 +84,8 @@ public class QuizHeroHttpApiHostModule : AbpModule
 			{
 				// FIXME: hard code to detect bug
 				var pass = "e7bd9340-dcb8-41a0-bd7b-255bf2632750";
-				Console.WriteLine("certificate pass: " + configuration["AuthServer:CertificatePassPhrase"]);
+				var configuredValue = configuration["AuthServer:CertificatePassPhrase"];
+				Console.WriteLine("certificates to be loaded with: " + configuredValue);
 				serverBuilder.AddEncryptionCertificate(new X509Certificate2("server-encryption-certificate.pfx", pass));
 				serverBuilder.AddSigningCertificate(new X509Certificate2("server-signing-certificate.pfx", pass));
 				serverBuilder.SetIssuer(new Uri(configuration["AuthServer:Authority"]!));

@@ -13,11 +13,11 @@ namespace QuizHero.Quiz
 	{
 		[StringLength(256)]
 		[Required(AllowEmptyStrings = false)]
-		public string Name { get; protected set; }
+		public string Name { get; protected set; } = default!;
 
-		public string Description { get; protected set; }
-		public string AvatarUrl { get; protected set; } = string.Empty;
-		public string CoverUrl { get; protected set; } = string.Empty;
+		public string Description { get; protected set; } = default!;
+		public string AvatarUrl { get; protected set; } = default!;
+		public string CoverUrl { get; protected set; } = default!;
 
 		protected Topic()
 		{

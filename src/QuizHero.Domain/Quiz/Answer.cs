@@ -12,7 +12,7 @@ namespace QuizHero.Quiz
 	public class Answer : Entity<Guid>
 	{
 		[Required(AllowEmptyStrings = false)]
-		public virtual string Text { get; protected set; }
+		public virtual string Text { get; protected set; } = default!;
 
 		[Required]
 		public virtual bool IsCorrect { get; protected set; }

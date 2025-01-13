@@ -57,3 +57,5 @@ openssl pkcs12 -in server-encryption-certificate.pfx -password pass:e7bd9340-dcb
 ```
 
 Now added the certificates in the code base to skip the hassle.
+
+Yep, we got in. But hit another problem `Interop+Crypto+OpenSslCryptographicException: error:10000080:BIO routines::no such file`

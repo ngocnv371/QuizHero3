@@ -20,9 +20,9 @@ namespace QuizHero.Quiz
 
 		[Required(AllowEmptyStrings = false)]
 		[StringLength(256)]
-		public virtual string Title { get; protected set; }
+		public virtual string Title { get; protected set; } = default!;
 
-		public virtual string Description { get; protected set; }
+		public virtual string Description { get; protected set; } = default!;
 
 		protected Quiz()
 		{

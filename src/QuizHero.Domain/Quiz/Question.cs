@@ -18,9 +18,9 @@ namespace QuizHero.Quiz
 		public virtual Quiz Quiz { get; protected set; }
 
 		[Required(AllowEmptyStrings = false)]
-		public virtual string Text { get; protected set; }
+		public virtual string Text { get; protected set; } = default!;
 
-		public virtual List<Answer> Answers { get; protected set; }
+		public virtual List<Answer> Answers { get; protected set; } = [];
 
 		protected Question()
 		{
