@@ -1,3 +1,9 @@
+variable "app_name" {
+  type        = string
+  default     = "frank-koi"
+  description = "Name for this whole solution"
+}
+
 variable "resource_group_location" {
   type        = string
   default     = "eastasia"

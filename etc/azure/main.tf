@@ -1,10 +1,6 @@
-# helper to generate random names for resources
-resource "random_pet" "app_name" {
-}
-
 resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
-  name     = "rg-${random_pet.app_name.id}"
+  name     = "rg-${var.app_name}"
 }
 
 resource "random_password" "admin_password" {
@@ -22,7 +18,7 @@ locals {
 }
 
 resource "azurerm_mssql_server" "server" {
-  name                         = "mssql-${random_pet.app_name.id}"
+  name                         = "mssql-${var.app_name}"
   resource_group_name          = azurerm_resource_group.rg.name
   location                     = azurerm_resource_group.rg.location
   administrator_login          = var.admin_username
@@ -41,7 +37,7 @@ locals {
 
 # Create the Linux App Service Plan
 resource "azurerm_service_plan" "appserviceplan" {
-  name                = "asp-${random_pet.app_name.id}"
+  name                = "asp-${var.app_name}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = "Linux"
@@ -49,12 +45,12 @@ resource "azurerm_service_plan" "appserviceplan" {
 }
 
 locals {
-  webapp_url = "https://webapp-${random_pet.app_name.id}.azurewebsites.net"
+  webapp_url = "https://webapp-${var.app_name}.azurewebsites.net"
 }
 
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
-  name                  = "webapp-${random_pet.app_name.id}"
+  name                  = "webapp-${var.app_name}"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   service_plan_id       = azurerm_service_plan.appserviceplan.id
