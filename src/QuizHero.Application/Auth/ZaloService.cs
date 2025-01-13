@@ -14,7 +14,7 @@ namespace QuizHero.Auth
 			_zaloManager = zaloManager;
 		}
 
-		public async Task<IdentityUserDto> Authenticate(string accessToken)
+		public async Task<IdentityUserDto?> Authenticate(string accessToken)
 		{
 			var user = await _zaloManager.EnsureUser(accessToken);
 			if (user == null)

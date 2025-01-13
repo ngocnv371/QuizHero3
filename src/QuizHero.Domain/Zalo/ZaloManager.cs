@@ -10,7 +10,7 @@ namespace QuizHero.Zalo
 {
 	public class ZaloManager(HttpClient client, IdentityUserManager identityUserManager) : DomainService
 	{
-		protected async Task<ZaloProfileResponse> GetProfile(string accessToken)
+		protected async Task<ZaloProfileResponse?> GetProfile(string accessToken)
 		{
 			var request = new HttpRequestMessage(HttpMethod.Get, "https://graph.zalo.me/v2.0/me?fields=id,name,picture");
 			var response = await client.SendAsync(request);
@@ -21,6 +21,11 @@ namespace QuizHero.Zalo
 				{
 					PropertyNameCaseInsensitive = true
 				});
+				if (data == null)
+				{
+					Logger.LogError("Zalo response is null: {0}", content);
+					return null;
+				}
 				if (data.Error != 0)
 				{
 					Logger.LogError("Zalo error: {0} - {1}", data.Error, data.Message);
@@ -35,7 +40,7 @@ namespace QuizHero.Zalo
 			}
 		}
 
-		public async Task<IdentityUser> EnsureUser(string accessToken)
+		public async Task<IdentityUser?> EnsureUser(string accessToken)
 		{
 			var profile = await GetProfile(accessToken);
 			if (profile == null)

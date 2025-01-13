@@ -61,3 +61,9 @@ Now added the certificates in the code base to skip the hassle.
 Yep, we got in. But hit another problem `Interop+Crypto+OpenSslCryptographicException: error:10000080:BIO routines::no such file`
 
 Just found out that the github action deploy the app to `/apihost` instead of `/` so that's why it never works.
+
+Fixed that by removing the path from checkout action.
+
+Problem: 'missing libs', caused by `abp install-libs` skipped installing libs for the host project.
+
+Try manually.

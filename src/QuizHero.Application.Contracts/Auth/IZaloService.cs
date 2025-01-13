@@ -6,6 +6,6 @@ namespace QuizHero.Auth
 {
 	public interface IZaloService : IApplicationService
 	{
-		Task<IdentityUserDto> Authenticate(string accessToken);
+		Task<IdentityUserDto?> Authenticate(string accessToken);
 	}
 }
