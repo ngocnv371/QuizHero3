@@ -78,12 +78,3 @@ resource "azurerm_linux_web_app" "webapp" {
     "AuthServer__CertificatePassPhrase" = var.certificate_password
   }
 }
-
-#  Deploy code from a public GitHub repo
-resource "azurerm_app_service_source_control" "sourcecontrol" {
-  app_id             = azurerm_linux_web_app.webapp.id
-  repo_url           = var.repo_url
-  branch             = "master"
-  use_manual_integration = true
-  use_mercurial      = false
-}

@@ -23,13 +23,6 @@ variable "admin_password" {
   default     = null
 }
 
-variable "repo_url" {
-  type        = string
-  description = "URL to the public GitHub repo that contains the app code."
-  sensitive   = true
-  default     = "https://github.com/ngocnv371/QuizHero3"
-}
-
 variable "certificate_password" {
   type        = string
   description = "Passphrase to open the AuthServer certificates."
