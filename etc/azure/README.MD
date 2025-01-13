@@ -55,3 +55,5 @@ Check certificate against password
 ```bash
 openssl pkcs12 -in server-encryption-certificate.pfx -password pass:e7bd9340-dcb8-41a0-bd7b-255bf2632750 -info -nokeys
 ```
+
+Now added the certificates in the code base to skip the hassle.
