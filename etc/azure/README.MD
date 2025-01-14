@@ -2,7 +2,7 @@
 
 Do this with a student account for easy $100 credits.
 
-# Setup
+# Setup Local Terraform
 
 Install CLI
 
@@ -32,53 +32,32 @@ terraform apply
 
 # CI/CD
 
-Since I'm using a Students account, it does not support `az login` in Github Actions, hence no CI/CD.
+Since I'm using a Students account, it does not support `az login` in Github Actions, hence no straight `az deploy`.
+
+But we can deploy an Azure Webapp using the provided Publish Profile, so that's what we do with Github Actions.
 
 # Deployment
 
-Manually deploy this solution with Terraform.
-
-# Certs
-
-Generate a new GUID: `e7bd9340-dcb8-41a0-bd7b-255bf2632750` and put to Github Secrets & WebApp vars
-
-We got closer, still failed when running migrator, since it can't reach the SQL server behind the firewall. We either run a self hosted and add the host to whitelist, or run it behind the firewall somehow.
-
-For now, skip it.
-
-Problem: loading the certs in Azure returns error "wrong password", the same certs can be loaded locally just fine.
-
-The file deployed to WebApp is not the same as in the artifact (checksum wrong)
-
-Check certificate against password
-
-```bash
-openssl pkcs12 -in server-encryption-certificate.pfx -password pass:e7bd9340-dcb8-41a0-bd7b-255bf2632750 -info -nokeys
-```
-
-Now added the certificates in the code base to skip the hassle.
-
-Yep, we got in. But hit another problem `Interop+Crypto+OpenSslCryptographicException: error:10000080:BIO routines::no such file`
-
-Just found out that the github action deploy the app to `/apihost` instead of `/` so that's why it never works.
-
-Fixed that by removing the path from checkout action.
-
-Problem: 'missing libs', caused by `abp install-libs` skipped installing libs for the host project.
-
-Try manually.
-
-Turns out the error is 
-
-```log
-error Error: ENOENT: no such file or directory, open '/home/runner/.cache/yarn/v6/npm-reusify-1.0.4-90da382b1e126efc02146e90845a88db12925d76-integrity/node_modules/reusify/.yarn-tarball.tgz' 
-info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
-```
-
-Clean cache and it works.
-
-Now the app is in status 500.
-
-No logs.
-
-Caused by connection string. It is case sensitive. Fix that.
+- Run `terraform init` and `terraform apply` to apply the infrastructure on Azure.
+  - SQL Server
+    - Random password for admin account
+    - Database
+      - Connection String
+    - Firewall rules to allow inter-services
+  - Web App
+    - Stack: .NET 9
+    - Connection String from SQL Server
+    - Specify we can load certificates
+    - Set the app URLs
+- Setup Github Actions Secrets
+  - `HOST_PUBLISH_PROFILE`: get the Publish Profile from the Web App
+  - `CONNECTION_STRING`: from `terraform output -raw connection_string`
+  - `CERTIFICATE_PASSWORD`: from [variables.tf]
+  - `APP_NAME`: from [variables.tf]
+- Github Actions are configured to run on push to `master`
+  - Generate 2 certificates using the same passphrase
+    - `server-encryption-certificate.pfx`
+    - `server-signing-certificate.pfx`
+  - As part of ABP CLI deployment, `abp install-libs` is required to create `libs` folder for the host site (mostly for default UI and swagger)
+- Migrator can't be securely executed here since the SQL Server firewall.
+  - So we need to run it manually
