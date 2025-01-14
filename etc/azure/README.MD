@@ -80,3 +80,5 @@ Clean cache and it works.
 Now the app is in status 500.
 
 No logs.
+
+Caused by connection string. It is case sensitive. Fix that.
