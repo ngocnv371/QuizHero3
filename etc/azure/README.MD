@@ -74,3 +74,9 @@ Turns out the error is
 error Error: ENOENT: no such file or directory, open '/home/runner/.cache/yarn/v6/npm-reusify-1.0.4-90da382b1e126efc02146e90845a88db12925d76-integrity/node_modules/reusify/.yarn-tarball.tgz' 
 info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
 ```
+
+Clean cache and it works.
+
+Now the app is in status 500.
+
+No logs.
