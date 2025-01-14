@@ -26,6 +26,14 @@ resource "azurerm_mssql_server" "server" {
   version                      = "12.0"
 }
 
+# Allow all Azure services (this won't allow public access from the Internet)
+resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
+  name             = "AllowAzureServices"
+  server_id        = azurerm_mssql_server.server.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+}
+
 resource "azurerm_mssql_database" "db" {
   name      = var.sql_db_name
   server_id = azurerm_mssql_server.server.id
@@ -63,7 +71,7 @@ resource "azurerm_linux_web_app" "webapp" {
     }
   }
   connection_string {
-    name  = "default"
+    name  = "Default"
     type  = "SQLServer"
     value = local.connection_string
   }
