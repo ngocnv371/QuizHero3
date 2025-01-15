@@ -18,7 +18,7 @@ namespace QuizHero.Quiz
 		{
 			if (await topicRepository.GetCountAsync() == 0)
 			{
-				var topic = new Topic(guidGenerator.Create(), "General Knowledge", "General knowledge questions");
+				var topic = new Topic(guidGenerator.Create(), "General Knowledge", "General", "General knowledge questions");
 				await topicRepository.InsertAsync(topic, true);
 			}
 

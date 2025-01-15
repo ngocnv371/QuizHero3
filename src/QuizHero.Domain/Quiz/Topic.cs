@@ -15,6 +15,10 @@ namespace QuizHero.Quiz
 		[Required(AllowEmptyStrings = false)]
 		public string Name { get; protected set; } = default!;
 
+		[StringLength(256)]
+		[Required(AllowEmptyStrings = false)]
+		public string Category { get; protected set; } = default!;
+
 		public string Description { get; protected set; } = default!;
 		public string AvatarUrl { get; protected set; } = default!;
 		public string CoverUrl { get; protected set; } = default!;
@@ -23,11 +27,13 @@ namespace QuizHero.Quiz
 		{
 		}
 
-		public Topic(Guid id, [NotNull] string name, string description)
+		public Topic(Guid id, [NotNull] string name, [NotNull] string category, string description)
 		{
 			Check.NotNullOrWhiteSpace(name, nameof(name));
+			Check.NotNullOrWhiteSpace(category, nameof(category));
 			Id = id;
 			Name = name;
+			Category = category;
 			Description = description;
 		}
 	}
