@@ -21,7 +21,8 @@
     "deploy": "pnpm run build && zmp-cli deploy --existing",
     "deploy:live": "pnpm run build && zmp-cli deploy --existing --testing --desc",
     "lint": "eslint --ext .ts,.tsx src",
-    "fix": "eslint --ext .ts,.tsx src --fix"
+    "fix": "eslint --ext .ts,.tsx src --fix",
+    "build-api": "nswag openapi2tsclient /input:https://localhost:44350/swagger/v1/swagger.json /output:src/modules/api/swagger.ts"
   },
   "dependencies": {
     "@formatjs/intl-numberformat": "^8.10.0",
@@ -59,6 +60,7 @@
     "@xuannghia/eslint-config": "^1.0.2",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
+    "nswag": "^14.2.0",
     "postcss": "^8.4.33",
     "postcss-preset-env": "^10.0.2",
     "sass": "^1.70.0",
