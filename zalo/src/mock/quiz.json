@@ -1,0 +1,54 @@
+{
+  "error": 0,
+  "message": "Successful",
+  "data": {
+    "id": 1,
+    "name": "Quiz 01",
+    "questions": [
+      {
+        "id": 1,
+        "text": "What is the color of the sky?",
+        "answers": [
+          { "id": 1, "text": "Blue", "isCorrect": true },
+          {
+            "id": 2,
+            "text": "Green, but it is actually really long. Are you sure this can be displayed properly?",
+            "isCorrect": false
+          },
+          { "id": 3, "text": "Wow, this is not so bad, am i rite?", "isCorrect": false },
+          { "id": 4, "text": "Black", "isCorrect": false }
+        ]
+      },
+      {
+        "id": 2,
+        "text": "Why is the chicken cross the road?",
+        "answers": [
+          { "id": 1, "text": "To die", "isCorrect": false },
+          { "id": 2, "text": "To get to the other side", "isCorrect": true },
+          { "id": 3, "text": "To get away from idiots", "isCorrect": false },
+          { "id": 4, "text": "Yes", "isCorrect": false }
+        ]
+      },
+      {
+        "id": 3,
+        "text": "How many country in a pot?",
+        "answers": [
+          { "id": 1, "text": "3", "isCorrect": false },
+          { "id": 2, "text": "0", "isCorrect": true },
+          { "id": 3, "text": "Huh?", "isCorrect": false },
+          { "id": 4, "text": "Yes", "isCorrect": false }
+        ]
+      },
+      {
+        "id": 4,
+        "text": "What is this about?",
+        "answers": [
+          { "id": 1, "text": "True", "isCorrect": false },
+          { "id": 2, "text": "False", "isCorrect": false },
+          { "id": 3, "text": "What?", "isCorrect": true },
+          { "id": 4, "text": "Yes", "isCorrect": false }
+        ]
+      }
+    ]
+  }
+}

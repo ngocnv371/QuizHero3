@@ -1,0 +1,16 @@
+{
+  "error": 0,
+  "message": "Successful",
+  "data": [
+    { "id": 1, "name": "John Doe", "score": 6344 },
+    { "id": 2, "name": "Jane Skot", "score": 6124 },
+    { "id": 3, "name": "Ashley Ben", "score": 4244 },
+    { "id": 4, "name": "Spider man", "score": 3344 },
+    { "id": 5, "name": "John Wicked", "score": 2344 },
+    { "id": 6, "name": "The One", "score": 1244 },
+    { "id": 7, "name": "That Guy", "score": 444 },
+    { "id": 8, "name": "The Other Guy", "score": 344 },
+    { "id": 9, "name": "The Other Other Guy", "score": 244 },
+    { "id": 10, "name": "The Other Other Other Guy", "score": 144 }
+  ]
+}

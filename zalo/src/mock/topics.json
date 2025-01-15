@@ -1,0 +1,46 @@
+{
+  "error": 0,
+  "message": "Successful",
+  "data": [
+    {
+      "id": 1,
+      "name": "General",
+      "category": "General",
+      "logo_url": "https://stc-zmp.zadn.vn/zmenu/products/d3.jpg",
+      "cover_url": "https://picsum.photos/300/200",
+      "description": "Just general stuff"
+    },
+    {
+      "id": 2,
+      "name": "Common Sense",
+      "category": "General",
+      "logo_url": "https://stc-zmp.zadn.vn/zmenu/products/d3.jpg",
+      "cover_url": "https://picsum.photos/300/200",
+      "description": "More stuff"
+    },
+    {
+      "id": 3,
+      "name": "Kids Math",
+      "category": "Math",
+      "logo_url": "https://stc-zmp.zadn.vn/zmenu/products/d3.jpg",
+      "cover_url": "https://picsum.photos/300/200",
+      "description": "Easy stuff"
+    },
+    {
+      "id": 4,
+      "name": "Big Kids Math",
+      "category": "Math",
+      "logo_url": "https://stc-zmp.zadn.vn/zmenu/products/d3.jpg",
+      "cover_url": "https://picsum.photos/300/200",
+      "description": "More stuff but this will be very long, just to test if we can actually do something long without breaking everything here."
+    },
+    {
+      "id": 5,
+      "name": "Even Bigger Kids Math",
+      "category": "Math",
+      "logo_url": "https://stc-zmp.zadn.vn/zmenu/products/d3.jpg",
+      "cover_url": "https://picsum.photos/300/200",
+      "description": "Not that long description"
+    }
+  ]
+}
