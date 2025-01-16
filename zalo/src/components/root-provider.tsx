@@ -14,6 +14,8 @@ function ErrorPage(props: FallbackProps) {
     message = 'Cửa hàng này không tồn tại'
   } else if (props.error?.message === Errors.ORDER_SESSION_EXPIRED) {
     message = 'Phiên đặt hàng không tồn tại hoặc đã hết hạn'
+  } else if (props.error?.message === Errors.TOPIC_NOT_FOUND) {
+    message = 'Không tìm thấy chủ đề'
   }
   return (
     <div className="flex flex-col pt-[148px] px-[52px] gap-4 justify-center items-center">

@@ -23,7 +23,7 @@ export const useFavourites = create(
       favourites: [],
       actions: {
         load: async (userId) => {
-          const data = await request(`/user_topics?user_id=eq.${userId}`)
+          const data = await client.getFavourites(userId)
           console.log('user topics', data)
           set(
             produce<TopicFavouritesState>((state) => {
