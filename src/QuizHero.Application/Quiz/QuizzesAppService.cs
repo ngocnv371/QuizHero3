@@ -18,8 +18,6 @@ namespace QuizHero.Quiz
 			: base(repository)
 		{
 			LocalizationResource = typeof(QuizHeroResource);
-			GetPolicyName = QuizHeroPermissions.Quizzes.Default;
-			GetListPolicyName = QuizHeroPermissions.Quizzes.Default;
 			CreatePolicyName = QuizHeroPermissions.Quizzes.Create;
 			UpdatePolicyName = QuizHeroPermissions.Quizzes.Edit;
 			DeletePolicyName = QuizHeroPermissions.Quizzes.Delete;
