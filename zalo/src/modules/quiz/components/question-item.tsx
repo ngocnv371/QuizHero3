@@ -18,7 +18,7 @@ const AnswerItem: React.FC<{
   selectedAnswer?: string
 }> = ({ answer, showSolution, selectedAnswer }) => {
   const isSelectedAnswer = +selectedAnswer! == answer.id
-  const correctAnswer = answer.is_correct
+  const correctAnswer = answer.isCorrect
   const selectedCorrectAnswer = isSelectedAnswer && correctAnswer
   const selectedWrongAnswer = isSelectedAnswer && !correctAnswer
   return (

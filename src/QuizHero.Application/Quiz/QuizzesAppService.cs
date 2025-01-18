@@ -9,7 +9,6 @@ using Volo.Abp.Domain.Repositories;
 
 namespace QuizHero.Quiz
 {
-	[Authorize(AuthenticationSchemes = "Zalo")]
 	public class QuizzesAppService :
 		CrudAppService<Quiz, QuizDto, Guid, QuizzesQueryDto, CreateUpdateQuizDto>,
 		IQuizzesAppService

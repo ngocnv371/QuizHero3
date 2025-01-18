@@ -28,7 +28,7 @@ const QuizList: React.FC = () => {
         <List.Item
           key={item.id}
           className="px-0"
-          title={item.name}
+          title={item.title}
           suffix={<Icon icon="zi-chevron-right" />}
           subTitle={item.description}
           onClick={() => handleQuizClick(item.id)}

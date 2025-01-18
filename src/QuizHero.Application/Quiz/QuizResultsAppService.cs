@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
@@ -29,6 +30,12 @@ namespace QuizHero.Quiz
 			query = query.Where(q => q.Id == id);
 			var item = await AsyncExecuter.FirstOrDefaultAsync(query);
 			return item;
+		}
+
+		[Authorize(AuthenticationSchemes = "Zalo")]
+		public override Task<QuizResultDto> CreateAsync(QuizResultDto input)
+		{
+			return base.CreateAsync(input);
 		}
 	}
 }

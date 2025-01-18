@@ -50,7 +50,7 @@ export const useQuiz = create(
           let score = 0
           const results = state.quiz.questions.map((question) => {
             const selectedAnswerId = state.selectedAnswers[question.id]
-            const correctAnswer = question.answers.find((answer) => answer.is_correct)
+            const correctAnswer = question.answers.find((answer) => answer.isCorrect)
             if (selectedAnswerId === correctAnswer?.id) {
               score++
               return { questionId: question.id, isCorrect: true }
