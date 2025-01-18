@@ -13,13 +13,20 @@ namespace QuizHero.Quiz
 		CrudAppService<Quiz, QuizDto, Guid, QuizzesQueryDto, CreateUpdateQuizDto>,
 		IQuizzesAppService
 	{
-		public QuizzesAppService(IRepository<Quiz, Guid> repository)
+		protected IQuestionsAppService QuestionsAppService { get; }
+
+		public QuizzesAppService(
+			IRepository<Quiz, Guid> repository,
+			IQuestionsAppService questionsAppService
+			)
 			: base(repository)
 		{
 			LocalizationResource = typeof(QuizHeroResource);
 			CreatePolicyName = QuizHeroPermissions.Quizzes.Create;
 			UpdatePolicyName = QuizHeroPermissions.Quizzes.Edit;
 			DeletePolicyName = QuizHeroPermissions.Quizzes.Delete;
+
+			QuestionsAppService = questionsAppService;
 		}
 
 		protected override async Task<IQueryable<Quiz>> CreateFilteredQueryAsync(QuizzesQueryDto input)
@@ -35,6 +42,19 @@ namespace QuizHero.Quiz
 			query = query.Where(q => q.Id == id);
 			var item = await AsyncExecuter.FirstOrDefaultAsync(query);
 			return item;
+		}
+
+		public override async Task<QuizDto> GetAsync(Guid id)
+		{
+			await CheckGetPolicyAsync();
+			var entity = await GetEntityByIdAsync(id);
+			var dto = MapToGetOutputDto(entity);
+
+			var query = new QuestionsQueryDto { QuizId = id, IncludeAnswers = true };
+			var questions = await QuestionsAppService.GetListAsync(query);
+			dto.Questions = questions.Items.ToList();
+
+			return dto;
 		}
 	}
 }

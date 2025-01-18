@@ -61,7 +61,6 @@ export const useQuiz = create(
 
           const result = {
             quizId: state.quiz.id,
-            score,
             questionResults: results,
           }
           await client.createQuizResult(result)
@@ -85,7 +84,7 @@ export const useQuiz = create(
   ),
 )
 
-export function useQuizById(quizId: number) {
+export function useQuizById(quizId: string) {
   const actions = useQuiz((state) => state.actions)
   return useQuery({
     queryKey: ['quiz'],

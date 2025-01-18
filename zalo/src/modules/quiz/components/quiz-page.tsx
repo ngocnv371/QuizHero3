@@ -13,7 +13,7 @@ export const QuizPage: React.FC = () => {
   const { openSnackbar } = useSnackbar()
   const { quizId } = useParams()
   const { actions } = useQuiz()
-  const { data: quiz } = useQuizById(+quizId!)
+  const { data: quiz } = useQuizById(quizId!)
   const [showSolution, setShowSolution] = React.useState(false)
   const [questionIndex, setQuestionIndex] = React.useState<number>(0)
   const [canGoNext, setCanGoNext] = React.useState(true)
@@ -89,7 +89,7 @@ export const QuizPage: React.FC = () => {
   )
 
   const handleSelectAnswer = useCallback(
-    (questionId: number, answerId: number) => {
+    (questionId: string, answerId: string) => {
       console.log('select answer', answerId)
       actions.selectAnswer({ questionId, answerId })
     },

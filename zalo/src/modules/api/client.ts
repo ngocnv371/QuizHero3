@@ -49,7 +49,7 @@ export const client = {
       throw error
     }
   },
-  getQuiz: async (quizId: number) => {
+  getQuiz: async (quizId: string) => {
     try {
       const response = await fetch(`${apiUrl}/quizzes/${quizId}`, {
         method: 'GET',

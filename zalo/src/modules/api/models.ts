@@ -3,11 +3,11 @@ export interface ListResponse<T> {
 }
 
 export type CreateQuestionResultDto = {
-  questionId: number
+  questionId: string
   isCorrect: boolean
 }
 
 export type CreateQuizResultDto = {
-  quizId: number
+  quizId: string
   questionResults: CreateQuestionResultDto[]
 }

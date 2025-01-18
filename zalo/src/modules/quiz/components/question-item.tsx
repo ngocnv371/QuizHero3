@@ -9,7 +9,7 @@ import { AnswerDto, QuestionDto } from '../models'
 type Props = {
   question: QuestionDto
   showSolution?: boolean
-  onSelect?: (questionId: number, answerId: number) => void
+  onSelect?: (questionId: string, answerId: string) => void
 }
 
 const AnswerItem: React.FC<{
@@ -17,7 +17,7 @@ const AnswerItem: React.FC<{
   showSolution?: boolean
   selectedAnswer?: string
 }> = ({ answer, showSolution, selectedAnswer }) => {
-  const isSelectedAnswer = +selectedAnswer! == answer.id
+  const isSelectedAnswer = selectedAnswer! == answer.id
   const correctAnswer = answer.isCorrect
   const selectedCorrectAnswer = isSelectedAnswer && correctAnswer
   const selectedWrongAnswer = isSelectedAnswer && !correctAnswer
@@ -61,7 +61,7 @@ export const QuestionItem: React.FC<Props> = ({ question, showSolution, onSelect
       return
     }
 
-    onSelect && onSelect(question.id, +selectedAnswer)
+    onSelect && onSelect(question.id, selectedAnswer)
   }, [selectedAnswer, question.id, onSelect])
 
   return (

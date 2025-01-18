@@ -5,7 +5,7 @@ using Volo.Abp.Identity;
 
 namespace QuizHero.Quiz
 {
-	public class QuestionDto : AuditedEntityWithUserDto<Guid, IdentityUserDto>
+	public class QuestionDto : EntityDto<Guid>
 	{
 		public Guid QuizId { get; set; }
 		public string QuizTitle { get; set; } = default!;
