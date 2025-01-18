@@ -1,16 +1,12 @@
 import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Header, Icon, useNavigate, useSnackbar } from 'zmp-ui'
-
-import { useAuth } from '@/modules/auth/use-auth'
+import { Button, Header, Icon } from 'zmp-ui'
 
 import { useQuiz, useQuizById } from '../use-quiz'
+import { CompleteButton } from './complete-button'
 import { QuestionItem } from './question-item'
 
 export const QuizPage: React.FC = () => {
-  const nav = useNavigate()
-  const { user } = useAuth()
-  const { openSnackbar } = useSnackbar()
   const { quizId } = useParams()
   const { actions } = useQuiz()
   const { data: quiz } = useQuizById(quizId!)
@@ -59,35 +55,6 @@ export const QuizPage: React.FC = () => {
     [quiz, questionIndex, setShowSolution, setQuestionIndex],
   )
 
-  const handleComplete = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation()
-
-      console.log('disable actions')
-      setCanGoNext(false)
-      console.log('complete quiz')
-      actions
-        .complete(user)
-        .then(() => {
-          nav(`/quiz/${quizId}/result`, { animate: true, replace: true, relative: 'route' })
-        })
-        .catch((e) => {
-          console.error('Failed to complete quiz', e)
-          openSnackbar({
-            text: 'Failed to complete quiz',
-            type: 'error',
-            action: {
-              close: true,
-              text: 'OK',
-            },
-          })
-        })
-    },
-    // we don't include `openSnackbar` because it's not stable
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [nav, quizId, actions, setCanGoNext, user],
-  )
-
   const handleSelectAnswer = useCallback(
     (questionId: string, answerId: string) => {
       console.log('select answer', answerId)
@@ -121,10 +88,7 @@ export const QuizPage: React.FC = () => {
           Check
         </Button>
         {isLastQuestion ? (
-          <Button onClick={handleComplete} size="large" className="shrink-0" disabled={!canGoNext}>
-            Complete
-            <Icon icon="zi-check" />
-          </Button>
+          <CompleteButton disabled={!canGoNext} quizId={quizId!} />
         ) : (
           <Button onClick={handleNext} size="large" className="shrink-0" disabled={!canGoNext}>
             Next
