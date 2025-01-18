@@ -2,17 +2,16 @@ import { produce } from 'immer'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { request } from '@/utils/request'
 import { storage } from '@/utils/storage'
 
 import { client } from '../api/client'
 
 export type TopicFavouritesState = {
   isLoading: boolean
-  favourites: number[]
+  favourites: string[]
   actions: {
     load: (userId: string) => Promise<void>
-    updateFavourite: (payload: { userId: string; topicId: number; favourite: boolean }) => Promise<void>
+    updateFavourite: (payload: { userId: string; topicId: string; favourite: boolean }) => Promise<void>
   }
 }
 

@@ -12,6 +12,7 @@ namespace QuizHero.Zalo
 	{
 		protected async Task<ZaloProfileResponse?> GetProfile(string accessToken)
 		{
+			// TODO: add secret proof
 			var request = new HttpRequestMessage(HttpMethod.Get, "https://graph.zalo.me/v2.0/me?fields=id,name,picture");
 			var response = await client.SendAsync(request);
 			if (response.IsSuccessStatusCode)

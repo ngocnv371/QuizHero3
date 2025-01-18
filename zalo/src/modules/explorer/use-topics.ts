@@ -9,9 +9,11 @@ export function useTopics() {
     queryKey: ['topics'],
     queryFn: async () => {
       console.log('fetching topics')
+      actions.startLoading()
       const { items } = await client.getTopics()
-      actions.load(...items!)
+      actions.load(items)
       console.log('fetched topics', items)
+      actions.stopLoading()
       return items
     },
     staleTime: 1000 * 60 * 60,

@@ -25,5 +25,8 @@ public class QuizHeroApplicationAutoMapperProfile : Profile
 		CreateMap<Topic, TopicDto>();
 		CreateMap<Topic, TopicLookupDto>();
 		CreateMap<CreateUpdateTopicDto, Topic>();
+
+		CreateMap<Quiz.QuizResult, QuizResultDto>()
+			.ReverseMap();
 	}
 }

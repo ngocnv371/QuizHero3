@@ -2,14 +2,14 @@ import React, { MouseEvent, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Icon, List, useNavigate } from 'zmp-ui'
 
-import { Quiz } from '@/modules/quiz/models'
+import { QuizDto } from '@/modules/quiz/models'
 
 import { useQuizListByTopicId } from '../use-quiz-list'
 import { TopicBar } from './topic-bar'
 
 const QuizList: React.FC = () => {
   const { topicId } = useParams()
-  const { data: quizzes, isLoading, error } = useQuizListByTopicId(+topicId!)
+  const { data: quizzes, isLoading, error } = useQuizListByTopicId(topicId!)
   const nav = useNavigate()
 
   const handleQuizClick = useCallback(
@@ -23,7 +23,7 @@ const QuizList: React.FC = () => {
 
   const renderItem = useCallback(
     (input: unknown) => {
-      const item = input as Quiz
+      const item = input as QuizDto
       return (
         <List.Item
           key={item.id}

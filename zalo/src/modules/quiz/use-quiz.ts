@@ -7,16 +7,16 @@ import { storage } from '@/utils/storage'
 
 import { client } from '../api/client'
 import { User } from '../auth/models'
-import { Answer, Question, Quiz } from './models'
+import { AnswerDto, QuestionDto, QuizDto } from './models'
 
 export type QuizState = {
-  quiz: Quiz
+  quiz: QuizDto
   isLoading: boolean
-  selectedAnswers: Record<Question['id'], Answer['id']>
+  selectedAnswers: Record<QuestionDto['id'], AnswerDto['id']>
   score: number
   actions: {
-    load: (payload: Quiz) => void
-    selectAnswer: (payload: { questionId: Question['id']; answerId: Answer['id'] }) => void
+    load: (payload: QuizDto) => void
+    selectAnswer: (payload: { questionId: QuestionDto['id']; answerId: AnswerDto['id'] }) => void
     complete: (user: User) => Promise<void>
   }
 }
@@ -24,7 +24,7 @@ export type QuizState = {
 export const useQuiz = create(
   persist<QuizState>(
     (set, get) => ({
-      quiz: {} as Quiz,
+      quiz: {} as QuizDto,
       isLoading: false,
       selectedAnswers: {},
       score: 0,
@@ -92,7 +92,7 @@ export function useQuizById(quizId: number) {
     queryFn: async () => {
       console.log('fetching quiz by id', quizId)
       const quiz = await client.getQuiz(quizId)
-      const result = quiz as Quiz
+      const result = quiz as QuizDto
       console.log('fetched quiz', quiz)
       actions.load(result)
       return result

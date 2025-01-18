@@ -5,15 +5,17 @@ import { persist } from 'zustand/middleware'
 
 import { storage } from '@/utils/storage'
 
-import { Category, Topic } from './models'
+import { Category, TopicDto } from './models'
 
 export type Explorer = {
   categories: Category[]
-  topics: Topic[]
+  topics: TopicDto[]
   isLoading: boolean
   actions: {
-    load: (...payload: Topic[]) => void
+    load: (topics: TopicDto[]) => void
     clear: () => void
+    startLoading: () => void
+    stopLoading: () => void
   }
 }
 
@@ -22,19 +24,29 @@ export const useExplorer = create(
     (set) => ({
       categories: [],
       topics: [],
-      isLoading: false,
+      isLoading: true,
       actions: {
-        load: (...topics) =>
+        startLoading: () =>
           set(
             produce<Explorer>((state) => {
-              const cats = Array.from(new Set(topics.map((t) => t.category)).keys())
+              state.isLoading = true
+            }),
+          ),
+        stopLoading: () =>
+          set(
+            produce<Explorer>((state) => {
+              state.isLoading = false
+            }),
+          ),
+        load: (topics) =>
+          set(
+            produce<Explorer>((state) => {
+              const cats = Array.from(new Set(topics.map((t) => t.category)))
               state.topics = topics
-              state.categories = cats.map((c) => {
-                return {
-                  name: c,
-                  topics: topics.filter((t) => t.category === c),
-                }
-              })
+              state.categories = cats.map((c) => ({
+                name: c,
+                topics: topics.filter((t) => t.category === c),
+              }))
             }),
           ),
         clear: () =>
@@ -50,13 +62,13 @@ export const useExplorer = create(
       name: 'dashboard',
       storage: storage,
       partialize(state) {
-        return { categories: state.categories } as Explorer
+        return { categories: state.categories, topics: state.topics } as Explorer
       },
     },
   ),
 )
 
-export function useTopicById(id: number) {
+export function useTopicById(id: string) {
   const { topics, isLoading } = useExplorer()
   const topic = useMemo(() => topics.find((t) => t.id === id), [topics, id])
   return { topic, isLoading }

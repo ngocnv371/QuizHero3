@@ -4,16 +4,16 @@ import { RadioValueType } from 'zmp-ui/radio'
 
 import { clsx } from '@/utils/clsx'
 
-import { Answer, Question } from '../models'
+import { AnswerDto, QuestionDto } from '../models'
 
 type Props = {
-  question: Question
+  question: QuestionDto
   showSolution?: boolean
   onSelect?: (questionId: number, answerId: number) => void
 }
 
 const AnswerItem: React.FC<{
-  answer: Answer
+  answer: AnswerDto
   showSolution?: boolean
   selectedAnswer?: string
 }> = ({ answer, showSolution, selectedAnswer }) => {

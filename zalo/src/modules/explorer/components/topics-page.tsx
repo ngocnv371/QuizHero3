@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { Header, useNavigate } from 'zmp-ui'
 
-import { Topic } from '../models'
+import { TopicDto } from '../models'
 import { useExplorer } from '../use-explorer'
 import { useTopics } from '../use-topics'
 import CategorySection from './category-section'
@@ -14,7 +14,7 @@ export const TopicsPage: React.FC = () => {
   const nav = useNavigate()
 
   const handleTopicClick = useCallback(
-    (topic: Topic) => {
+    (topic: TopicDto) => {
       console.log('go to topic page', topic)
       nav(`/topics/${topic.id}`, { animate: true, direction: 'forward' })
     },

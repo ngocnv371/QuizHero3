@@ -6,13 +6,13 @@ import { persist } from 'zustand/middleware'
 import { storage } from '@/utils/storage'
 
 import { client } from '../api/client'
-import { Quiz } from '../quiz/models'
+import { QuizDto } from '../quiz/models'
 
 export type QuizListState = {
-  quizzes: Quiz[]
+  quizzes: QuizDto[]
   isLoading: boolean
   actions: {
-    load: (payload: Quiz[]) => void
+    load: (payload: QuizDto[]) => void
   }
 }
 
@@ -41,14 +41,14 @@ export const useQuizList = create(
   ),
 )
 
-export function useQuizListByTopicId(topicId: number) {
+export function useQuizListByTopicId(topicId: string) {
   const actions = useQuizList((state) => state.actions)
   return useQuery({
     queryKey: ['quiz-list', topicId],
     queryFn: async () => {
       console.log('fetching quiz list for topic', topicId)
-      const items = await client.getQuizzes(topicId)
-      const result = items as Quiz[]
+      const { items } = await client.getQuizzes(topicId)
+      const result = items
       console.log('fetched quiz list', result)
       actions.load(result)
       return result

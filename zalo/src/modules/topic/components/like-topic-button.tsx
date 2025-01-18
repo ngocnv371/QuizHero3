@@ -5,7 +5,7 @@ import { useAuth } from '../../auth/use-auth'
 import { useFavourites } from '../use-favourites'
 
 interface LikeTopicButtonProps {
-  topicId: number
+  topicId: string
 }
 
 const LikeTopicButton: React.FC<LikeTopicButtonProps> = ({ topicId }) => {

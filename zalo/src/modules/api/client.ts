@@ -1,19 +1,9 @@
-import { Topic } from '../explorer/models'
+import { TopicDto } from '../explorer/models'
 import { LeaderboardItem } from '../leaderboard/models'
-import { Quiz } from '../quiz/models'
-import { ListResponse } from './models'
+import { QuizDto } from '../quiz/models'
+import { CreateQuizResultDto, ListResponse } from './models'
 
 const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
-
-type QuestionResult = {
-  questionId: number
-  isCorrect: boolean
-}
-type QuizResult = {
-  score: number
-  quizId: number
-  questionResults: QuestionResult[]
-}
 
 let _accessKey = ''
 const getDefaultHeaders = () => ({
@@ -40,20 +30,20 @@ export const client = {
         headers: getDefaultHeaders(),
       })
       const data = await handleResponse(response)
-      return data as ListResponse<Topic>
+      return data as ListResponse<TopicDto>
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
     }
   },
-  getQuizzes: async (topicId: number) => {
+  getQuizzes: async (topicId: string) => {
     try {
       const response = await fetch(`${apiUrl}/quizzes?topicId=${topicId}`, {
         method: 'GET',
         headers: getDefaultHeaders(),
       })
       const data = await handleResponse(response)
-      return data as ListResponse<Quiz>
+      return data as ListResponse<QuizDto>
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
@@ -66,13 +56,13 @@ export const client = {
         headers: getDefaultHeaders(),
       })
       const data = await handleResponse(response)
-      return data as Quiz
+      return data as QuizDto
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
     }
   },
-  likeTopic: async (topicId: number) => {
+  likeTopic: async (topicId: string) => {
     try {
       const response = await fetch(`${apiUrl}/topics/${topicId}/like`, {
         method: 'POST',
@@ -84,7 +74,7 @@ export const client = {
       throw error
     }
   },
-  unlikeTopic: async (topicId: number) => {
+  unlikeTopic: async (topicId: string) => {
     try {
       const response = await fetch(`${apiUrl}/topics/${topicId}/unlike`, {
         method: 'POST',
@@ -96,7 +86,7 @@ export const client = {
       throw error
     }
   },
-  createQuizResult: async (result: QuizResult) => {
+  createQuizResult: async (result: CreateQuizResultDto) => {
     try {
       const response = await fetch(`${apiUrl}/quiz-results`, {
         method: 'POST',
@@ -125,5 +115,5 @@ export const client = {
       throw error
     }
   },
-  getFavourites: async (userId: string) => Promise.resolve({} as ListResponse<Topic>),
+  getFavourites: async (userId: string) => Promise.resolve({} as ListResponse<TopicDto>),
 }
