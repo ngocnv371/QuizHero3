@@ -7,7 +7,6 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Volo.Abp.Data;
 using Volo.Abp.Security.Claims;
-using Volo.Abp.Users;
 
 namespace QuizHero.Auth
 {
@@ -20,18 +19,15 @@ namespace QuizHero.Auth
 	{
 		private const string HeaderName = "X-Zalo-Access-Key";
 		private readonly IZaloService ZaloService;
-		private readonly ICurrentUser CurrentUser;
 
 		public ZaloAuthHandler(
 			IOptionsMonitor<AuthenticationSchemeOptions> options,
 			ILoggerFactory logger,
 			UrlEncoder encoder,
-			ICurrentUser currentUser,
 			IZaloService zaloService
 		) : base(options, logger, encoder)
 		{
 			ZaloService = zaloService;
-			CurrentUser = currentUser;
 		}
 
 		protected override async Task<AuthenticateResult> HandleAuthenticateAsync()

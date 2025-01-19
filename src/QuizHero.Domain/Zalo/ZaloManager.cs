@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Volo.Abp.Caching;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Identity;
@@ -18,7 +19,8 @@ namespace QuizHero.Zalo
 		HttpClient client,
 		IdentityUserManager identityUserManager
 		, IdentityRoleManager identityRoleManager
-		, IConfiguration configuration
+		, IConfiguration configuration,
+		 IDistributedCache<ZaloProfileResponse, string> _cache
 		) : DomainService
 	{
 		protected string GetProof(string accessToken)
@@ -34,6 +36,18 @@ namespace QuizHero.Zalo
 			}
 		}
 
+		protected async Task<ZaloProfileResponse?> GetCachedProfile(string accessToken)
+		{
+			return await _cache.GetOrAddAsync(
+				accessToken,
+				async () => await GetProfile(accessToken),
+				() => new Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions
+				{
+					AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1)
+				}
+			);
+		}
+
 		protected async Task<ZaloProfileResponse?> GetProfile(string accessToken)
 		{
 			if (string.IsNullOrWhiteSpace(accessToken))
@@ -44,19 +58,7 @@ namespace QuizHero.Zalo
 			var defaultToken = configuration["Zalo:DefaultAccessToken"];
 			if (accessToken == defaultToken)
 			{
-				return new ZaloProfileResponse
-				{
-					Error = 0,
-					Id = "a123456",
-					Name = "Test User",
-					Picture = new ZaloPictureDto
-					{
-						Data = new ZaloPictureDataDto
-						{
-							Url = "https://picsum.photos/200/200"
-						}
-					}
-				};
+				return GetFakeResponse();
 			}
 
 			var request = new HttpRequestMessage(HttpMethod.Get, "https://graph.zalo.me/v2.0/me?fields=id,name,picture");
@@ -89,9 +91,26 @@ namespace QuizHero.Zalo
 			}
 		}
 
+		private static ZaloProfileResponse GetFakeResponse()
+		{
+			return new ZaloProfileResponse
+			{
+				Error = 0,
+				Id = "a123456",
+				Name = "Test User",
+				Picture = new ZaloPictureDto
+				{
+					Data = new ZaloPictureDataDto
+					{
+						Url = "https://picsum.photos/200/200"
+					}
+				}
+			};
+		}
+
 		public async Task<IdentityUser?> EnsureUser(string accessToken)
 		{
-			var profile = await GetProfile(accessToken);
+			var profile = await GetCachedProfile(accessToken);
 			if (profile == null)
 			{
 				return null;
