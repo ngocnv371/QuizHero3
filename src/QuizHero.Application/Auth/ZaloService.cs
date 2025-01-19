@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Identity;
+using Volo.Abp.ObjectExtending;
 
 namespace QuizHero.Auth
 {
@@ -22,7 +23,8 @@ namespace QuizHero.Auth
 				return null;
 			}
 
-			return ObjectMapper.Map<IdentityUser, IdentityUserDto>(user);
+			var dto = ObjectMapper.Map<IdentityUser, IdentityUserDto>(user);
+			return dto;
 		}
 	}
 }

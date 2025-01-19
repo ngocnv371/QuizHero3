@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Volo.Abp.Data;
+using Volo.Abp.Security.Claims;
+using Volo.Abp.Users;
 
 namespace QuizHero.Auth
 {
@@ -20,15 +20,18 @@ namespace QuizHero.Auth
 	{
 		private const string HeaderName = "X-Zalo-Access-Key";
 		private readonly IZaloService ZaloService;
+		private readonly ICurrentUser CurrentUser;
 
 		public ZaloAuthHandler(
 			IOptionsMonitor<AuthenticationSchemeOptions> options,
 			ILoggerFactory logger,
 			UrlEncoder encoder,
+			ICurrentUser currentUser,
 			IZaloService zaloService
 		) : base(options, logger, encoder)
 		{
 			ZaloService = zaloService;
+			CurrentUser = currentUser;
 		}
 
 		protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -47,9 +50,13 @@ namespace QuizHero.Auth
 
 			var claims = new List<Claim>
 			{
-				new Claim(ClaimTypes.NameIdentifier, user.UserName),
-				new Claim(ClaimTypes.Name, user.Name),
-				new Claim(ClaimTypes.Role, "user")
+				new Claim(AbpClaimTypes.Role, "user"),
+				new Claim(AbpClaimTypes.UserName, user.UserName),
+				new Claim(AbpClaimTypes.Name, user.Name),
+				new Claim(AbpClaimTypes.UserId, user.Id.ToString()),
+				new Claim(AbpClaimTypes.Picture, user.GetProperty("AvatarUrl").ToString()),
+				new Claim(AbpClaimTypes.Email, user.Email),
+				new Claim(AbpClaimTypes.EmailVerified, user.EmailConfirmed.ToString())
 			};
 			var identity = new ClaimsIdentity(claims, Scheme.Name);
 			var principal = new ClaimsPrincipal(identity);

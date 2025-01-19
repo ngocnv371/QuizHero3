@@ -47,7 +47,7 @@ namespace QuizHero.Zalo
 				return new ZaloProfileResponse
 				{
 					Error = 0,
-					Id = "123456",
+					Id = "a123456",
 					Name = "Test User",
 					Picture = new ZaloPictureDto
 					{
