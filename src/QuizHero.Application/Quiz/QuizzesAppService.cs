@@ -4,6 +4,7 @@ using QuizHero.Permissions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
@@ -49,6 +50,7 @@ namespace QuizHero.Quiz
 			await CheckGetPolicyAsync();
 			var entity = await GetEntityByIdAsync(id);
 			var dto = MapToGetOutputDto(entity);
+			Check.NotNull(dto, nameof(dto));
 
 			var query = new QuestionsQueryDto { QuizId = id, IncludeAnswers = true };
 			var questions = await QuestionsAppService.GetListAsync(query);

@@ -4,15 +4,11 @@ import { useIntersectionObserver } from 'usehooks-ts'
 import { Button, Header, Icon, Text, useNavigate } from 'zmp-ui'
 
 import { TopicNotFoundError } from '@/constants/errors'
-import LeaderboardButton from '@/modules/leaderboard/components/leaderboard-button'
 import { clsx } from '@/utils/clsx'
 
 import { useTopicById } from '../../explorer/use-explorer'
-import { TopicLeaderboard } from '../../leaderboard/components/topic-leaderboard'
 import LikeTopicButton from './like-topic-button'
-import QuizList from './quiz-list'
 import { TopicAvatar } from './topic-avatar'
-import { TopicBar } from './topic-bar'
 import { TopicCover } from './topic-cover'
 import { TopicInfoLoading } from './topic-info-loading'
 

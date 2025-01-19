@@ -5,7 +5,7 @@ import { LeaderboardItem } from '../models'
 import { LeaderboardLoading } from './leaderboard-loading'
 
 type Props = {
-  items: LeaderboardItem[]
+  items?: LeaderboardItem[]
   loading?: boolean
 }
 

@@ -8,8 +8,8 @@ export const Routes = {
   explorer: {
     page: () => `/`,
     favorites: () => `/favorites`,
-    topic: (id: number) => `/topics/${id}`,
-    topicQuizzes: (id: number) => `/topics/${id}/quizzes`,
-    topicLeaderboard: (id: number) => `/topics/${id}/leaderboard`,
+    topic: (id: string) => `/topics/${id}`,
+    topicQuizzes: (id: string) => `/topics/${id}/quizzes`,
+    topicLeaderboard: (id: string) => `/topics/${id}/leaderboard`,
   },
 }

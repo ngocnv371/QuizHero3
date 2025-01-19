@@ -46,8 +46,6 @@ export function useCurrentUser() {
         avatar_url: info.userInfo.avatar,
       }
       actions.load(user)
-
-      await client.authenticate(token)
       console.log('authenticated')
       return user
     },

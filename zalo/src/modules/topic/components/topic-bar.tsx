@@ -5,7 +5,7 @@ import { Routes } from '@/constants/routes'
 
 type TopicTabs = 'quizzes' | 'leaderboard'
 type Props = {
-  topicId: number
+  topicId: string
   tab: TopicTabs
 }
 

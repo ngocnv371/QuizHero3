@@ -3,7 +3,7 @@ import { LeaderboardItem } from '../leaderboard/models'
 import { QuizDto } from '../quiz/models'
 import { CreateQuizResultDto, ListResponse } from './models'
 
-const apiUrl = `https://9292-2402-800-63b6-981e-ccb4-9d45-2b85-afb.ngrok-free.app/api/app`
+const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
 
 let _accessKey = ''
 const getDefaultHeaders = () => ({
@@ -102,7 +102,7 @@ export const client = {
       throw error
     }
   },
-  getLeaderboard: async (topicId: number) => {
+  getLeaderboard: async (topicId: string) => {
     try {
       const response = await fetch(`${apiUrl}/leaderboard?topicId=${topicId}`, {
         method: 'GET',

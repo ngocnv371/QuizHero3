@@ -1,4 +1,4 @@
-import React, { MouseEvent, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Icon, List, useNavigate } from 'zmp-ui'
 
@@ -52,7 +52,7 @@ const QuizList: React.FC = () => {
 
   return (
     <>
-      <TopicBar topicId={+topicId!} tab="quizzes" />
+      <TopicBar topicId={topicId!} tab="quizzes" />
 
       <h4>Quizzes</h4>
       {!quizzes.length && <p>No quizzes found</p>}
