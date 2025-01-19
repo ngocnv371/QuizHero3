@@ -43,11 +43,11 @@ export const QuizPage: React.FC = () => {
         return
       }
 
-      // disable next button for 2 seconds
+      // disable next button for 1 seconds
       setCanGoNext(false)
       setTimeout(() => {
         setCanGoNext(true)
-      }, 2000)
+      }, 1000)
 
       console.log('go to next question')
       setQuestionIndex((prevIndex) => prevIndex + 1)

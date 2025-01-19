@@ -97,21 +97,24 @@ namespace QuizHero.Zalo
 				return null;
 			}
 
-			var user = await identityUserManager.FindByLoginAsync("Zalo", profile.Id.ToString());
-			if (user == null)
+			var name = $"u{profile.Id}";
+			var email = $"{name}@zalo.com";
+			var user = await identityUserManager.FindByEmailAsync(email);
+			if (user != null)
 			{
-				var role = await identityRoleManager.FindByNameAsync("user");
-				var name = $"u{profile.Id}";
-				var email = $"{name}@zalo.com";
-				user = new IdentityUser(GuidGenerator.Create(), name, email);
-				user.Name = profile.Name;
-				user.SetProperty("ZaloId", profile.Id.ToString());
-				user.SetProperty("AvatarUrl", profile.Picture.Data.Url);
-				user.SetEmailConfirmed(true);
-				user.IsExternal = true;
-				user.AddRole(role.Id);
-				await identityUserManager.CreateAsync(user, configuration["Zalo:DefaultPassword"], validatePassword: false);
+				return user;
 			}
+
+			var role = await identityRoleManager.FindByNameAsync("user");
+			user = new IdentityUser(GuidGenerator.Create(), name, email);
+			user.Name = profile.Name;
+			user.SetProperty("ZaloId", profile.Id.ToString());
+			user.SetProperty("AvatarUrl", profile.Picture.Data.Url);
+			user.SetEmailConfirmed(true);
+			user.IsExternal = true;
+			user.AddRole(role.Id);
+			await identityUserManager.CreateAsync(user, configuration["Zalo:DefaultPassword"], validatePassword: false);
+
 			return user;
 		}
 	}

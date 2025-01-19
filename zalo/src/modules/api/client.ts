@@ -3,7 +3,7 @@ import { LeaderboardItem } from '../leaderboard/models'
 import { QuizDto } from '../quiz/models'
 import { CreateQuizResultDto, ListResponse } from './models'
 
-const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
+const apiUrl = `https://9292-2402-800-63b6-981e-ccb4-9d45-2b85-afb.ngrok-free.app/api/app`
 
 let _accessKey = ''
 const getDefaultHeaders = () => ({
