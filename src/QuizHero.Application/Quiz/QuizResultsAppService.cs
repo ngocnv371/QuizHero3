@@ -3,12 +3,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 
 namespace QuizHero.Quiz
 {
 	public class QuizResultsAppService
-		: CrudAppService<QuizResult, QuizResultDto, Guid, QuizResultQuery, QuizResultDto>
+		: CrudAppService<QuizResult, QuizResultDto, Guid, QuizResultQuery, CreateQuizResultDto>
 		, IQuizResultsAppService
 	{
 		public QuizResultsAppService(
@@ -33,9 +34,25 @@ namespace QuizHero.Quiz
 		}
 
 		[Authorize(AuthenticationSchemes = "Zalo")]
-		public override Task<QuizResultDto> CreateAsync(QuizResultDto input)
+		public override async Task<QuizResultDto> CreateAsync(CreateQuizResultDto input)
 		{
-			return base.CreateAsync(input);
+			await CheckCreatePolicyAsync();
+
+			var entity = await MapToEntityAsync(input);
+			foreach (var item in entity.QuestionResults)
+			{
+				EntityHelper.TrySetId(
+					item,
+					() => GuidGenerator.Create(),
+					true
+				);
+			}
+
+			TryToSetTenantId(entity);
+
+			await Repository.InsertAsync(entity, autoSave: true);
+
+			return await MapToGetOutputDtoAsync(entity);
 		}
 	}
 }

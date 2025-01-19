@@ -90,14 +90,19 @@ public class QuizHeroDbContext :
 		builder.Entity<QuestionResult>(b =>
 		{
 			b.ConfigureByConvention();
-			b.HasOne(q => q.Question)
+			b.HasOne<Question>()
 				.WithMany()
 				.HasForeignKey(q => q.QuestionId)
-				.OnDelete(DeleteBehavior.NoAction);
-			b.HasOne(q => q.Answer)
+				.OnDelete(DeleteBehavior.Restrict);
+		});
+
+		builder.Entity<QuizResult>(b =>
+		{
+			b.ConfigureByConvention();
+			b.HasOne<Quiz.Quiz>()
 				.WithMany()
-				.HasForeignKey(q => q.AnswerId)
-				.OnDelete(DeleteBehavior.NoAction);
+				.HasForeignKey(q => q.QuizId)
+				.OnDelete(DeleteBehavior.Restrict);
 		});
 
 		builder.Entity<Quiz.Quiz>(b =>

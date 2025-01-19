@@ -1,5 +1,6 @@
 using AutoMapper;
 using QuizHero.Quiz;
+using System.Linq;
 
 namespace QuizHero;
 
@@ -26,7 +27,11 @@ public class QuizHeroApplicationAutoMapperProfile : Profile
 		CreateMap<Topic, TopicLookupDto>();
 		CreateMap<CreateUpdateTopicDto, Topic>();
 
-		CreateMap<Quiz.QuizResult, QuizResultDto>()
-			.ReverseMap();
+		CreateMap<QuizResult, QuizResultDto>();
+		CreateMap<QuestionResult, QuestionResultDto>();
+		CreateMap<CreateQuizResultDto, QuizResult>()
+			.ForMember(m => m.Score, opt => opt.MapFrom(k => k.QuestionResults.Count(q => q.IsCorrect)))
+			;
+		CreateMap<CreateQuestionResultDto, QuestionResult>();
 	}
 }

@@ -6,7 +6,6 @@ import { persist } from 'zustand/middleware'
 import { storage } from '@/utils/storage'
 
 import { client } from '../api/client'
-import { User } from '../auth/models'
 import { AnswerDto, QuestionDto, QuizDto } from './models'
 
 export type QuizState = {
@@ -17,7 +16,7 @@ export type QuizState = {
   actions: {
     load: (payload: QuizDto) => void
     selectAnswer: (payload: { questionId: QuestionDto['id']; answerId: AnswerDto['id'] }) => void
-    complete: (user: User) => Promise<void>
+    complete: () => Promise<void>
   }
 }
 
@@ -45,17 +44,17 @@ export const useQuiz = create(
               state.selectedAnswers[questionId] = answerId
             }),
           ),
-        complete: async (user) => {
+        complete: async () => {
           const state = get()
           let score = 0
           const results = state.quiz.questions.map((question) => {
             const selectedAnswerId = state.selectedAnswers[question.id]
             const correctAnswer = question.answers.find((answer) => answer.isCorrect)
-            if (selectedAnswerId === correctAnswer?.id) {
+            const isCorrect = correctAnswer?.id === selectedAnswerId
+            if (isCorrect) {
               score++
-              return { questionId: question.id, isCorrect: true }
             }
-            return { questionId: question.id, isCorrect: false }
+            return { questionId: question.id, isCorrect }
           })
           console.log('score', score, results)
 

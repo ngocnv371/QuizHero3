@@ -1,19 +1,67 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Identity;
+using Volo.Abp.SettingManagement;
 
 namespace QuizHero.Zalo
 {
-	public class ZaloManager(HttpClient client, IdentityUserManager identityUserManager) : DomainService
+	public class ZaloManager(
+		HttpClient client,
+		IdentityUserManager identityUserManager
+		, IdentityRoleManager identityRoleManager
+		, IConfiguration configuration
+		) : DomainService
 	{
+		protected string GetProof(string accessToken)
+		{
+			var secret = configuration["Zalo:AppSecret"];
+			var keyBytes = Encoding.UTF8.GetBytes(secret);
+			var dataBytes = Encoding.UTF8.GetBytes(accessToken);
+			using (var hmac = new HMACSHA256(keyBytes))
+			{
+				var hashBytes = hmac.ComputeHash(dataBytes);
+				var hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+				return hash;
+			}
+		}
+
 		protected async Task<ZaloProfileResponse?> GetProfile(string accessToken)
 		{
-			// TODO: add secret proof
+			if (string.IsNullOrWhiteSpace(accessToken))
+			{
+				return null;
+			}
+
+			var defaultToken = configuration["Zalo:DefaultAccessToken"];
+			if (accessToken == defaultToken)
+			{
+				return new ZaloProfileResponse
+				{
+					Error = 0,
+					Id = "123456",
+					Name = "Test User",
+					Picture = new ZaloPictureDto
+					{
+						Data = new ZaloPictureDataDto
+						{
+							Url = "https://picsum.photos/200/200"
+						}
+					}
+				};
+			}
+
 			var request = new HttpRequestMessage(HttpMethod.Get, "https://graph.zalo.me/v2.0/me?fields=id,name,picture");
+			request.Headers.Add("access_token", accessToken);
+			request.Headers.Add("appsecret_proof", GetProof(accessToken));
 			var response = await client.SendAsync(request);
 			if (response.IsSuccessStatusCode)
 			{
@@ -52,12 +100,17 @@ namespace QuizHero.Zalo
 			var user = await identityUserManager.FindByLoginAsync("Zalo", profile.Id.ToString());
 			if (user == null)
 			{
-				var email = $"{profile.Id}@zalo.com";
-				user = new IdentityUser(GuidGenerator.Create(), profile.Name, email);
+				var role = await identityRoleManager.FindByNameAsync("user");
+				var name = $"u{profile.Id}";
+				var email = $"{name}@zalo.com";
+				user = new IdentityUser(GuidGenerator.Create(), name, email);
+				user.Name = profile.Name;
+				user.SetProperty("ZaloId", profile.Id.ToString());
+				user.SetProperty("AvatarUrl", profile.Picture.Data.Url);
 				user.SetEmailConfirmed(true);
 				user.IsExternal = true;
-				await identityUserManager.CreateAsync(user);
-				await identityUserManager.AddLoginAsync(user, new UserLoginInfo("Zalo", profile.Id.ToString(), profile.Name));
+				user.AddRole(role.Id);
+				await identityUserManager.CreateAsync(user, configuration["Zalo:DefaultPassword"], validatePassword: false);
 			}
 			return user;
 		}

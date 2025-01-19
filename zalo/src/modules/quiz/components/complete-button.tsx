@@ -27,7 +27,7 @@ export const CompleteButton: React.FC<CompleteButtonProps> = ({ disabled, quizId
       setLoading(true)
       console.log('complete quiz')
       actions
-        .complete(user)
+        .complete()
         .then(() => {
           nav(`/quiz/${quizId}/result`, { animate: true, replace: true, relative: 'route' })
         })

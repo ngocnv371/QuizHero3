@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuizHero.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace QuizHero.Migrations
 {
     [DbContext(typeof(QuizHeroDbContext))]
-    partial class QuizHeroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250119002555_UpdateQuestionResult")]
+    partial class UpdateQuestionResult
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2113,19 +2116,23 @@ namespace QuizHero.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
-                    b.HasOne("QuizHero.Quiz.Question", null)
+                    b.HasOne("QuizHero.Quiz.Question", "Question")
                         .WithMany()
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("QuizHero.Quiz.QuizResult", null)
+                    b.HasOne("QuizHero.Quiz.QuizResult", "QuizResult")
                         .WithMany("QuestionResults")
                         .HasForeignKey("QuizResultId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Creator");
+
+                    b.Navigation("Question");
+
+                    b.Navigation("QuizResult");
                 });
 
             modelBuilder.Entity("QuizHero.Quiz.Quiz", b =>
@@ -2157,13 +2164,15 @@ namespace QuizHero.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
-                    b.HasOne("QuizHero.Quiz.Quiz", null)
+                    b.HasOne("QuizHero.Quiz.Quiz", "Quiz")
                         .WithMany()
                         .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Creator");
+
+                    b.Navigation("Quiz");
                 });
 
             modelBuilder.Entity("QuizHero.Quiz.Topic", b =>

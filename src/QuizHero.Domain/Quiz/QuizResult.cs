@@ -17,9 +17,6 @@ namespace QuizHero.Quiz
 		[Required]
 		public virtual Guid QuizId { get; protected set; }
 
-		[ForeignKey(nameof(QuizId))]
-		public virtual Quiz Quiz { get; protected set; }
-
 		public virtual List<QuestionResult> QuestionResults { get; protected set; } = new();
 
 		protected QuizResult()
