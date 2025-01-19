@@ -1,4 +1,6 @@
-﻿namespace QuizHero.Zalo
+﻿using Volo.Abp.Caching;
+
+namespace QuizHero.Zalo
 {
 	public class ZaloErrorResponse
 	{
@@ -6,6 +8,7 @@
 		public string Message { get; set; } = default!;
 	}
 
+	[CacheName("ZaloProfile")]
 	public class ZaloProfileResponse : ZaloErrorResponse
 	{
 		public string Id { get; set; } = default!;
