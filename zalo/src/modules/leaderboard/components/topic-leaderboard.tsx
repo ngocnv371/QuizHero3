@@ -15,7 +15,7 @@ export const TopicLeaderboard: React.FC = () => {
     <>
       <TopicBar topicId={topicId!} tab="leaderboard" />
 
-      <Leaderboard items={data?.items} loading={isLoading} />
+      <Leaderboard items={data!} loading={isLoading} />
     </>
   )
 }

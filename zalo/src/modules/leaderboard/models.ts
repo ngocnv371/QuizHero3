@@ -1,6 +1,7 @@
 export interface LeaderboardItem {
-  id: number
+  userId: number
   name: string
-  avatar_url: string
+  avatarUrl: string
   score: number
+  rank: number
 }

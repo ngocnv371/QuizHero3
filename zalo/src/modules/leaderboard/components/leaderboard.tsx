@@ -14,11 +14,11 @@ export const Leaderboard: React.FC<Props> = ({ items, loading }) => {
     const item = input as LeaderboardItem
     return (
       <List.Item
-        key={item.id}
+        key={item.userId}
         className="px-0"
         title={item.name}
-        prefix={<Avatar src={item.avatar_url} />}
-        suffix={item.score}
+        prefix={<Avatar src={item.avatarUrl} />}
+        suffix={item.rank}
         subTitle={item.score.toString()}
       />
     )

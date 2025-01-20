@@ -7,7 +7,7 @@ export function useLeaderboard(topicId: string) {
     queryKey: ['leaderboard'],
     queryFn: async () => {
       console.log('fetching leaderboard')
-      const items = await client.getLeaderboard(topicId)
+      const { items } = await client.getLeaderboard(topicId)
       console.log('fetched leaderboard', items)
       return items
     },
