@@ -80,20 +80,25 @@ export const QuizPage: React.FC = () => {
         )}
       </div>
       <div className="absolute bottom-0 left-0 w-full p-4 flex items-center justify-between flex-row gap-2">
-        <Button onClick={handleBack} size="large" variant="tertiary" className="shrink-0" disabled={!canGoBack}>
-          <Icon icon="zi-arrow-left" />
-          Back
-        </Button>
-        <Button onClick={handleValidate} size="large" variant="secondary" disabled={showSolution} className="shrink-0">
+        <Button
+          icon={<Icon icon="zi-arrow-left" />}
+          onClick={handleBack}
+          variant="tertiary"
+          className="shrink-0"
+          disabled={!canGoBack}
+        ></Button>
+        <Button onClick={handleValidate} variant="secondary" disabled={showSolution} className="shrink-0">
           Check
         </Button>
         {isLastQuestion ? (
           <CompleteButton disabled={!canGoNext} quizId={quizId!} />
         ) : (
-          <Button onClick={handleNext} size="large" className="shrink-0" disabled={!canGoNext}>
-            Next
-            <Icon icon="zi-arrow-right" />
-          </Button>
+          <Button
+            icon={<Icon icon="zi-arrow-right" />}
+            onClick={handleNext}
+            className="shrink-0"
+            disabled={!canGoNext}
+          ></Button>
         )}
       </div>
       <div className="bg-white" style={{ height: 48 }} />
