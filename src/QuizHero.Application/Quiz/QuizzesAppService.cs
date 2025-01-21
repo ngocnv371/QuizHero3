@@ -58,5 +58,17 @@ namespace QuizHero.Quiz
 
 			return dto;
 		}
+
+		public async Task<QuizDto> GetQuickAsync(Guid topicId)
+		{
+			var queryable = await CreateFilteredQueryAsync(new QuizzesQueryDto { TopicId = topicId });
+			// get a random quiz
+			var query = queryable
+				.OrderBy(x => Guid.NewGuid())
+				.Select(x => x.Id)
+				.Take(1);
+			var quizId = await AsyncExecuter.FirstOrDefaultAsync(query);
+			return await GetAsync(quizId);
+		}
 	}
 }

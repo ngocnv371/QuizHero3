@@ -36,6 +36,19 @@ export const client = {
       throw error
     }
   },
+  getQuickQuiz: async (topicId: string) => {
+    try {
+      const response = await fetch(`${apiUrl}/quizzes/quick/${topicId}`, {
+        method: 'GET',
+        headers: getDefaultHeaders(),
+      })
+      const data = await handleResponse(response)
+      return data as QuizDto
+    } catch (error) {
+      console.error('Fetch error:', error)
+      throw error
+    }
+  },
   getQuizzes: async (topicId: string) => {
     try {
       const response = await fetch(`${apiUrl}/quizzes?topicId=${topicId}`, {

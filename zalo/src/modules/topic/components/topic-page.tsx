@@ -8,6 +8,7 @@ import { clsx } from '@/utils/clsx'
 
 import { useTopicById } from '../../explorer/use-explorer'
 import LikeTopicButton from './like-topic-button'
+import { QuickStartButton } from './quick-start-button'
 import { TopicAvatar } from './topic-avatar'
 import { TopicCover } from './topic-cover'
 import { TopicInfoLoading } from './topic-info-loading'
@@ -18,19 +19,9 @@ for (let i = 0; i <= 1.0; i += 0.01) {
 }
 
 export const TopicPage: React.FC = () => {
-  const nav = useNavigate()
   const { topicId } = useParams()
   const { topic, isLoading } = useTopicById(topicId!)
   const { entry, ref } = useIntersectionObserver({ threshold })
-
-  const handleStart = useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation()
-      console.log('start a quiz in topic', topic)
-      nav(`/quiz/${topic!.id}/player`, { animate: true, direction: 'forward' })
-    },
-    [topic, nav],
-  )
 
   if (isLoading) {
     return <TopicInfoLoading />
@@ -73,13 +64,7 @@ export const TopicPage: React.FC = () => {
             <div className="shrink-0"></div>
             <div className="shrink-0">
               <LikeTopicButton topicId={topic.id} />
-              <Button
-                className="relative after:content-[''] after:absolute after:-inset-2 after:bg-transparent"
-                icon={<Icon icon="zi-play-solid" />}
-                size="large"
-                variant="primary"
-                onClick={handleStart}
-              />
+              <QuickStartButton topicId={topic.id} />
             </div>
           </div>
           <Outlet />
