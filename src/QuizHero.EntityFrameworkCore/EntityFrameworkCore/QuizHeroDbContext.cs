@@ -32,6 +32,7 @@ public class QuizHeroDbContext :
 	public DbSet<Answer> Answers { get; set; }
 	public DbSet<QuizResult> QuizResults { get; set; }
 	public DbSet<QuestionResult> QuestionResults { get; set; }
+	public DbSet<UserTopic> UserTopics { get; set; }
 
 	#region Entities from the modules
 
@@ -102,6 +103,15 @@ public class QuizHeroDbContext :
 			b.HasOne<Quiz.Quiz>()
 				.WithMany()
 				.HasForeignKey(q => q.QuizId)
+				.OnDelete(DeleteBehavior.Restrict);
+		});
+
+		builder.Entity<UserTopic>(b =>
+		{
+			b.ConfigureByConvention();
+			b.HasOne<Quiz.Topic>()
+				.WithMany()
+				.HasForeignKey(q => q.TopicId)
 				.OnDelete(DeleteBehavior.Restrict);
 		});
 

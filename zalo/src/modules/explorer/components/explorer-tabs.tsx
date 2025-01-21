@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { BottomNavigation, useNavigate } from 'zmp-ui'
+import { BottomNavigation, Icon, useNavigate } from 'zmp-ui'
 
-import { IconCookPotSolid, IconNoteSolid } from '@/components/icons'
 import { IconRestaurant } from '@/components/icons/icon-restaurant'
 import { Routes } from '@/constants/routes'
 
@@ -35,8 +34,13 @@ export function ExplorerTabs({ activeTab }: { activeTab: MenuType }) {
 
   return (
     <BottomNavigation fixed activeKey={tab} onChange={handleTabChange}>
-      <BottomNavigation.Item key="topics" label="Menu" icon={<IconNoteSolid />} />
-      <BottomNavigation.Item className="z-10" label="Favourites" key="favorites" icon={<IconCookPotSolid />} />
+      <BottomNavigation.Item key="topics" label="Topics" icon={<Icon icon="zi-home" />} />
+      <BottomNavigation.Item
+        className="z-10"
+        label="Favourites"
+        key="favorites"
+        icon={<Icon icon="zi-heart-solid" />}
+      />
       <BottomNavigation.Item key="info" label="Info" icon={<IconRestaurant />} />
     </BottomNavigation>
   )

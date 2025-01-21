@@ -78,8 +78,12 @@ export const client = {
   likeTopic: async (topicId: string) => {
     try {
       const response = await fetch(`${apiUrl}/topics/${topicId}/like`, {
-        method: 'POST',
-        headers: getDefaultHeaders(),
+        method: 'PUT',
+        headers: {
+          ...getDefaultHeaders(),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ liked: true }),
       })
       await handleResponse(response)
     } catch (error) {
@@ -90,8 +94,12 @@ export const client = {
   unlikeTopic: async (topicId: string) => {
     try {
       const response = await fetch(`${apiUrl}/topics/${topicId}/unlike`, {
-        method: 'POST',
-        headers: getDefaultHeaders(),
+        method: 'PUT',
+        headers: {
+          ...getDefaultHeaders(),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ liked: false }),
       })
       await handleResponse(response)
     } catch (error) {

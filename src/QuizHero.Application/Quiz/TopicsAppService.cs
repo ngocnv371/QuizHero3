@@ -16,9 +16,16 @@ namespace QuizHero.Quiz
 		: CrudAppService<Topic, TopicDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateTopicDto>,
 		ITopicsAppService
 	{
-		public TopicsAppService(IRepository<Topic, Guid> repository)
+		protected readonly IRepository<UserTopic> UserTopicRepository;
+
+		public TopicsAppService(
+			IRepository<Topic, Guid> repository,
+			IRepository<UserTopic> userTopicRepository
+			)
 			: base(repository)
 		{
+			UserTopicRepository = userTopicRepository;
+
 			LocalizationResource = typeof(QuizHeroResource);
 			CreatePolicyName = QuizHeroPermissions.Topics.Create;
 			UpdatePolicyName = QuizHeroPermissions.Topics.Edit;
@@ -38,6 +45,23 @@ namespace QuizHero.Quiz
 			return new ListResultDto<TopicLookupDto>(
 				ObjectMapper.Map<List<Topic>, List<TopicLookupDto>>(topics)
 			);
+		}
+
+		public override Task<TopicDto> UpdateAsync(Guid id, CreateUpdateTopicDto input)
+		{
+			return base.UpdateAsync(id, input);
+		}
+
+		public async Task PutLikeAsync(Guid id, UpdateTopicLikeDto input)
+		{
+			if (input.Liked)
+			{
+				await UserTopicRepository.InsertAsync(new UserTopic(GuidGenerator.Create(), id), true);
+			}
+			else
+			{
+				await UserTopicRepository.DeleteAsync(x => x.TopicId == id && x.CreatorId == CurrentUser.Id);
+			}
 		}
 	}
 }
