@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
 import { Button, Icon, useSnackbar } from 'zmp-ui'
 
+import { useExplorer } from '@/modules/explorer/use-explorer'
+
 import { useAuth } from '../../auth/use-auth'
-import { useFavourites } from '../use-favourites'
 
 interface LikeTopicButtonProps {
   topicId: string
@@ -10,8 +11,8 @@ interface LikeTopicButtonProps {
 
 const LikeTopicButton: React.FC<LikeTopicButtonProps> = ({ topicId }) => {
   const { user } = useAuth()
-  const { actions } = useFavourites()
-  const liked = useFavourites((f) => f.favourites.includes(topicId))
+  const { actions } = useExplorer()
+  const liked = useExplorer((f) => f.favourites.includes(topicId))
   const { openSnackbar } = useSnackbar()
 
   const handleLike = useCallback(

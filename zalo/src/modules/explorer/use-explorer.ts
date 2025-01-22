@@ -5,17 +5,21 @@ import { persist } from 'zustand/middleware'
 
 import { storage } from '@/utils/storage'
 
+import { client } from '../api/client'
 import { Category, TopicDto } from './models'
 
 export type Explorer = {
   categories: Category[]
   topics: TopicDto[]
+  favourites: string[]
   isLoading: boolean
   actions: {
     load: (topics: TopicDto[]) => void
     clear: () => void
     startLoading: () => void
     stopLoading: () => void
+    updateFavourite: (payload: { topicId: string; liked: boolean }) => Promise<void>
+    loadFavourites: (ids: string[]) => void
   }
 }
 
@@ -23,6 +27,7 @@ export const useExplorer = create(
   persist<Explorer>(
     (set) => ({
       categories: [],
+      favourites: [],
       topics: [],
       isLoading: true,
       actions: {
@@ -56,6 +61,26 @@ export const useExplorer = create(
               state.topics = []
             }),
           ),
+        loadFavourites: (ids) =>
+          set(
+            produce<Explorer>((state) => {
+              state.favourites = ids
+            }),
+          ),
+        updateFavourite: async ({ topicId, liked }) => {
+          console.log('update like for topic', topicId, liked)
+          await client.likeTopic(topicId, liked)
+          // optimistic update
+          set(
+            produce<Explorer>((state) => {
+              if (liked) {
+                state.favourites = [...state.favourites, topicId]
+              } else {
+                state.favourites = state.favourites.filter((id) => id !== topicId)
+              }
+            }),
+          )
+        },
       },
     }),
     {
