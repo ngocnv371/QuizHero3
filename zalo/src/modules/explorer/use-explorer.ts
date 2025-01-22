@@ -13,6 +13,7 @@ export type Explorer = {
   topics: TopicDto[]
   favourites: string[]
   isLoading: boolean
+  showFavouritesOnly: boolean
   actions: {
     load: (topics: TopicDto[]) => void
     clear: () => void
@@ -20,6 +21,7 @@ export type Explorer = {
     stopLoading: () => void
     updateFavourite: (payload: { topicId: string; liked: boolean }) => Promise<void>
     loadFavourites: (ids: string[]) => void
+    toggleShowFavourites: () => void
   }
 }
 
@@ -30,6 +32,7 @@ export const useExplorer = create(
       favourites: [],
       topics: [],
       isLoading: true,
+      showFavouritesOnly: false,
       actions: {
         startLoading: () =>
           set(
@@ -46,12 +49,8 @@ export const useExplorer = create(
         load: (topics) =>
           set(
             produce<Explorer>((state) => {
-              const cats = Array.from(new Set(topics.map((t) => t.category)))
               state.topics = topics
-              state.categories = cats.map((c) => ({
-                name: c,
-                topics: topics.filter((t) => t.category === c),
-              }))
+              state.categories = categorizeTopics(topics)
             }),
           ),
         clear: () =>
@@ -81,17 +80,39 @@ export const useExplorer = create(
             }),
           )
         },
+        toggleShowFavourites: () =>
+          set(
+            produce<Explorer>((state) => {
+              state.showFavouritesOnly = !state.showFavouritesOnly
+              const filtered = state.showFavouritesOnly
+                ? state.topics.filter((t) => state.favourites.includes(t.id))
+                : state.topics
+              state.categories = categorizeTopics(filtered)
+            }),
+          ),
       },
     }),
     {
       name: 'dashboard',
       storage: storage,
       partialize(state) {
-        return { categories: state.categories, topics: state.topics } as Explorer
+        return {
+          categories: categorizeTopics(state.topics),
+          topics: state.topics,
+          showFavouritesOnly: state.showFavouritesOnly,
+        } as Explorer
       },
     },
   ),
 )
+
+function categorizeTopics(topics: TopicDto[]) {
+  const cats = Array.from(new Set(topics.map((t) => t.category)))
+  return cats.map((c) => ({
+    name: c,
+    topics: topics.filter((t) => t.category === c),
+  }))
+}
 
 export function useTopicById(id: string) {
   const { topics, isLoading } = useExplorer()
