@@ -5,6 +5,7 @@ import { useFavourites } from '../use-favourites'
 import { CategoriesList } from './categories-list'
 
 export const FavouritesPage: React.FC = () => {
+  console.log('render favourites page')
   useFavourites()
 
   return (

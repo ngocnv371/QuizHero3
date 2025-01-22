@@ -16,6 +16,10 @@ const handleResponse = async (response: Response) => {
     const error = await response.json()
     throw new Error(error.message || 'Network response was not ok')
   }
+  if (response.status === 204) {
+    return null
+  }
+
   return response.json()
 }
 
@@ -75,7 +79,7 @@ export const client = {
       throw error
     }
   },
-  likeTopic: async (topicId: string) => {
+  likeTopic: async (topicId: string, liked: boolean) => {
     try {
       const response = await fetch(`${apiUrl}/topics/${topicId}/like`, {
         method: 'PUT',
@@ -83,23 +87,7 @@ export const client = {
           ...getDefaultHeaders(),
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ liked: true }),
-      })
-      await handleResponse(response)
-    } catch (error) {
-      console.error('Fetch error:', error)
-      throw error
-    }
-  },
-  unlikeTopic: async (topicId: string) => {
-    try {
-      const response = await fetch(`${apiUrl}/topics/${topicId}/unlike`, {
-        method: 'PUT',
-        headers: {
-          ...getDefaultHeaders(),
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ liked: false }),
+        body: JSON.stringify({ liked }),
       })
       await handleResponse(response)
     } catch (error) {

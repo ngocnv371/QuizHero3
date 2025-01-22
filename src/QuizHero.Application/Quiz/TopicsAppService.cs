@@ -51,11 +51,12 @@ namespace QuizHero.Quiz
 		{
 			if (input.Liked)
 			{
-				await UserTopicRepository.InsertAsync(new UserTopic(GuidGenerator.Create(), id), true);
+				var fav = new UserTopic(GuidGenerator.Create(), id);
+				await UserTopicRepository.InsertAsync(fav, true);
 			}
 			else
 			{
-				await UserTopicRepository.DeleteAsync(x => x.TopicId == id && x.CreatorId == CurrentUser.Id);
+				await UserTopicRepository.DeleteAsync(x => x.TopicId == id && x.CreatorId == CurrentUser.Id, true);
 			}
 		}
 

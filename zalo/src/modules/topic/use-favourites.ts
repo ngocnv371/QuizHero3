@@ -10,8 +10,8 @@ export type TopicFavouritesState = {
   isLoading: boolean
   favourites: string[]
   actions: {
-    load: (userId: string) => Promise<void>
-    updateFavourite: (payload: { userId: string; topicId: string; favourite: boolean }) => Promise<void>
+    load: () => Promise<void>
+    updateFavourite: (payload: { topicId: string; liked: boolean }) => Promise<void>
   }
 }
 
@@ -21,28 +21,24 @@ export const useFavourites = create(
       isLoading: false,
       favourites: [],
       actions: {
-        load: async (userId) => {
-          const data = await client.getFavourites(userId)
+        load: async () => {
+          const data = await client.getFavourites()
           console.log('user topics', data)
           set(
             produce<TopicFavouritesState>((state) => {
-              state.favourites = []
+              state.favourites = data.items.map((item) => item.id)
               state.isLoading = false
+              console.log('user topics', state.favourites)
             }),
           )
         },
-        updateFavourite: async ({ userId, topicId, favourite }) => {
-          if (favourite) {
-            console.log('add favourite')
-            await client.likeTopic(topicId)
-          } else {
-            console.log('remove favourite')
-            await client.unlikeTopic(topicId)
-          }
+        updateFavourite: async ({ topicId, liked }) => {
+          console.log('update like for topic', topicId, liked)
+          await client.likeTopic(topicId, liked)
           // optimistic update
           set(
             produce<TopicFavouritesState>((state) => {
-              if (favourite) {
+              if (liked) {
                 state.favourites = [...state.favourites, topicId]
               } else {
                 state.favourites = state.favourites.filter((id) => id !== topicId)

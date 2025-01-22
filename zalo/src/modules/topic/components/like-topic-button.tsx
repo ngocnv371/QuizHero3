@@ -17,7 +17,8 @@ const LikeTopicButton: React.FC<LikeTopicButtonProps> = ({ topicId }) => {
   const handleLike = useCallback(
     async () => {
       try {
-        await actions.updateFavourite({ userId: user!.id, topicId, favourite: !liked })
+        console.log('was liked?', liked)
+        await actions.updateFavourite({ topicId, liked: !liked })
         openSnackbar({
           text: liked ? 'Unliked the topic' : 'Liked the topic',
           type: 'success',
@@ -36,7 +37,7 @@ const LikeTopicButton: React.FC<LikeTopicButtonProps> = ({ topicId }) => {
       className="relative after:content-[''] after:absolute after:-inset-2 after:bg-transparent mr-2"
       icon={<Icon icon={liked ? 'zi-heart-solid' : 'zi-heart'} />}
       onClick={handleLike}
-      variant={liked ? 'primary' : 'tertiary'}
+      variant="secondary"
       size="large"
     />
   )
