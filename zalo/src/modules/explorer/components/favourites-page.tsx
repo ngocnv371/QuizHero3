@@ -1,15 +1,15 @@
 import React from 'react'
 import { Header } from 'zmp-ui'
 
-import { useTopics } from '../use-topics'
+import { useFavourites } from '../use-favourites'
 import { CategoriesList } from './categories-list'
 
-export const TopicsPage: React.FC = () => {
-  useTopics()
+export const FavouritesPage: React.FC = () => {
+  useFavourites()
 
   return (
-    <div key="topics-page">
-      <Header title="Topics" showBackIcon={false} className="no-divider" />
+    <div key="favourites-page">
+      <Header title="Favourites" showBackIcon={false} className="no-divider" />
       <div style={{ height: 30 }} />
       <CategoriesList />
       <div className="bg-white" style={{ height: 48 }} />

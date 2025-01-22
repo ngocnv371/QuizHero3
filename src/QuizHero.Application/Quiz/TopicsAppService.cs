@@ -4,7 +4,6 @@ using QuizHero.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -47,11 +46,7 @@ namespace QuizHero.Quiz
 			);
 		}
 
-		public override Task<TopicDto> UpdateAsync(Guid id, CreateUpdateTopicDto input)
-		{
-			return base.UpdateAsync(id, input);
-		}
-
+		[Authorize(AuthenticationSchemes = "Zalo")]
 		public async Task PutLikeAsync(Guid id, UpdateTopicLikeDto input)
 		{
 			if (input.Liked)
@@ -62,6 +57,21 @@ namespace QuizHero.Quiz
 			{
 				await UserTopicRepository.DeleteAsync(x => x.TopicId == id && x.CreatorId == CurrentUser.Id);
 			}
+		}
+
+		[Authorize(AuthenticationSchemes = "Zalo")]
+		[Authorize(QuizHeroPermissions.Topics.Default)]
+		public async Task<ListResultDto<TopicDto>> GetFavouritesAsync()
+		{
+			var userTopicsQueryable = await UserTopicRepository.GetQueryableAsync();
+			userTopicsQueryable = userTopicsQueryable.Where(x => x.CreatorId == CurrentUser.Id);
+			var topicsQueryable = await Repository.GetQueryableAsync();
+			var query = from userTopic in userTopicsQueryable
+						join topic in topicsQueryable on userTopic.TopicId equals topic.Id
+						select topic;
+			var entities = await AsyncExecuter.ToListAsync(query);
+			var dtos = await MapToGetListOutputDtosAsync(entities);
+			return new ListResultDto<TopicDto>(dtos);
 		}
 	}
 }

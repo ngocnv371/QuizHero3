@@ -136,5 +136,17 @@ export const client = {
       throw error
     }
   },
-  getFavourites: async (userId: string) => Promise.resolve({} as ListResponse<TopicDto>),
+  getFavourites: async () => {
+    try {
+      const response = await fetch(`${apiUrl}/topics/favourites`, {
+        method: 'GET',
+        headers: getDefaultHeaders(),
+      })
+      const data = await handleResponse(response)
+      return data as ListResponse<TopicDto>
+    } catch (error) {
+      console.error('Fetch error:', error)
+      throw error
+    }
+  },
 }

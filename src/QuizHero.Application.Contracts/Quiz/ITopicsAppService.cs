@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -16,5 +17,7 @@ namespace QuizHero.Quiz
 		Task<ListResultDto<TopicLookupDto>> GetLookupAsync(string? term);
 
 		Task PutLikeAsync(Guid id, UpdateTopicLikeDto input);
+
+		Task<ListResultDto<TopicDto>> GetFavouritesAsync();
 	}
 }

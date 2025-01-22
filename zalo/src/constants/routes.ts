@@ -7,7 +7,7 @@ export const Routes = {
   },
   explorer: {
     page: () => `/`,
-    favorites: () => `/favorites`,
+    favorites: () => `/favourites`,
     topic: (id: string) => `/topics/${id}`,
     topicQuizzes: (id: string) => `/topics/${id}/quizzes`,
     topicLeaderboard: (id: string) => `/topics/${id}/leaderboard`,

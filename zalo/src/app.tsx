@@ -10,6 +10,7 @@ import { QuizPage } from './modules/quiz/components/quiz-page'
 import { QuizResultPage } from './modules/quiz/components/result-page'
 import QuizList from './modules/topic/components/quiz-list'
 import ExplorerRootPage from './pages/explorer'
+import FavouritesRootPage from './pages/favourites'
 import QuizRootPage from './pages/quiz'
 import TopicRootPage from './pages/topic'
 
@@ -33,6 +34,7 @@ const MyApp = () => {
                 <UserLoader />
                 <AnimationRoutes>
                   <Route path="/" element={<ExplorerRootPage />} />
+                  <Route path="/favourites" element={<FavouritesRootPage />} />
                   <Route path="/topics" element={<ExplorerRootPage />} />
                   <Route path="/topics/:topicId" element={<TopicRootPage />}>
                     <Route path="/topics/:topicId/" element={<QuizList />} />

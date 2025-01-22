@@ -6,7 +6,7 @@ import { Routes } from '@/constants/routes'
 
 import { useExplorer } from '../use-explorer'
 
-type MenuType = 'topics' | 'favorites' | 'info'
+type MenuType = 'topics' | 'favourites' | 'info'
 
 export function ExplorerTabs({ activeTab }: { activeTab: MenuType }) {
   const navigate = useNavigate()
@@ -18,7 +18,7 @@ export function ExplorerTabs({ activeTab }: { activeTab: MenuType }) {
     setTab(tab as MenuType)
     let url = Routes.explorer.page()
     switch (tab) {
-      case 'favorites':
+      case 'favourites':
         url = Routes.explorer.favorites()
         break
       case 'info':
@@ -27,6 +27,7 @@ export function ExplorerTabs({ activeTab }: { activeTab: MenuType }) {
       default:
         break
     }
+    console.log('navigate to', url)
     navigate(url, { animate: false, replace: true })
   }
 
@@ -38,7 +39,7 @@ export function ExplorerTabs({ activeTab }: { activeTab: MenuType }) {
       <BottomNavigation.Item
         className="z-10"
         label="Favourites"
-        key="favorites"
+        key="favourites"
         icon={<Icon icon="zi-heart-solid" />}
       />
       <BottomNavigation.Item key="info" label="Info" icon={<IconRestaurant />} />
