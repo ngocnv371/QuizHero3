@@ -27,7 +27,14 @@ namespace QuizHero.Quiz
 		{
 		}
 
-		public Topic(Guid id, [NotNull] string name, [NotNull] string category, string description)
+		public Topic(
+			Guid id, 
+			[NotNull] string name,
+			[NotNull] string category,
+			string description,
+			string avatarUrl,
+			string coverUrl
+			)
 		{
 			Check.NotNullOrWhiteSpace(name, nameof(name));
 			Check.NotNullOrWhiteSpace(category, nameof(category));
@@ -35,6 +42,8 @@ namespace QuizHero.Quiz
 			Name = name;
 			Category = category;
 			Description = description;
+			AvatarUrl = avatarUrl;
+			CoverUrl = coverUrl;
 		}
 	}
 }
