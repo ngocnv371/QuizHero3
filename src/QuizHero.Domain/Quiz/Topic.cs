@@ -20,8 +20,8 @@ namespace QuizHero.Quiz
 		public string Category { get; protected set; } = default!;
 
 		public string Description { get; protected set; } = default!;
-		public string AvatarUrl { get; protected set; } = default!;
-		public string CoverUrl { get; protected set; } = default!;
+		public string AvatarUrl { get; protected set; } = "";
+		public string CoverUrl { get; protected set; } = "";
 
 		protected Topic()
 		{
