@@ -4,6 +4,7 @@ import { Header, Page } from 'zmp-ui'
 import { PageContainer } from '@/components'
 import { ProfileLayout } from '@/modules/profile/components/layout'
 import { ExplorerTabs } from '@/modules/explorer/components/explorer-tabs'
+import { LocationForm } from '@/modules/profile/components/location-form'
 
 export default function ProfileLocationPage() {
   return (
@@ -11,7 +12,7 @@ export default function ProfileLocationPage() {
       <Page restoreScroll className="bg-background section-container">
         <PageContainer withBottomNav withHeader>
           <Header title="Location" className="no-divider" />
-          <span>yo</span>
+          <LocationForm />
         </PageContainer>
       </Page>
       <ExplorerTabs activeTab="profile" />
