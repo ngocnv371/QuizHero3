@@ -12,4 +12,10 @@ export const Routes = {
     topicQuizzes: (id: string) => `/topics/${id}/quizzes`,
     topicLeaderboard: (id: string) => `/topics/${id}/leaderboard`,
   },
+  profile: {
+    page: () => `/profile`,
+    locationSetting: () => `/profile/location`,
+    privacySetting: () => `/profile/privacy`,
+    securitySetting: () => `/profile/security`
+  }
 }

@@ -11,7 +11,7 @@ export default function FavouritesRootPage() {
   return (
     <ExplorerLayout>
       <Page restoreScroll hideScrollbar>
-        <PageContainer withBottomNav>
+        <PageContainer withBottomNav withHeader>
           <FavouritesPage />
         </PageContainer>
       </Page>

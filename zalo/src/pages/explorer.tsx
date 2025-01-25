@@ -11,7 +11,7 @@ export default function ExplorerRootPage() {
   return (
     <ExplorerLayout>
       <Page restoreScroll>
-        <PageContainer withBottomNav>
+        <PageContainer withBottomNav withHeader>
           <TopicsPage />
         </PageContainer>
       </Page>

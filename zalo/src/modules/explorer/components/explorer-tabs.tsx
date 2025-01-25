@@ -6,7 +6,7 @@ import { Routes } from '@/constants/routes'
 
 import { useExplorer } from '../use-explorer'
 
-type MenuType = 'topics' | 'favourites' | 'info'
+type MenuType = 'topics' | 'favourites' | 'profile'
 
 export function ExplorerTabs({ activeTab }: { activeTab: MenuType }) {
   const navigate = useNavigate()
@@ -21,8 +21,8 @@ export function ExplorerTabs({ activeTab }: { activeTab: MenuType }) {
       case 'favourites':
         url = Routes.explorer.favorites()
         break
-      case 'info':
-        url = Routes.merchant.info()
+      case 'profile':
+        url = Routes.profile.page()
         break
       default:
         break
@@ -42,7 +42,7 @@ export function ExplorerTabs({ activeTab }: { activeTab: MenuType }) {
         key="favourites"
         icon={<Icon icon="zi-heart-solid" />}
       />
-      <BottomNavigation.Item key="info" label="Info" icon={<IconRestaurant />} />
+      <BottomNavigation.Item key="profile" label="Profile" icon={<Icon icon="zi-user-circle" />} />
     </BottomNavigation>
   )
 }

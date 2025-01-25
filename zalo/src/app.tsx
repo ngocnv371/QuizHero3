@@ -13,6 +13,7 @@ import ExplorerRootPage from './pages/explorer'
 import FavouritesRootPage from './pages/favourites'
 import QuizRootPage from './pages/quiz'
 import TopicRootPage from './pages/topic'
+import ProfileRootPage from './pages/profile'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +35,7 @@ const MyApp = () => {
                 <UserLoader />
                 <AnimationRoutes>
                   <Route path="/" element={<ExplorerRootPage />} />
+                  <Route path="/profile" element={<ProfileRootPage />} />
                   <Route path="/favourites" element={<FavouritesRootPage />} />
                   <Route path="/topics" element={<ExplorerRootPage />} />
                   <Route path="/topics/:topicId" element={<TopicRootPage />}>

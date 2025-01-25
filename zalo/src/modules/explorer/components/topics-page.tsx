@@ -9,11 +9,9 @@ export const TopicsPage: React.FC = () => {
   useTopics()
 
   return (
-    <div key="topics-page">
+    <>
       <Header title="Topics" showBackIcon={false} className="no-divider" />
-      <div style={{ height: 30 }} />
       <CategoriesList />
-      <div className="bg-white" style={{ height: 48 }} />
-    </div>
+    </>
   )
 }
