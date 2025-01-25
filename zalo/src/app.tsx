@@ -35,17 +35,25 @@ const MyApp = () => {
                 <UserLoader />
                 <AnimationRoutes>
                   <Route path="/" element={<ExplorerRootPage />} />
-                  <Route path="/profile" element={<ProfileRootPage />} />
+                  <Route path="/profile">
+                    <Route index element={<ProfileRootPage />} />
+                    <Route path="location" element={<ProfileRootPage />} />
+                    <Route path="security" element={<ProfileRootPage />} />
+                    <Route path="privacy" element={<ProfileRootPage />} />
+                  </Route>
                   <Route path="/favourites" element={<FavouritesRootPage />} />
-                  <Route path="/topics" element={<ExplorerRootPage />} />
-                  <Route path="/topics/:topicId" element={<TopicRootPage />}>
-                    <Route path="/topics/:topicId/" element={<QuizList />} />
-                    <Route path="/topics/:topicId/quizzes" element={<QuizList />} />
-                    <Route path="/topics/:topicId/leaderboard" element={<TopicLeaderboard />} />
+                  <Route path="/topics">
+                    <Route index element={<ExplorerRootPage />} />
+                    <Route path=":topicId" element={<TopicRootPage />}>
+                      <Route index element={<QuizList />} />
+                      <Route path="quizzes" element={<QuizList />} />
+                      <Route path="leaderboard" element={<TopicLeaderboard />} />
+                    </Route>
                   </Route>
                   <Route path="/quiz/:quizId" element={<QuizRootPage />}>
-                    <Route path="/quiz/:quizId/player" element={<QuizPage />} />
-                    <Route path="/quiz/:quizId/result" element={<QuizResultPage />} />
+                    <Route index element={<QuizPage />} />
+                    <Route path="player" element={<QuizPage />} />
+                    <Route path="result" element={<QuizResultPage />} />
                   </Route>
                 </AnimationRoutes>
               </ZMPRouter>
