@@ -14,6 +14,9 @@ import FavouritesRootPage from './pages/favourites'
 import QuizRootPage from './pages/quiz'
 import TopicRootPage from './pages/topic'
 import ProfileRootPage from './pages/profile'
+import ProfileLocationPage from './pages/profile/location'
+import ProfileSecurityPage from './pages/profile/security'
+import ProfilePrivacyPage from './pages/profile/privacy'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,9 +40,9 @@ const MyApp = () => {
                   <Route path="/" element={<ExplorerRootPage />} />
                   <Route path="/profile">
                     <Route index element={<ProfileRootPage />} />
-                    <Route path="location" element={<ProfileRootPage />} />
-                    <Route path="security" element={<ProfileRootPage />} />
-                    <Route path="privacy" element={<ProfileRootPage />} />
+                    <Route path="location" element={<ProfileLocationPage />} />
+                    <Route path="security" element={<ProfileSecurityPage />} />
+                    <Route path="privacy" element={<ProfilePrivacyPage />} />
                   </Route>
                   <Route path="/favourites" element={<FavouritesRootPage />} />
                   <Route path="/topics">
