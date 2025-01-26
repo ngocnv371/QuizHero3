@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
@@ -15,7 +16,7 @@ namespace QuizHero.Quiz
 		IIdentityUserRepository identityUserRepository
 		) : QuizHeroAppService, ILeaderboardAppService
 	{
-		public async Task<List<LeaderboardItemDto>> GetAsync(Guid topicId)
+		public async Task<ListResultDto<LeaderboardItemDto>> GetAsync(Guid topicId)
 		{
 			var quizQuery = await quizRepository.GetQueryableAsync();
 			var quizResultQuery = await quizResultRepository.GetQueryableAsync();
@@ -69,7 +70,7 @@ namespace QuizHero.Quiz
 				item.Rank = i + 1;
 			}
 
-			return dtos;
+			return new ListResultDto<LeaderboardItemDto>(dtos);
 		}
 	}
 }

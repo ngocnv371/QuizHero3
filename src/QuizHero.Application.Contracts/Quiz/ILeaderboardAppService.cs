@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Dtos;
 
 namespace QuizHero.Quiz
 {
@@ -15,6 +16,6 @@ namespace QuizHero.Quiz
 
 	public interface ILeaderboardAppService
 	{
-		Task<List<LeaderboardItemDto>> GetAsync(Guid topicId);
+		Task<ListResultDto<LeaderboardItemDto>> GetAsync(Guid topicId);
 	}
 }

@@ -1,7 +1,7 @@
 import { TopicDto } from '../explorer/models'
 import { LeaderboardItem } from '../leaderboard/models'
 import { QuizDto } from '../quiz/models'
-import { CreateQuizResultDto, IdentityUserDto, ListResponse, UpdateLocationInputDto } from './models'
+import { CreateQuizResultDto, IdentityUserDto, ListResultDto, UpdateLocationInputDto } from './models'
 
 const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
 
@@ -34,7 +34,7 @@ export const client = {
         headers: getDefaultHeaders(),
       })
       const data = await handleResponse(response)
-      return data as ListResponse<TopicDto>
+      return data as ListResultDto<TopicDto>
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
@@ -60,7 +60,7 @@ export const client = {
         headers: getDefaultHeaders(),
       })
       const data = await handleResponse(response)
-      return data as ListResponse<QuizDto>
+      return data as ListResultDto<QuizDto>
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
@@ -118,7 +118,7 @@ export const client = {
         headers: getDefaultHeaders(),
       })
       const data = await handleResponse(response)
-      return data as ListResponse<LeaderboardItem>
+      return data as ListResultDto<LeaderboardItem>
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
@@ -131,7 +131,7 @@ export const client = {
         headers: getDefaultHeaders(),
       })
       const data = await handleResponse(response)
-      return data as ListResponse<TopicDto>
+      return data as ListResultDto<TopicDto>
     } catch (error) {
       console.error('Fetch error:', error)
       throw error

@@ -1,4 +1,4 @@
-export interface ListResponse<T> {
+export interface ListResultDto<T> {
   items: T[]
 }
 
