@@ -1,5 +1,6 @@
 export interface ListResultDto<T> {
   items: T[]
+  totalCount: number
 }
 
 export type CreateQuestionResultDto = {
@@ -26,4 +27,18 @@ export type IdentityUserDto = {
 export type UpdateLocationInputDto = {
   city: string
   province: string
+}
+
+export type QuizResultQuery = {
+  quizId?: string
+}
+
+export type QuizResultDto = {
+  id: string;
+  quizId: string;
+  topicAvatarUrl: string;
+  score: number;
+  maxScore: number;
+  quiz: string;
+  topic: string;
 }
