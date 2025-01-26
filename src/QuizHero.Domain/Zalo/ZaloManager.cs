@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using QuizHero.Quiz;
 using System;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -48,6 +49,11 @@ namespace QuizHero.Zalo
 			);
 		}
 
+		protected static JsonSerializerOptions JsonSerializerOptions => new JsonSerializerOptions
+		{
+			PropertyNameCaseInsensitive = true
+		};
+
 		protected async Task<ZaloProfileResponse?> GetProfile(string accessToken)
 		{
 			if (string.IsNullOrWhiteSpace(accessToken))
@@ -68,18 +74,15 @@ namespace QuizHero.Zalo
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
-				var data = JsonSerializer.Deserialize<ZaloProfileResponse>(content, new JsonSerializerOptions
-				{
-					PropertyNameCaseInsensitive = true
-				});
+				var data = JsonSerializer.Deserialize<ZaloProfileResponse>(content, JsonSerializerOptions);
 				if (data == null)
 				{
-					Logger.LogError("Zalo response is null: {0}", content);
+					Logger.LogError("Zalo response is null: {content}", content);
 					return null;
 				}
 				if (data.Error != 0)
 				{
-					Logger.LogError("Zalo error: {0} - {1}", data.Error, data.Message);
+					Logger.LogError("Zalo error: {error} - {message}", data.Error, data.Message);
 					return null;
 				}
 
@@ -125,13 +128,23 @@ namespace QuizHero.Zalo
 			}
 
 			var role = await identityRoleManager.FindByNameAsync("user");
-			user = new IdentityUser(GuidGenerator.Create(), name, email);
-			user.Name = profile.Name;
-			user.SetProperty("ZaloId", profile.Id.ToString());
-			user.SetProperty("AvatarUrl", profile.Picture.Data.Url);
+			if (role == null)
+			{
+				Logger.LogError("Role 'user' not found");
+				return null;
+			}
+
+			user = new(GuidGenerator.Create(), name, email)
+			{
+				Name = profile.Name
+			};
+
+			user.SetZaloId(profile.Id.ToString());
+			user.SetAvatarUrl(profile.Picture.Data.Url);
 			user.SetEmailConfirmed(true);
 			user.IsExternal = true;
 			user.AddRole(role.Id);
+
 			await identityUserManager.CreateAsync(user, configuration["Zalo:DefaultPassword"], validatePassword: false);
 
 			return user;

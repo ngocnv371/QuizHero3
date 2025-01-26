@@ -38,22 +38,8 @@ namespace QuizHero.Auth
 			}
 
 			var headerValue = Request.Headers[HeaderName].ToString();
-			var user = await ZaloService.Authenticate(headerValue);
-			if (user == null)
-			{
-				return AuthenticateResult.Fail("Invalid access key");
-			}
-
-			var claims = new List<Claim>
-			{
-				new Claim(AbpClaimTypes.Role, "user"),
-				new Claim(AbpClaimTypes.UserName, user.UserName),
-				new Claim(AbpClaimTypes.Name, user.Name),
-				new Claim(AbpClaimTypes.UserId, user.Id.ToString()),
-				new Claim(AbpClaimTypes.Picture, user.GetProperty("AvatarUrl").ToString()),
-				new Claim(AbpClaimTypes.Email, user.Email),
-				new Claim(AbpClaimTypes.EmailVerified, user.EmailConfirmed.ToString())
-			};
+			var claims = await ZaloService.AuthenticateAsync(headerValue);
+			
 			var identity = new ClaimsIdentity(claims, Scheme.Name);
 			var principal = new ClaimsPrincipal(identity);
 			var ticket = new AuthenticationTicket(principal, Scheme.Name);

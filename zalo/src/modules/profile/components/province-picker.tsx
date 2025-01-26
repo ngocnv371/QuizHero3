@@ -37,7 +37,6 @@ export const ProvincePicker: React.FC<Props> = ({ parent, value, onChange }) => 
   return (
     <Picker
       label={name}
-      helperText="Pick a province"
       mask
       maskClosable
       title={name}

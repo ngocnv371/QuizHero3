@@ -1,9 +1,9 @@
-import { useCurrentUser } from '@/modules/auth/use-current-user'
+import { useLoadProfile } from '@/modules/auth/use-load-profile'
 import React from 'react'
 import { Avatar, List } from 'zmp-ui'
 
 export const UserItem: React.FC = () => {
-  const { data: user, isLoading } = useCurrentUser()
+  const { data: user, isLoading } = useLoadProfile()
   if (isLoading || !user) {
     return (
       <div className="px-4 flex flex-col gap-3 mt-4">
@@ -15,5 +15,11 @@ export const UserItem: React.FC = () => {
     )
   }
 
-  return <List.Item title={user.name} prefix={<Avatar src={user.avatar_url} />} subTitle="This is you"></List.Item>
+  return (
+    <List.Item
+      title={user.name}
+      prefix={<Avatar src={user.extraProperties.avatarUrl} />}
+      subTitle="This is you"
+    ></List.Item>
+  )
 }

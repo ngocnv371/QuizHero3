@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { Button, Icon, useNavigate, useSnackbar } from 'zmp-ui'
 
 import { RetryLoginButton } from '@/modules/auth/components/retry-login-button'
-import { useAuth } from '@/modules/auth/use-auth'
+import { useProfile } from '@/modules/auth/use-auth'
 
 import { useQuiz } from '../use-quiz'
 
@@ -15,7 +15,7 @@ type CompleteButtonProps = {
 export const CompleteButton: React.FC<CompleteButtonProps> = ({ disabled, quizId }) => {
   const [loading, setLoading] = React.useState(false)
   const { actions } = useQuiz()
-  const { user } = useAuth()
+  const { profile: user } = useProfile()
   const nav = useNavigate()
   const { openSnackbar } = useSnackbar()
 

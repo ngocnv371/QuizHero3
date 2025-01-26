@@ -2,12 +2,12 @@ import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Avatar, Button, Header, Icon, Progress, useNavigate } from 'zmp-ui'
 
-import { useAuth } from '@/modules/auth/use-auth'
+import { useProfile } from '@/modules/auth/use-auth'
 
 import { useQuizResult } from '../use-quiz-result'
 
 export const QuizResultPage: React.FC = () => {
-  const { user } = useAuth()
+  const { profile: user } = useProfile()
   const nav = useNavigate()
   const { quizId } = useParams()
   const { score, completed, total } = useQuizResult()

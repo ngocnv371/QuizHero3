@@ -4,38 +4,51 @@ import { persist } from 'zustand/middleware'
 
 import { storage } from '@/utils/storage'
 
-import { User } from './models'
+import { IdentityUserDto } from '../api/models'
+import { client } from '../api/client'
 
-export type AuthState = {
-  user: User
+export type ProfileState = {
+  profile: IdentityUserDto
   isLoading: boolean
   error: string
   actions: {
-    load: (payload: User) => void
+    load: (payload: IdentityUserDto) => void,
+    updateLocation: (city: string, province: string) => Promise<void>
   }
 }
 
-export const useAuth = create(
-  persist<AuthState>(
+export const useProfile = create(
+  persist<ProfileState>(
     (set) => ({
-      user: {} as User,
+      profile: {} as IdentityUserDto,
       isLoading: false,
       error: '',
       actions: {
         load: (user) =>
           set(
-            produce<AuthState>((state) => {
-              state.user = user
+            produce<ProfileState>((state) => {
+              state.profile = user
               state.isLoading = false
             }),
           ),
+
+          updateLocation: async (city, province) => {
+            set(
+              produce<ProfileState>((state) => {
+                state.profile.extraProperties.city = city;
+                state.profile.extraProperties.province = province;
+              }),
+            )
+            await client.updateLocation({city, province})
+            console.log('location updated', city, province)
+          },
       },
     }),
     {
-      name: 'quiz',
+      name: 'profile',
       storage: storage,
       partialize(state) {
-        return { user: state.user } as AuthState
+        return { profile: state.profile } as ProfileState
       },
     },
   ),

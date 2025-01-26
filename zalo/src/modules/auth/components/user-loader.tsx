@@ -3,10 +3,10 @@ import { useSnackbar } from 'zmp-ui'
 
 import { useFavourites } from '@/modules/explorer/use-favourites'
 
-import { useCurrentUser } from '../use-current-user'
+import { useLoadProfile } from '../use-load-profile'
 
 export function UserLoader() {
-  const { data: user } = useCurrentUser()
+  const { data: user } = useLoadProfile()
   const { openSnackbar } = useSnackbar()
   useFavourites(user?.id != null)
 

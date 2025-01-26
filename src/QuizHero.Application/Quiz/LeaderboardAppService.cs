@@ -55,7 +55,7 @@ namespace QuizHero.Quiz
 					{
 						UserId = x.UserId.Value,
 						Name = user?.Name,
-						AvatarUrl = user?.GetProperty("AvatarUrl").ToString(),
+						AvatarUrl = user.GetAvatarUrl(),
 						Score = x.Score
 					};
 				})

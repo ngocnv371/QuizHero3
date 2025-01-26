@@ -34,7 +34,6 @@ export const CityPicker: React.FC<Props> = ({ value, onChange }) => {
   return (
     <Picker
       label={name}
-      helperText="Pick a city"
       mask
       maskClosable
       title={name}

@@ -1,7 +1,7 @@
 import { TopicDto } from '../explorer/models'
 import { LeaderboardItem } from '../leaderboard/models'
 import { QuizDto } from '../quiz/models'
-import { CreateQuizResultDto, ListResponse } from './models'
+import { CreateQuizResultDto, IdentityUserDto, ListResponse, UpdateLocationInputDto } from './models'
 
 const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
 
@@ -24,7 +24,7 @@ const handleResponse = async (response: Response) => {
 }
 
 export const client = {
-  authenticate: (accessKey: string) => {
+  setToken: (accessKey: string) => {
     _accessKey = accessKey
   },
   getTopics: async () => {
@@ -137,4 +137,33 @@ export const client = {
       throw error
     }
   },
+  getProfile: async () => {
+    try {
+      const response = await fetch(`${apiUrl}/zalo/profile`, {
+        method: 'GET',
+        headers: getDefaultHeaders(),
+      })
+      const data = await handleResponse(response)
+      return data as IdentityUserDto
+    } catch (error) {
+      console.error('Fetch error:', error)
+      throw error
+    }
+  },  
+  updateLocation: async (input: UpdateLocationInputDto) => {
+    try {
+      const response = await fetch(`${apiUrl}/zalo/location`, {
+        method: 'PUT',
+        headers: {
+          ...getDefaultHeaders(),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input),
+      })
+      await handleResponse(response)
+    } catch (error) {
+      console.error('Fetch error:', error)
+      throw error
+    }
+  }
 }

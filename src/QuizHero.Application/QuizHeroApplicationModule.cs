@@ -7,6 +7,7 @@ using Volo.Abp.FeatureManagement;
 using Volo.Abp.Modularity;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.ObjectExtending;
+using QuizHero.Quiz;
 
 namespace QuizHero;
 
@@ -40,7 +41,16 @@ public class QuizHeroApplicationModule : AbpModule
 					typeof(IdentityUser),
 					typeof(IdentityUserDto),
 				},
-				"ZaloId"
+				IdentityUserExtensions.ZaloIdPropertyName
+			);
+		ObjectExtensionManager.Instance
+			.AddOrUpdateProperty<string>(
+				new[]
+				{
+					typeof(IdentityUser), 
+					typeof(IdentityUserDto),
+				},
+				IdentityUserExtensions.AvatarUrlPropertyName
 			);
 		ObjectExtensionManager.Instance
 			.AddOrUpdateProperty<string>(
@@ -49,7 +59,16 @@ public class QuizHeroApplicationModule : AbpModule
 					typeof(IdentityUser),
 					typeof(IdentityUserDto),
 				},
-				"AvatarUrl"
+				IdentityUserExtensions.CityPropertyName
+			);
+		ObjectExtensionManager.Instance
+			.AddOrUpdateProperty<string>(
+				new[]
+				{
+					typeof(IdentityUser),
+					typeof(IdentityUserDto),
+				},
+				IdentityUserExtensions.ProvincePropertyName
 			);
 	}
 }

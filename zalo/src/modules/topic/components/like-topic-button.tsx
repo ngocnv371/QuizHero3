@@ -3,14 +3,14 @@ import { Button, Icon, useSnackbar } from 'zmp-ui'
 
 import { useExplorer } from '@/modules/explorer/use-explorer'
 
-import { useAuth } from '../../auth/use-auth'
+import { useProfile } from '../../auth/use-auth'
 
 interface LikeTopicButtonProps {
   topicId: string
 }
 
 const LikeTopicButton: React.FC<LikeTopicButtonProps> = ({ topicId }) => {
-  const { user } = useAuth()
+  const { profile: user } = useProfile()
   const { actions } = useExplorer()
   const liked = useExplorer((f) => f.favourites.includes(topicId))
   const { openSnackbar } = useSnackbar()
