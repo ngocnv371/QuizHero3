@@ -11,7 +11,7 @@ export const PrivacySettingItem: React.FC = () => {
   return (
     <List.Item
       title="Quyền riêng tư"
-      prefix={<Icon icon="zi-location" />}
+      prefix={<Icon icon="zi-hide" />}
       suffix={<Icon icon="zi-chevron-right" />}
       onClick={handleClick}
     />

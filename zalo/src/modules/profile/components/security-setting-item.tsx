@@ -11,7 +11,7 @@ export const SecuritySettingItem: React.FC = () => {
   return (
     <List.Item
       title="Tài khoản và bảo mật"
-      prefix={<Icon icon="zi-location" />}
+      prefix={<Icon icon="zi-lock" />}
       suffix={<Icon icon="zi-chevron-right" />}
       onClick={handleClick}
     />
