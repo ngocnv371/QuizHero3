@@ -5,27 +5,40 @@ import { Avatar, Button, Header, Icon, Progress, useNavigate } from 'zmp-ui'
 import { useProfile } from '@/modules/auth/use-auth'
 
 import { useQuizResult } from '../use-quiz-result'
+import { Routes } from '@/constants/routes'
 
 export const QuizResultPage: React.FC = () => {
   const { profile: user } = useProfile()
   const nav = useNavigate()
   const { quizId } = useParams()
   const { score, completed, total } = useQuizResult()
+
   const handleLeaderboard = useCallback(() => {
     console.log('go to leaderboard page')
-    nav(`/leaderboard/${quizId}`, { animate: true, replace: true, relative: 'route' })
+    // TODO: fix id
+    nav(Routes.topic.leaderboard(quizId!), { animate: true, replace: true, relative: 'route' })
   }, [nav, quizId])
+
+  const handleRetry = useCallback(() => {
+    console.log('go to retry page')
+    nav(Routes.quiz.player(quizId!), { animate: true, replace: true, relative: 'route' })
+  }, [nav, quizId])
+
+  const handleHome = useCallback(() => {
+    console.log('go to home page')
+    nav(Routes.explorer.page(), { animate: true, direction: 'backward', replace: true, relative: 'route' })
+  }, [nav])
+
   return (
     <div>
-      <Header title="Quiz Result" showBackIcon={true} className="no-divider" />
-      <div style={{ height: 40 }} />
-      <div className="bg-background px-4">
+      <Header title="Result" showBackIcon={true} className="no-divider" />
+      <div className="px-4">
         <div className="text-center">
           <Avatar size={122} src={user.extraProperties.avatarUrl} className="mt-6" />
           <h2>{user.name}</h2>
           <p>Score: {score}</p>
         </div>
-        <div className="bg-background rounded-xl p-2">
+        <div className="rounded-xl p-2">
           <div className="m-4">
             <span className="text-gray-500">Completed</span>
             <Progress completed={completed} maxCompleted={total} showLabel />
@@ -36,10 +49,18 @@ export const QuizResultPage: React.FC = () => {
           </div>
           <h3 className="text-center text-green-500">You Passed!</h3>
         </div>
-        <div className="text-center">
+        <div className="text-center flex gap-2 flex-col">
           <Button size="large" variant="primary" onClick={handleLeaderboard}>
             <Icon icon="zi-poll" />
             Leaderboard
+          </Button>
+          <Button size="large" variant="secondary" onClick={handleRetry}>
+            <Icon icon="zi-retry-solid" />
+            Retry
+          </Button>
+          <Button size="large" variant="tertiary" onClick={handleHome}>
+            <Icon icon="zi-home" />
+            Home
           </Button>
         </div>
       </div>

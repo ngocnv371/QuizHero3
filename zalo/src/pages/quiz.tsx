@@ -9,7 +9,7 @@ export default function QuizRootPage() {
   return (
     <QuizLayout>
       <Page restoreScroll className="bg-background section-container">
-        <PageContainer>
+        <PageContainer withHeader>
           <Outlet />
         </PageContainer>
       </Page>

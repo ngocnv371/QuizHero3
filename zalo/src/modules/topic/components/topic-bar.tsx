@@ -13,13 +13,13 @@ export function TopicBar(props: Props) {
   const nav = useNavigate()
   function handleChange(tab: TopicTabs) {
     console.log('change tab to', tab)
-    let url = Routes.explorer.topicQuizzes(props.topicId)
+    let url = Routes.topic.quizzes(props.topicId)
     switch (tab) {
       case 'leaderboard':
-        url = Routes.explorer.topicLeaderboard(props.topicId)
+        url = Routes.topic.leaderboard(props.topicId)
         break
       case 'quizzes':
-        url = Routes.explorer.topicQuizzes(props.topicId)
+        url = Routes.topic.quizzes(props.topicId)
         break
     }
     console.log('navigating to', url)

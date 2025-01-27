@@ -7,10 +7,15 @@ export const Routes = {
   },
   explorer: {
     page: () => `/`,
-    favorites: () => `/favourites`,
-    topic: (id: string) => `/topics/${id}`,
-    topicQuizzes: (id: string) => `/topics/${id}/quizzes`,
-    topicLeaderboard: (id: string) => `/topics/${id}/leaderboard`,
+  },
+  topic: {
+    page: (id: string) => `/topics/${id}`,
+    quizzes: (id: string) => `/topics/${id}/quizzes`,
+    leaderboard: (id: string) => `/topics/${id}/leaderboard`,
+  },
+  quiz: {
+    player: (quizId: string) => `/quiz/${quizId}/player`,
+    result: (quizId: string) =>  `/quiz/${quizId}/result`,
   },
   profile: {
     page: () => `/profile`,

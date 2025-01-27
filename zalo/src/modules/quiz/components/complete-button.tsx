@@ -6,6 +6,7 @@ import { RetryLoginButton } from '@/modules/auth/components/retry-login-button'
 import { useProfile } from '@/modules/auth/use-auth'
 
 import { useQuiz } from '../use-quiz'
+import { Routes } from '@/constants/routes'
 
 type CompleteButtonProps = {
   disabled: boolean
@@ -29,7 +30,7 @@ export const CompleteButton: React.FC<CompleteButtonProps> = ({ disabled, quizId
       actions
         .complete()
         .then(() => {
-          nav(`/quiz/${quizId}/result`, { animate: true, replace: true, relative: 'route' })
+          nav(Routes.quiz.result(quizId), { animate: true, replace: true, relative: 'route' })
         })
         .catch((e) => {
           console.error('Failed to complete quiz', e)

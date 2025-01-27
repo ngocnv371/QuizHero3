@@ -6,6 +6,7 @@ import { useExplorer } from '../use-explorer'
 import CategorySection from './category-section'
 import { ExplorerSkeleton } from './explorer-skeleton'
 import { TopicCard } from './topic-card'
+import { Routes } from '@/constants/routes'
 
 export const CategoriesList: React.FC = () => {
   const { categories, isLoading } = useExplorer()
@@ -14,7 +15,7 @@ export const CategoriesList: React.FC = () => {
   const handleTopicClick = useCallback(
     (topic: TopicDto) => {
       console.log('go to topic page', topic)
-      nav(`/topics/${topic.id}`, { animate: true, direction: 'forward' })
+      nav(Routes.topic.page(topic.id), { animate: true, direction: 'forward' })
     },
     [nav],
   )

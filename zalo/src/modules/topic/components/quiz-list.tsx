@@ -6,6 +6,7 @@ import { QuizDto } from '@/modules/quiz/models'
 
 import { useQuizListByTopicId } from '../use-quiz-list'
 import { TopicBar } from './topic-bar'
+import { Routes } from '@/constants/routes'
 
 const QuizList: React.FC = () => {
   const { topicId } = useParams()
@@ -14,7 +15,7 @@ const QuizList: React.FC = () => {
 
   const handleQuizClick = useCallback(
     (quizId: string) => {
-      const url = `/quiz/${quizId}/player`
+      const url = Routes.quiz.player(quizId)
       console.log('navigating to', url)
       nav(url)
     },

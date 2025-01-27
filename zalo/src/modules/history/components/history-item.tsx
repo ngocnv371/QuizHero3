@@ -2,6 +2,7 @@ import { QuizResultDto } from '@/modules/api/models'
 import React, { useCallback, useMemo } from 'react'
 import { Avatar, List, useNavigate } from 'zmp-ui'
 import dayjs from 'dayjs'
+import { Routes } from '@/constants/routes'
 
 type Props = {
   item: QuizResultDto
@@ -14,7 +15,7 @@ export const HistoryItem: React.FC<Props> = ({ item }) => {
     (e: React.MouseEvent) => {
       const id = e.currentTarget.getAttribute('data-topic-id')
       console.log('clicked', id)
-      nav(`/topics/${id}`, { animate: true, direction: 'forward', replace: false })
+      nav(Routes.topic.page(id!), { animate: true, direction: 'forward', replace: false })
     },
     [nav],
   )

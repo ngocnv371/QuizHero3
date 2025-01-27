@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { Button, Icon, useNavigate } from 'zmp-ui'
 
 import { useQuickQuiz } from '../use-quick-quiz'
+import { Routes } from '@/constants/routes'
 
 type Props = {
   topicId: string
@@ -23,7 +24,7 @@ export const QuickStartButton: React.FC<Props> = ({ topicId }) => {
   useEffect(() => {
     if (!data) return
 
-    nav(`/quiz/${data.id}/player`, { animate: true, direction: 'forward' })
+    nav(Routes.quiz.player(data.id), { animate: true, direction: 'forward' })
   }, [data, nav])
 
   return (
