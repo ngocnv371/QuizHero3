@@ -10,5 +10,6 @@ export function useHistoryQuery() {
             console.log('fetched history', items)
             return items
           },
+        staleTime: 5 * 60 * 1000 // 5 mins
     })
 }
