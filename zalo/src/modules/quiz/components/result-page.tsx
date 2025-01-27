@@ -11,13 +11,12 @@ export const QuizResultPage: React.FC = () => {
   const { profile: user } = useProfile()
   const nav = useNavigate()
   const { quizId } = useParams()
-  const { score, completed, total } = useQuizResult()
+  const { score, completed, total, quiz } = useQuizResult()
 
   const handleLeaderboard = useCallback(() => {
     console.log('go to leaderboard page')
-    // TODO: fix id
-    nav(Routes.topic.leaderboard(quizId!), { animate: true, replace: true, relative: 'route' })
-  }, [nav, quizId])
+    nav(Routes.topic.leaderboard(quiz.topicId), { animate: true, replace: true, relative: 'route' })
+  }, [nav, quiz])
 
   const handleRetry = useCallback(() => {
     console.log('go to retry page')
