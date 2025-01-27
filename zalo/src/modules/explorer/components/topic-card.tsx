@@ -1,6 +1,9 @@
 import React from 'react'
 
 import { TopicDto } from '../models'
+import { useFavourites } from '../use-favourites'
+import { useExplorer } from '../use-explorer'
+import { Icon } from 'zmp-ui'
 
 type Props = {
   topic: TopicDto
@@ -8,6 +11,7 @@ type Props = {
 }
 
 export function TopicCard({ topic: item, onClick }: Props) {
+  const liked = useExplorer((f) => f.favourites.includes(item.id))
   return (
     <div
       className="relative border border-solid border-[#DCDFE5] rounded-lg overflow-hidden"
@@ -20,6 +24,11 @@ export function TopicCard({ topic: item, onClick }: Props) {
         <div className="line-clamp-2 font-bold">{item.name}</div>
         <div className="font-small line-clamp-2">{item.description}</div>
       </div>
+      {liked && (
+        <div className="absolute top-2 right-2">
+          <Icon icon="zi-heart-solid" className="text-pink-500"></Icon>
+        </div>
+      )}
     </div>
   )
 }
