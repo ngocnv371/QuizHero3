@@ -30,7 +30,7 @@ export function TopicBar(props: Props) {
     <Box>
       <Button
         className="relative after:content-[''] after:absolute after:-inset-2 after:bg-transparent mr-2"
-        icon={<Icon icon="zi-bookmark" />}
+        icon={<Icon icon="zi-edit" />}
         size="large"
         variant={props.tab === 'quizzes' ? 'primary' : 'secondary'}
         onClick={() => handleChange('quizzes')}

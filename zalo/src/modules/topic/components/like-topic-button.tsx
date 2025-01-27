@@ -38,7 +38,7 @@ const LikeTopicButton: React.FC<LikeTopicButtonProps> = ({ topicId }) => {
       className="relative after:content-[''] after:absolute after:-inset-2 after:bg-transparent mr-2"
       icon={<Icon icon={liked ? 'zi-heart-solid' : 'zi-heart'} />}
       onClick={handleLike}
-      variant="secondary"
+      variant="primary"
       size="large"
     />
   )

@@ -44,9 +44,13 @@ export const TopicPage: React.FC = () => {
       <TopicCover coverUrl={topic.coverUrl || ''} />
       <div className="relative translate-y-[-84px] h-[84px] mb-[-84px] flex px-4 items-end">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-[#00000000] to-[#000000]" />
-        <div className="relative flex-shrink-0 translate-y-[42px]">
+        <div className="relative flex-shrink-0 translate-y-[42px] w-full flex justify-between">
           <TopicAvatar avatarUrl={topic.avatarUrl || ''} />
+          <div className="translate-y-[20px]">
+            <LikeTopicButton topicId={topic.id} />
+          </div>
         </div>
+        <div className="relative flex-shrink-0 translate-y-[42px]"></div>
       </div>
       <div className="pt-[52px] px-4 pb-3">
         <div className="flex flex-col space-y-4">
@@ -59,13 +63,6 @@ export const TopicPage: React.FC = () => {
             <Text size="normal" className="whitespace-break-spaces">
               {topic.description}
             </Text>
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="shrink-0"></div>
-            <div className="shrink-0">
-              <LikeTopicButton topicId={topic.id} />
-              <QuickStartButton topicId={topic.id} />
-            </div>
           </div>
           <Outlet />
         </div>
