@@ -8,6 +8,9 @@ export const Routes = {
   explorer: {
     page: () => `/`,
   },
+  history: {
+    page: () => `/history`,
+  },
   topic: {
     page: (id: string) => `/topics/${id}`,
     quizzes: (id: string) => `/topics/${id}/quizzes`,

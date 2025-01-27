@@ -18,7 +18,7 @@ export function ExplorerTabs({ activeTab }: { activeTab: MenuType }) {
     let url = Routes.explorer.page()
     switch (tab) {
       case 'history':
-        url = Routes.explorer.favorites()
+        url = Routes.history.page()
         break
       case 'profile':
         url = Routes.profile.page()

@@ -10,7 +10,7 @@ import { QuizPage } from './modules/quiz/components/quiz-page'
 import { QuizResultPage } from './modules/quiz/components/result-page'
 import QuizList from './modules/topic/components/quiz-list'
 import ExplorerRootPage from './pages/explorer'
-import FavouritesRootPage from './pages/history'
+import HistoryRootPage from './pages/history'
 import QuizRootPage from './pages/quiz'
 import TopicRootPage from './pages/topic'
 import ProfileRootPage from './pages/profile'
@@ -44,7 +44,7 @@ const MyApp = () => {
                     <Route path="security" element={<ProfileSecurityPage />} />
                     <Route path="privacy" element={<ProfilePrivacyPage />} />
                   </Route>
-                  <Route path="/favourites" element={<FavouritesRootPage />} />
+                  <Route path="/history" element={<HistoryRootPage />} />
                   <Route path="/topics">
                     <Route index element={<ExplorerRootPage />} />
                     <Route path=":topicId" element={<TopicRootPage />}>
