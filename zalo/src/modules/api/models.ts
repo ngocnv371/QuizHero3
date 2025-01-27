@@ -42,4 +42,5 @@ export type QuizResultDto = {
   quiz: string;
   topicId: string;
   topic: string;
+  creationTime: string;
 }
