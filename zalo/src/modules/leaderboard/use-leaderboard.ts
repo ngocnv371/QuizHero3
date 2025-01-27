@@ -4,7 +4,7 @@ import { client } from '../api/client'
 
 export function useLeaderboard(topicId: string) {
   return useQuery({
-    queryKey: ['leaderboard'],
+    queryKey: ['leaderboard', topicId],
     queryFn: async () => {
       console.log('fetching leaderboard')
       const { items } = await client.getLeaderboard(topicId)

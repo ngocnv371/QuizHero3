@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Avatar, List } from 'zmp-ui'
+import { Avatar, List, Text } from 'zmp-ui'
 
 import { LeaderboardItem } from '../models'
 import { LeaderboardLoading } from './leaderboard-loading'
@@ -32,6 +32,7 @@ export const Leaderboard: React.FC<Props> = ({ items, loading }) => {
     <>
       <h4>Leaderboard</h4>
       <List loading={loading} dataSource={items} renderItem={renderItem} noSpacing></List>
+      {!loading && !items?.length && <Text>No items</Text>}
     </>
   )
 }
