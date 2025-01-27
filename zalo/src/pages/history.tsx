@@ -3,7 +3,6 @@ import { Header, Page } from 'zmp-ui'
 
 import { PageContainer } from '@/components'
 import { ExplorerTabs } from '@/modules/explorer/components/explorer-tabs'
-import { ExplorerLayout } from '@/modules/explorer/components/layout'
 import { HistoryList } from '@/modules/history/components/history-list'
 import { HistoryLayout } from '@/modules/history/components/layout'
 

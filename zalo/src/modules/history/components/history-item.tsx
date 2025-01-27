@@ -3,6 +3,7 @@ import React, { useCallback, useMemo } from 'react'
 import { Avatar, List, useNavigate } from 'zmp-ui'
 import dayjs from 'dayjs'
 import { Routes } from '@/constants/routes'
+import { ScoreLabel } from './score-label'
 
 type Props = {
   item: QuizResultDto
@@ -32,11 +33,7 @@ export const HistoryItem: React.FC<Props> = ({ item }) => {
       subTitle={distance}
       data-topic-id={item.topicId}
       onClick={handleClick}
-      suffix={
-        <span>
-          {item.score}/{item.maxScore}
-        </span>
-      }
+      suffix={<ScoreLabel score={item.score} maxScore={item.maxScore} />}
     >
       {item.quiz}
     </List.Item>
