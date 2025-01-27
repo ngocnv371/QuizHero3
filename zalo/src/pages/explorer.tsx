@@ -10,7 +10,7 @@ export default function ExplorerRootPage() {
   console.log('render explorer root page')
   return (
     <ExplorerLayout>
-      <Page restoreScroll>
+      <Page restoreScroll className="bg-background section-container">
         <PageContainer withBottomNav withHeader>
           <TopicsPage />
         </PageContainer>

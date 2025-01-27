@@ -8,7 +8,7 @@ import { QuizLayout } from '@/modules/quiz/components/layout'
 export default function QuizRootPage() {
   return (
     <QuizLayout>
-      <Page restoreScroll>
+      <Page restoreScroll className="bg-background section-container">
         <PageContainer>
           <Outlet />
         </PageContainer>

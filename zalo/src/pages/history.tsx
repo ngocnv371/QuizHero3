@@ -11,9 +11,9 @@ export default function HistoryRootPage() {
   console.log('render history root page')
   return (
     <HistoryLayout>
-      <Page restoreScroll hideScrollbar>
+      <Page restoreScroll className="bg-background section-container">
         <PageContainer withBottomNav withHeader>
-          <Header title="History" showBackIcon={false} />
+          <Header title="History" showBackIcon={false} className="no-divider" />
           <HistoryList />
         </PageContainer>
       </Page>

@@ -9,7 +9,7 @@ import { TopicPage } from '@/modules/topic/components/topic-page'
 export default function TopicRootPage() {
   return (
     <ExplorerLayout>
-      <Page restoreScroll hideScrollbar>
+      <Page restoreScroll hideScrollbar className="bg-background section-container">
         <PageContainer withBottomNav>
           <TopicPage />
         </PageContainer>

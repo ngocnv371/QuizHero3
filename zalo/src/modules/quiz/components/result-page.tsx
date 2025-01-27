@@ -21,7 +21,7 @@ export const QuizResultPage: React.FC = () => {
       <div style={{ height: 40 }} />
       <div className="bg-background px-4">
         <div className="text-center">
-          <Avatar size={122} src={user.avatar_url} className="mt-6" />
+          <Avatar size={122} src={user.extraProperties.avatarUrl} className="mt-6" />
           <h2>{user.name}</h2>
           <p>Score: {score}</p>
         </div>

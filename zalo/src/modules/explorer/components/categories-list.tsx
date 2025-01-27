@@ -24,7 +24,7 @@ export const CategoriesList: React.FC = () => {
       {isLoading && <ExplorerSkeleton />}
       {!isLoading && categories.length == 0 && 'No data'}
       {!isLoading && (
-        <div className="bg-background py-4">
+        <div className="py-4">
           <div className="px-4 flex flex-col gap-4">
             {categories.map((cat) => (
               <CategorySection key={cat.name} category={cat}>

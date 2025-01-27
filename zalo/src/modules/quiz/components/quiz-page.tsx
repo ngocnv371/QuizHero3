@@ -69,7 +69,7 @@ export const QuizPage: React.FC = () => {
     <div>
       <Header title={quiz.title} showBackIcon={true} className="no-divider" />
       <div style={{ height: 40 }} />
-      <div className="bg-background px-2">
+      <div className="px-2">
         {currentQuestion && (
           <QuestionItem
             key={currentQuestion.id}

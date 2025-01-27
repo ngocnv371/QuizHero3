@@ -32,7 +32,7 @@ export const TopicPage: React.FC = () => {
   }
 
   return (
-    <div>
+    <>
       <Header
         title={topic.name}
         showBackIcon={true}
@@ -67,6 +67,6 @@ export const TopicPage: React.FC = () => {
           <Outlet />
         </div>
       </div>
-    </div>
+    </>
   )
 }
