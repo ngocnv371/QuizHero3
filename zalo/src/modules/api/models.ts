@@ -40,5 +40,6 @@ export type QuizResultDto = {
   score: number;
   maxScore: number;
   quiz: string;
+  topicId: string;
   topic: string;
 }
