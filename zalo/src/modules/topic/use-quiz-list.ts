@@ -41,7 +41,7 @@ export const useQuizList = create(
   ),
 )
 
-export function useQuizListByTopicId(topicId: string) {
+export function useQuizListQueryByTopicId(topicId: string) {
   const actions = useQuizList((state) => state.actions)
   return useQuery({
     queryKey: ['quiz-list', topicId],

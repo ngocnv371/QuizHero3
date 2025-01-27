@@ -4,13 +4,13 @@ import { Icon, List, useNavigate } from 'zmp-ui'
 
 import { QuizDto } from '@/modules/quiz/models'
 
-import { useQuizListByTopicId } from '../use-quiz-list'
+import { useQuizListQueryByTopicId } from '../use-quiz-list'
 import { TopicBar } from './topic-bar'
 import { Routes } from '@/constants/routes'
 
 const QuizList: React.FC = () => {
   const { topicId } = useParams()
-  const { data: quizzes, isLoading, error } = useQuizListByTopicId(topicId!)
+  const { data: quizzes, isLoading, error } = useQuizListQueryByTopicId(topicId!)
   const nav = useNavigate()
 
   const handleQuizClick = useCallback(

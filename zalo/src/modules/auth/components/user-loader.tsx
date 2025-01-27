@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { useSnackbar } from 'zmp-ui'
 
-import { useFavourites } from '@/modules/explorer/use-favourites'
+import { useFavouritesQuery } from '@/modules/explorer/use-favourites'
 
-import { useLoadProfile } from '../use-load-profile'
+import { useProfileQuery } from '../use-load-profile'
 
 export function UserLoader() {
-  const { data: user } = useLoadProfile()
+  const { data: user } = useProfileQuery()
   const { openSnackbar } = useSnackbar()
-  useFavourites(user?.id != null)
+  useFavouritesQuery(user?.id != null)
 
   useEffect(
     () => {

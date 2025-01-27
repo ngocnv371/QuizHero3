@@ -2,14 +2,14 @@ import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Header, Icon } from 'zmp-ui'
 
-import { useQuiz, useQuizById } from '../use-quiz'
+import { useQuiz, useQuizQueryById } from '../use-quiz'
 import { CompleteButton } from './complete-button'
 import { QuestionItem } from './question-item'
 
 export const QuizPage: React.FC = () => {
   const { quizId } = useParams()
   const { actions } = useQuiz()
-  const { data: quiz } = useQuizById(quizId!)
+  const { data: quiz } = useQuizQueryById(quizId!)
   const [showSolution, setShowSolution] = React.useState(false)
   const [questionIndex, setQuestionIndex] = React.useState<number>(0)
   const [canGoNext, setCanGoNext] = React.useState(true)

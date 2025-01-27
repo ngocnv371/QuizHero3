@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { TopicDto } from '../models'
-import { useFavourites } from '../use-favourites'
+import { useFavouritesQuery } from '../use-favourites'
 import { useExplorer } from '../use-explorer'
 import { Icon } from 'zmp-ui'
 

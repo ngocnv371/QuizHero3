@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { client } from '../api/client'
 import { useExplorer } from './use-explorer'
 
-export function useTopics() {
+export function useTopicsQuery() {
   const actions = useExplorer((state) => state.actions)
   return useQuery({
     queryKey: ['topics'],

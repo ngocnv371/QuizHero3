@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom'
 
 import { TopicBar } from '@/modules/topic/components/topic-bar'
 
-import { useLeaderboard } from '../use-leaderboard'
+import { useLeaderboardQuery } from '../use-leaderboard'
 import { Leaderboard } from './leaderboard'
 
 export const TopicLeaderboard: React.FC = () => {
   const { topicId } = useParams()
 
-  const { data, isLoading } = useLeaderboard(topicId!)
+  const { data, isLoading } = useLeaderboardQuery(topicId!)
 
   return (
     <>

@@ -1,9 +1,9 @@
-import { useLoadProfile } from '@/modules/auth/use-load-profile'
+import { useProfileQuery } from '@/modules/auth/use-load-profile'
 import React from 'react'
 import { Avatar, List } from 'zmp-ui'
 
 export const UserItem: React.FC = () => {
-  const { data: user, isLoading } = useLoadProfile()
+  const { data: user, isLoading } = useProfileQuery()
   if (isLoading || !user) {
     return (
       <div className="px-4 flex flex-col gap-3 mt-4">

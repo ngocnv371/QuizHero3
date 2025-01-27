@@ -18,7 +18,7 @@ async function wrappedGetAccessToken() {
   })
 }
 
-export function useLoadProfile() {
+export function useProfileQuery() {
   const actions = useProfile((state) => state.actions)
   return useQuery({
     queryKey: ['loadProfile'],

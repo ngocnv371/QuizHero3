@@ -83,10 +83,10 @@ export const useQuiz = create(
   ),
 )
 
-export function useQuizById(quizId: string) {
+export function useQuizQueryById(quizId: string) {
   const actions = useQuiz((state) => state.actions)
   return useQuery({
-    queryKey: ['quiz'],
+    queryKey: ['quiz', quizId],
     queryFn: async () => {
       console.log('fetching quiz by id', quizId)
       const quiz = await client.getQuiz(quizId)

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import { Button, Icon, useNavigate } from 'zmp-ui'
 
-import { useQuickQuiz } from '../use-quick-quiz'
+import { useQuickQuizQuery } from '../use-quick-quiz'
 import { Routes } from '@/constants/routes'
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 export const QuickStartButton: React.FC<Props> = ({ topicId }) => {
   const nav = useNavigate()
   const [enabled, setEnabled] = React.useState(false)
-  const { data, isLoading } = useQuickQuiz(topicId, enabled)
+  const { data, isLoading } = useQuickQuizQuery(topicId, enabled)
 
   const handleStart = useCallback(
     (e: React.MouseEvent) => {

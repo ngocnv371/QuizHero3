@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { client } from '../api/client'
 
-export function useQuickQuiz(topicId: string, enabled: boolean) {
+export function useQuickQuizQuery(topicId: string, enabled: boolean) {
   return useQuery({
     queryKey: ['quick-quiz'],
     queryFn: async () => {
@@ -11,7 +11,6 @@ export function useQuickQuiz(topicId: string, enabled: boolean) {
       console.log('fetched quick quiz', quiz)
       return quiz
     },
-    staleTime: 1000 * 60 * 60,
     enabled,
   })
 }
