@@ -1,13 +1,7 @@
 import React, { useMemo } from 'react'
-import citiesMap from '@/static/tinh-thanh.json'
 import { Picker } from 'zmp-ui'
 import { PickerColumnOption } from 'zmp-ui/picker'
-
-interface City {
-  name: string
-  name_with_type: string
-  code: string
-}
+import { useLocationsQuery } from '../use-locations-query'
 
 type Props = {
   value: string
@@ -16,14 +10,16 @@ type Props = {
 
 export const CityPicker: React.FC<Props> = ({ value, onChange }) => {
   const name = 'City'
+  const { data, isLoading } = useLocationsQuery()
   const cities = useMemo(() => {
-    const keys = Object.keys(citiesMap)
-    const records = citiesMap as Record<string, City>
-    const items = keys
-      .map((k) => records[k] as City)
-      .map((c) => ({ displayName: c.name_with_type, value: c.code, key: c.code }) as PickerColumnOption)
-    return items
-  }, [])
+    if (!data) {
+      return []
+    }
+
+    return data
+      .filter((d) => !d.parentCode)
+      .map((c) => ({ displayName: c.name, value: c.code, key: c.code }) as PickerColumnOption)
+  }, [data])
 
   const selectedOption = useMemo(() => {
     return {
@@ -31,9 +27,14 @@ export const CityPicker: React.FC<Props> = ({ value, onChange }) => {
     }
   }, [value])
 
+  if (isLoading) {
+    return null
+  }
+
   return (
     <Picker
       label={name}
+      disabled={isLoading}
       mask
       maskClosable
       title={name}

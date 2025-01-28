@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp.Application.Dtos;
 
 namespace QuizHero.Location
 {
@@ -7,14 +8,11 @@ namespace QuizHero.Location
 	{
 		public string Code { get; set; } = default!;
 		public string Name { get; set; } = default!;
-		public string Slug { get; set; } = default!;
-		public string Type { get; set; } = default!;
-		public string Name_With_Type { get; set; } = default!;
-		public string Parent_Code { get; set; } = default!;
+		public string ParentCode { get; set; } = default!;
 	}
 
 	public interface ILocationsAppService
 	{
-		Task<IEnumerable<LocationDto>> GetLocationsAsync();
+		Task<ListResultDto<LocationDto>> GetAsync();
 	}
 }

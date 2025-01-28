@@ -44,3 +44,9 @@ export type QuizResultDto = {
   topic: string;
   creationTime: string;
 }
+
+export type LocationDto = {
+  name: string;
+  code: string;
+  parentCode: string;
+}

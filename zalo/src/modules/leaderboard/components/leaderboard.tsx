@@ -19,7 +19,7 @@ export const Leaderboard: React.FC<Props> = ({ items, loading }) => {
         title={item.name}
         prefix={<Avatar src={item.avatarUrl} />}
         suffix={item.rank}
-        subTitle={item.score.toString()}
+        subTitle={item.location || 'Ẩn cư'}
       />
     )
   }, [])

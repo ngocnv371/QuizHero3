@@ -1,7 +1,7 @@
 import { TopicDto } from '../explorer/models'
 import { LeaderboardItem } from '../leaderboard/models'
 import { QuizDto } from '../quiz/models'
-import { CreateQuizResultDto, IdentityUserDto, ListResultDto, QuizResultDto, QuizResultQuery, UpdateLocationInputDto } from './models'
+import { CreateQuizResultDto, IdentityUserDto, ListResultDto, LocationDto, QuizResultDto, QuizResultQuery, UpdateLocationInputDto } from './models'
 
 const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
 
@@ -174,6 +174,19 @@ export const client = {
       })
       const data = await handleResponse(response)
       return data as ListResultDto<QuizResultDto>
+    } catch (error) {
+      console.error('Fetch error:', error)
+      throw error
+    }
+  },
+  getLocations: async () => {
+    try {
+      const response = await fetch(`${apiUrl}/locations`, {
+        method: 'GET',
+        headers: getDefaultHeaders(),
+      })
+      const data = await handleResponse(response)
+      return data as ListResultDto<LocationDto>
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
