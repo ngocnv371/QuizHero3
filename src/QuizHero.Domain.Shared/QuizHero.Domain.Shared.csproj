@@ -34,4 +34,13 @@
     <Content Remove="Localization\QuizHero\*.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Location\quan-huyen.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Location\tinh-thanh.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

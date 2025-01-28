@@ -18,10 +18,10 @@ namespace QuizHero.Zalo
 {
 	public class ZaloManager(
 		HttpClient client,
-		IdentityUserManager identityUserManager
-		, IdentityRoleManager identityRoleManager
-		, IConfiguration configuration,
-		 IDistributedCache<ZaloProfileResponse, string> _cache
+		IdentityUserManager identityUserManager,
+		IdentityRoleManager identityRoleManager,
+		IConfiguration configuration,
+		IDistributedCache<ZaloProfileResponse, string> _cache
 		) : DomainService
 	{
 		protected string GetProof(string accessToken)

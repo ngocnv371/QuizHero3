@@ -1,4 +1,5 @@
 using AutoMapper;
+using QuizHero.Location;
 using QuizHero.Quiz;
 using System.Linq;
 
@@ -33,5 +34,7 @@ public class QuizHeroApplicationAutoMapperProfile : Profile
 			.ForMember(m => m.Score, opt => opt.MapFrom(k => k.QuestionResults.Count(q => q.IsCorrect)))
 			;
 		CreateMap<CreateQuestionResultDto, QuestionResult>();
+
+		CreateMap<Location.Location, LocationDto>();
 	}
 }
