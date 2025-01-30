@@ -1,18 +1,12 @@
 import { useProfileQuery } from '@/modules/auth/use-load-profile'
 import React from 'react'
 import { Avatar, List } from 'zmp-ui'
+import { UserItemSkeleton } from './user-item-skeleton'
 
 export const UserItem: React.FC = () => {
   const { data: user, isLoading } = useProfileQuery()
   if (isLoading || !user) {
-    return (
-      <div className="px-4 flex flex-col gap-3 mt-4">
-        <div className="flex gap-3">
-          <div className="bg-[#F7F7F8] h-[60px] w-[60px] rounded-full" />
-          <div className="bg-[#EBEDEF] h-[24px] w-[108px] rounded-lg" />
-        </div>
-      </div>
-    )
+    return <UserItemSkeleton />
   }
 
   return (

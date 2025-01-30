@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react'
-import { Picker } from 'zmp-ui'
+import { Picker, Text } from 'zmp-ui'
 import { PickerColumnOption } from 'zmp-ui/picker'
 import { useLocationsQuery } from '../use-locations-query'
+import { PickerSkeleton } from './picker-skeleton'
 
 type Props = {
   value: string
@@ -10,7 +11,7 @@ type Props = {
 
 export const CityPicker: React.FC<Props> = ({ value, onChange }) => {
   const name = 'City'
-  const { data, isLoading } = useLocationsQuery()
+  const { data, isLoading, error } = useLocationsQuery()
   const cities = useMemo(() => {
     if (!data) {
       return []
@@ -28,7 +29,11 @@ export const CityPicker: React.FC<Props> = ({ value, onChange }) => {
   }, [value])
 
   if (isLoading) {
-    return null
+    return <PickerSkeleton label={name} />
+  }
+
+  if (error) {
+    return <Text className="text-red-500">{error.message}</Text>
   }
 
   return (
