@@ -181,7 +181,7 @@ export const client = {
   },
   getLocations: async () => {
     try {
-      const response = await fetch(`${apiUrl}/locations`, {
+      const response = await fetch(`${apiUrl}/locations?MaxResultCount=1000`, {
         method: 'GET',
         headers: getDefaultHeaders(),
       })

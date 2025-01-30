@@ -19,8 +19,8 @@ export const ProvincePicker: React.FC<Props> = ({ parent, value, onChange }) => 
     }
 
     return data
-      .filter((d) => d.parentCode === parent)
-      .map((c) => ({ displayName: c.name, value: c.code, key: c.code }) as PickerColumnOption)
+      .filter((d) => d.parentId === parent)
+      .map((c) => ({ displayName: c.name, value: c.id, key: c.id }) as PickerColumnOption)
   }, [data, parent])
 
   const selectedOption = useMemo(() => {
