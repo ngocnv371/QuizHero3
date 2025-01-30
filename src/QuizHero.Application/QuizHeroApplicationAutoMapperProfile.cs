@@ -36,5 +36,6 @@ public class QuizHeroApplicationAutoMapperProfile : Profile
 		CreateMap<CreateQuestionResultDto, QuestionResult>();
 
 		CreateMap<Location.Location, LocationDto>();
+		CreateMap<CreateUpdateLocationDto, Location.Location>();
 	}
 }

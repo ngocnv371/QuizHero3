@@ -33,6 +33,8 @@ public class QuizHeroDbContext :
 	public DbSet<QuizResult> QuizResults { get; set; }
 	public DbSet<QuestionResult> QuestionResults { get; set; }
 	public DbSet<UserTopic> UserTopics { get; set; }
+	public DbSet<Location.Location> Locations { get; set; }
+	public DbSet<Location.UserLocation> UserLocations { get; set; }
 
 	#region Entities from the modules
 
@@ -127,6 +129,32 @@ public class QuizHeroDbContext :
 			b.ConfigureByConvention();
 
 			b.HasIndex(k => k.Name);
+		});
+
+		builder.Entity<Location.Location>(b =>
+		{
+			b.ConfigureByConvention();
+
+			b.Property(q => q.Id).IsRequired().HasMaxLength(256);
+			b.Property(q => q.ParentId).IsRequired(false);
+			b.HasOne<Location.Location>()
+				.WithMany()
+				.HasForeignKey(q => q.ParentId)
+				.OnDelete(DeleteBehavior.Restrict);
+		});
+
+		builder.Entity<Location.UserLocation>(b =>
+		{
+			b.ConfigureByConvention();
+			b.HasKey(q => new { q.UserId, q.LocationId });
+			b.HasOne<Location.Location>()
+				.WithMany()
+				.HasForeignKey(q => q.LocationId)
+				.OnDelete(DeleteBehavior.Restrict);
+			b.HasOne<IdentityUser>()
+				.WithMany()
+				.HasForeignKey(q => q.UserId)
+				.OnDelete(DeleteBehavior.Restrict);
 		});
 	}
 }

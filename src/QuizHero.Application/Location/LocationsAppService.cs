@@ -1,20 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
+﻿using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.Domain.Repositories;
 
 namespace QuizHero.Location
 {
 	public class LocationsAppService(
-		LocationManager locationManager
-		) : QuizHeroAppService, ILocationsAppService, ITransientDependency
+		IRepository<Location, string> locationRepository
+		) : CrudAppService<Location, LocationDto, string, PagedAndSortedResultRequestDto, CreateUpdateLocationDto>(locationRepository)
+		, ILocationsAppService, ITransientDependency
 	{
-		public async Task<ListResultDto<LocationDto>> GetAsync()
-		{
-			var locations = await locationManager.GetLocationsAsync();
-			var result = ObjectMapper.Map<IEnumerable<Location>, IEnumerable<LocationDto>>(locations);
-			return new ListResultDto<LocationDto>(result.ToArray());
-		}
 	}
 }

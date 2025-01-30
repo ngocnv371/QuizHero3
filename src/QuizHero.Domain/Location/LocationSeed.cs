@@ -1,39 +1,37 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using QuizHero.Quiz;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Volo.Abp.Caching;
-using Volo.Abp.Domain.Services;
+using Volo.Abp;
+using Volo.Abp.Data;
+using Volo.Abp.DependencyInjection;
+using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Guids;
 
 namespace QuizHero.Location
 {
-	public class LocationManager(
-		 IDistributedCache<IEnumerable<Location>, string> _cache
-		) : DomainService
+	public class LocationSeed(
+		IRepository<Location> locationRepository
+		)
+		: IDataSeedContributor, ITransientDependency
 	{
 		protected readonly JsonSerializerOptions options = new JsonSerializerOptions
 		{
 			PropertyNameCaseInsensitive = true
 		};
 
-		public async Task<IEnumerable<Location>> GetLocationsAsync()
+		public async Task SeedAsync(DataSeedContext context)
 		{
-			return await _cache.GetOrAddAsync(
-				"0",
-				async () =>
-				{
-					var l1 = await LoadLocations("tinh-thanh.json");
-					var l2 = await LoadLocations("quan-huyen.json");
-					return l1.Concat(l2);
-				},
-				() => new Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions
-				{
-					AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1000)
-				}
-			);
+			if (await locationRepository.GetCountAsync() == 0)
+			{
+				var items = await LoadLocations("locations.json");
+				await locationRepository.InsertManyAsync(items, true);
+			}
 		}
 
 		private async Task<IEnumerable<Location>> LoadLocations(string fileName)
@@ -47,13 +45,13 @@ namespace QuizHero.Location
 			}
 
 			var json = await File.ReadAllTextAsync(filePath);
-			var dict = JsonSerializer.Deserialize<Dictionary<string, Location>>(json, options);
-			if (dict == null)
+			var items = JsonSerializer.Deserialize<List<Location>>(json, options);
+			if (items == null)
 			{
 				throw new Exception("Failed to deserialize the locations file.");
 			}
 
-			var locations = dict.Values.ToList();
+			var locations = items.ToList();
 			return locations;
 		}
 	}

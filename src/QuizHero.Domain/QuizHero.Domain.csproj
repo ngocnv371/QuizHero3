@@ -30,4 +30,10 @@
     <PackageReference Include="Volo.Abp.TenantManagement.Domain" Version="9.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Location\locations.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
