@@ -19,14 +19,15 @@ export type IdentityUserDto = {
   extraProperties: {
     avatarUrl: string
     zaloId: string
-    city: string
-    province: string
   }
 } 
 
+export type UserLocationDto = {
+  locationId: string
+}
+
 export type UpdateLocationInputDto = {
-  city: string
-  province: string
+  locationId: string
 }
 
 export type QuizResultQuery = {

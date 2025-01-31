@@ -12,8 +12,7 @@ export type ProfileState = {
   isLoading: boolean
   error: string
   actions: {
-    load: (payload: IdentityUserDto) => void,
-    updateLocation: (city: string, province: string) => Promise<void>
+    load: (payload: IdentityUserDto) => void
   }
 }
 
@@ -31,17 +30,6 @@ export const useProfile = create(
               state.isLoading = false
             }),
           ),
-
-          updateLocation: async (city, province) => {
-            set(
-              produce<ProfileState>((state) => {
-                state.profile.extraProperties.city = city;
-                state.profile.extraProperties.province = province;
-              }),
-            )
-            await client.updateLocation({city, province})
-            console.log('location updated', city, province)
-          },
       },
     }),
     {

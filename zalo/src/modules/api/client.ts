@@ -1,7 +1,7 @@
 import { TopicDto } from '../explorer/models'
 import { LeaderboardItem } from '../leaderboard/models'
 import { QuizDto } from '../quiz/models'
-import { CreateQuizResultDto, IdentityUserDto, ListResultDto, LocationDto, QuizResultDto, QuizResultQuery, UpdateLocationInputDto } from './models'
+import { CreateQuizResultDto, IdentityUserDto, ListResultDto, LocationDto, QuizResultDto, QuizResultQuery, UpdateLocationInputDto, UserLocationDto } from './models'
 
 const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
 
@@ -150,9 +150,22 @@ export const client = {
       throw error
     }
   },  
-  updateLocation: async (input: UpdateLocationInputDto) => {
+  getUserLocation: async () => {
     try {
-      const response = await fetch(`${apiUrl}/zalo/location`, {
+      const response = await fetch(`${apiUrl}/user-locations`, {
+        method: 'GET',
+        headers: getDefaultHeaders(),
+      })
+      const data = await handleResponse(response)
+      return data as UserLocationDto
+    } catch (error) {
+      console.error('Fetch error:', error)
+      throw error
+    }
+  },  
+  updateUserLocation: async (input: UpdateLocationInputDto) => {
+    try {
+      const response = await fetch(`${apiUrl}/user-locations`, {
         method: 'PUT',
         headers: {
           ...getDefaultHeaders(),
