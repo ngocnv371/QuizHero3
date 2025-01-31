@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace QuizHero.Migrations
 {
     [DbContext(typeof(QuizHeroDbContext))]
-    [Migration("20250130093155_AddedLocation")]
+    [Migration("20250130145738_AddedLocation")]
     partial class AddedLocation
     {
         /// <inheritdoc />
@@ -58,7 +58,7 @@ namespace QuizHero.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.HasKey("UserId", "LocationId");
+                    b.HasKey("UserId");
 
                     b.HasIndex("LocationId");
 
@@ -2154,8 +2154,7 @@ namespace QuizHero.Migrations
                     b.HasOne("QuizHero.Location.Location", null)
                         .WithMany()
                         .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Volo.Abp.Identity.IdentityUser", null)
                         .WithMany()

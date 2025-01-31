@@ -146,9 +146,10 @@ public class QuizHeroDbContext :
 		builder.Entity<Location.UserLocation>(b =>
 		{
 			b.ConfigureByConvention();
-			b.HasKey(q => new { q.UserId, q.LocationId });
+			b.HasKey(q => q.UserId );
 			b.HasOne<Location.Location>()
 				.WithMany()
+				.IsRequired(false)
 				.HasForeignKey(q => q.LocationId)
 				.OnDelete(DeleteBehavior.Restrict);
 			b.HasOne<IdentityUser>()

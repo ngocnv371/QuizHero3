@@ -37,12 +37,12 @@ namespace QuizHero.Migrations
                 schema: "Quiz",
                 columns: table => new
                 {
-                    LocationId = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LocationId = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserLocations", x => new { x.UserId, x.LocationId });
+                    table.PrimaryKey("PK_UserLocations", x => x.UserId);
                     table.ForeignKey(
                         name: "FK_UserLocations_AbpUsers_UserId",
                         column: x => x.UserId,

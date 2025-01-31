@@ -5,30 +5,20 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Data;
 using Volo.Abp.Identity;
-using Volo.Abp.ObjectExtending;
 using Volo.Abp.Security.Claims;
 
 namespace QuizHero.Auth
 {
-	public class ZaloService : ApplicationService, IZaloService
+	public class ZaloService(
+		ZaloManager zaloManager,
+		IdentityUserManager identityUserManager
+		) : ApplicationService, IZaloService
 	{
-		private readonly ZaloManager _zaloManager;
-		private readonly IdentityUserManager _identityUserManager;
-
-		public ZaloService(
-			ZaloManager zaloManager,
-			IdentityUserManager identityUserManager
-			)
-		{
-			_zaloManager = zaloManager;
-			_identityUserManager = identityUserManager;
-		}
 
 		public async Task<List<Claim>> AuthenticateAsync(string accessToken)
 		{
-			var user = await _zaloManager.EnsureUser(accessToken);
+			var user = await zaloManager.EnsureUser(accessToken);
 			if (user == null)
 			{
 				return null;
@@ -57,7 +47,7 @@ namespace QuizHero.Auth
 			}
 
 			var id = CurrentUser.Id.Value;
-			var user = await _identityUserManager.FindByIdAsync(id.ToString());
+			var user = await identityUserManager.FindByIdAsync(id.ToString());
 			if (user == null)
 			{
 				return null;
@@ -65,25 +55,6 @@ namespace QuizHero.Auth
 
 			var dto = ObjectMapper.Map<IdentityUser, IdentityUserDto>(user);
 			return dto;
-		}
-
-		[Authorize(AuthenticationSchemes = "Zalo")]
-		public async Task PutLocationAsync(UpdateLocationInputDto input)
-		{
-			if (CurrentUser.Id == null)
-			{
-				return;
-			}
-
-			var user = await _identityUserManager.FindByIdAsync(CurrentUser.Id.Value.ToString());
-			if (user == null)
-			{
-				return;
-			}
-
-			user.SetCity(input.City);
-			user.SetProvince(input.Province);
-			await _identityUserManager.UpdateAsync(user);
 		}
 	}
 }

@@ -55,7 +55,7 @@ namespace QuizHero.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.HasKey("UserId", "LocationId");
+                    b.HasKey("UserId");
 
                     b.HasIndex("LocationId");
 
@@ -2151,8 +2151,7 @@ namespace QuizHero.Migrations
                     b.HasOne("QuizHero.Location.Location", null)
                         .WithMany()
                         .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Volo.Abp.Identity.IdentityUser", null)
                         .WithMany()
