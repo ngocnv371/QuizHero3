@@ -2,11 +2,11 @@ import React from 'react'
 import { useCallback } from 'react'
 import { Button, Icon, useNavigate, useSnackbar } from 'zmp-ui'
 
+import { Routes } from '@/constants/routes'
 import { RetryLoginButton } from '@/modules/auth/components/retry-login-button'
 import { useProfile } from '@/modules/auth/use-auth'
 
 import { useQuiz } from '../use-quiz'
-import { Routes } from '@/constants/routes'
 
 type CompleteButtonProps = {
   disabled: boolean

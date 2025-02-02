@@ -1,8 +1,10 @@
-import { QuizResultDto } from '@/modules/api/models'
+import dayjs from 'dayjs'
 import React, { useCallback, useMemo } from 'react'
 import { Avatar, List, useNavigate } from 'zmp-ui'
-import dayjs from 'dayjs'
+
 import { Routes } from '@/constants/routes'
+import { QuizResultDto } from '@/modules/api/models'
+
 import { ScoreLabel } from './score-label'
 
 type Props = {

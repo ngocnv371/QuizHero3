@@ -1,6 +1,7 @@
-import { Routes } from '@/constants/routes'
 import React, { useCallback } from 'react'
 import { Icon, List, useNavigate } from 'zmp-ui'
+
+import { Routes } from '@/constants/routes'
 
 export const LocationSettingItem: React.FC = () => {
   const nav = useNavigate()

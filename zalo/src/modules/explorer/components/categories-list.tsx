@@ -1,12 +1,13 @@
 import React, { useCallback } from 'react'
 import { useNavigate } from 'zmp-ui'
 
+import { Routes } from '@/constants/routes'
+
 import { TopicDto } from '../models'
 import { useExplorer } from '../use-explorer'
 import CategorySection from './category-section'
 import { ExplorerSkeleton } from './explorer-skeleton'
 import { TopicCard } from './topic-card'
-import { Routes } from '@/constants/routes'
 
 export const CategoriesList: React.FC = () => {
   const { categories, isLoading } = useExplorer()

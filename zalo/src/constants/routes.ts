@@ -18,12 +18,12 @@ export const Routes = {
   },
   quiz: {
     player: (quizId: string) => `/quiz/${quizId}/player`,
-    result: (quizId: string) =>  `/quiz/${quizId}/result`,
+    result: (quizId: string) => `/quiz/${quizId}/result`,
   },
   profile: {
     page: () => `/profile`,
     locationSetting: () => `/profile/location`,
     privacySetting: () => `/profile/privacy`,
-    securitySetting: () => `/profile/security`
-  }
+    securitySetting: () => `/profile/security`,
+  },
 }

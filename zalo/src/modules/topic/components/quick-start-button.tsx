@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect } from 'react'
 import { Button, Icon, useNavigate } from 'zmp-ui'
 
-import { useQuickQuizQuery } from '../use-quick-quiz'
 import { Routes } from '@/constants/routes'
+
+import { useQuickQuizQuery } from '../use-quick-quiz'
 
 type Props = {
   topicId: string

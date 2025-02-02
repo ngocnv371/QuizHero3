@@ -11,12 +11,12 @@ import { QuizResultPage } from './modules/quiz/components/result-page'
 import QuizList from './modules/topic/components/quiz-list'
 import ExplorerRootPage from './pages/explorer'
 import HistoryRootPage from './pages/history'
-import QuizRootPage from './pages/quiz'
-import TopicRootPage from './pages/topic'
 import ProfileRootPage from './pages/profile'
 import ProfileLocationPage from './pages/profile/location'
-import ProfileSecurityPage from './pages/profile/security'
 import ProfilePrivacyPage from './pages/profile/privacy'
+import ProfileSecurityPage from './pages/profile/security'
+import QuizRootPage from './pages/quiz'
+import TopicRootPage from './pages/topic'
 
 const queryClient = new QueryClient({
   defaultOptions: {

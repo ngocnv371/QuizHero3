@@ -1,9 +1,8 @@
 import React from 'react'
+import { Icon } from 'zmp-ui'
 
 import { TopicDto } from '../models'
-import { useFavouritesQuery } from '../use-favourites'
 import { useExplorer } from '../use-explorer'
-import { Icon } from 'zmp-ui'
 
 type Props = {
   topic: TopicDto

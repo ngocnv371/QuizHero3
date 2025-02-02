@@ -20,7 +20,7 @@ export type IdentityUserDto = {
     avatarUrl: string
     zaloId: string
   }
-} 
+}
 
 export type UserLocationDto = {
   locationId: string
@@ -35,19 +35,19 @@ export type QuizResultQuery = {
 }
 
 export type QuizResultDto = {
-  id: string;
-  quizId: string;
-  topicAvatarUrl: string;
-  score: number;
-  maxScore: number;
-  quiz: string;
-  topicId: string;
-  topic: string;
-  creationTime: string;
+  id: string
+  quizId: string
+  topicAvatarUrl: string
+  score: number
+  maxScore: number
+  quiz: string
+  topicId: string
+  topic: string
+  creationTime: string
 }
 
 export type LocationDto = {
-  id: string;
-  name: string;
-  parentId: string;
+  id: string
+  name: string
+  parentId: string
 }

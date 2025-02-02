@@ -1,7 +1,16 @@
 import { TopicDto } from '../explorer/models'
 import { LeaderboardItem } from '../leaderboard/models'
 import { QuizDto } from '../quiz/models'
-import { CreateQuizResultDto, IdentityUserDto, ListResultDto, LocationDto, QuizResultDto, QuizResultQuery, UpdateLocationInputDto, UserLocationDto } from './models'
+import {
+  CreateQuizResultDto,
+  IdentityUserDto,
+  ListResultDto,
+  LocationDto,
+  QuizResultDto,
+  QuizResultQuery,
+  UpdateLocationInputDto,
+  UserLocationDto,
+} from './models'
 
 const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
 
@@ -149,7 +158,7 @@ export const client = {
       console.error('Fetch error:', error)
       throw error
     }
-  },  
+  },
   getUserLocation: async () => {
     try {
       const response = await fetch(`${apiUrl}/user-locations`, {
@@ -162,7 +171,7 @@ export const client = {
       console.error('Fetch error:', error)
       throw error
     }
-  },  
+  },
   updateUserLocation: async (input: UpdateLocationInputDto) => {
     try {
       const response = await fetch(`${apiUrl}/user-locations`, {
@@ -181,7 +190,7 @@ export const client = {
   },
   getQuizResults: async (input: QuizResultQuery) => {
     try {
-      const response = await fetch(`${apiUrl}/quiz-results`, {
+      const response = await fetch(`${apiUrl}/quiz-results?quizId=${input.quizId}`, {
         method: 'GET',
         headers: getDefaultHeaders(),
       })

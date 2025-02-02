@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { Picker, Text } from 'zmp-ui'
 import { PickerColumnOption } from 'zmp-ui/picker'
+
 import { useLocationsQuery } from '../use-locations-query'
 import { PickerSkeleton } from './picker-skeleton'
 

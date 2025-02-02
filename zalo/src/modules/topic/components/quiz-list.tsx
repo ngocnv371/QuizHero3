@@ -2,11 +2,11 @@ import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Icon, List, useNavigate } from 'zmp-ui'
 
+import { Routes } from '@/constants/routes'
 import { QuizDto } from '@/modules/quiz/models'
 
 import { useQuizListQueryByTopicId } from '../use-quiz-list'
 import { TopicBar } from './topic-bar'
-import { Routes } from '@/constants/routes'
 
 const QuizList: React.FC = () => {
   const { topicId } = useParams()

@@ -12,8 +12,8 @@ export interface QuestionDto {
 
 export interface QuizDto {
   id: string
-  topicId: string;
-  topicName: string;
+  topicId: string
+  topicName: string
   title: string
   description: string
   questions: QuestionDto[]

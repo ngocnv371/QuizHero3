@@ -2,10 +2,10 @@ import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Avatar, Button, Header, Icon, Progress, useNavigate } from 'zmp-ui'
 
+import { Routes } from '@/constants/routes'
 import { useProfile } from '@/modules/auth/use-auth'
 
 import { useQuizResult } from '../use-quiz-result'
-import { Routes } from '@/constants/routes'
 
 export const QuizResultPage: React.FC = () => {
   const { profile: user } = useProfile()

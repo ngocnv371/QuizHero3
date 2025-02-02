@@ -2,8 +2,8 @@ import React from 'react'
 import { Header, Page, Text } from 'zmp-ui'
 
 import { PageContainer } from '@/components'
-import { ProfileLayout } from '@/modules/profile/components/layout'
 import { ExplorerTabs } from '@/modules/explorer/components/explorer-tabs'
+import { ProfileLayout } from '@/modules/profile/components/layout'
 
 export default function ProfilePrivacyPage() {
   return (

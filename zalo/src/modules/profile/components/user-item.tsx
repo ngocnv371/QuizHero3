@@ -1,6 +1,8 @@
-import { useProfileQuery } from '@/modules/auth/use-load-profile'
 import React from 'react'
 import { Avatar, List } from 'zmp-ui'
+
+import { useProfileQuery } from '@/modules/auth/use-load-profile'
+
 import { UserItemSkeleton } from './user-item-skeleton'
 
 export const UserItem: React.FC = () => {

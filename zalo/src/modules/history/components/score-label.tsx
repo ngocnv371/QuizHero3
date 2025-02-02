@@ -1,5 +1,6 @@
-import { clsx } from '@/utils/clsx'
 import React from 'react'
+
+import { clsx } from '@/utils/clsx'
 
 type Props = {
   score: number

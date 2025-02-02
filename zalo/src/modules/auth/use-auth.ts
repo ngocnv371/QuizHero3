@@ -5,7 +5,6 @@ import { persist } from 'zustand/middleware'
 import { storage } from '@/utils/storage'
 
 import { IdentityUserDto } from '../api/models'
-import { client } from '../api/client'
 
 export type ProfileState = {
   profile: IdentityUserDto

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getAccessToken, getUserInfo } from 'zmp-sdk'
+import { getAccessToken } from 'zmp-sdk'
 
 import { client } from '../api/client'
 import { useProfile } from './use-auth'

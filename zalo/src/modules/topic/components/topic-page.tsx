@@ -1,14 +1,13 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { Outlet, useParams } from 'react-router-dom'
 import { useIntersectionObserver } from 'usehooks-ts'
-import { Button, Header, Icon, Text, useNavigate } from 'zmp-ui'
+import { Header, Text } from 'zmp-ui'
 
 import { TopicNotFoundError } from '@/constants/errors'
 import { clsx } from '@/utils/clsx'
 
 import { useTopicById } from '../../explorer/use-explorer'
 import LikeTopicButton from './like-topic-button'
-import { QuickStartButton } from './quick-start-button'
 import { TopicAvatar } from './topic-avatar'
 import { TopicCover } from './topic-cover'
 import { TopicInfoLoading } from './topic-info-loading'
