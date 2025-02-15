@@ -17,8 +17,8 @@ export const Routes = {
     leaderboard: (id: number) => `/topics/${id}/leaderboard`,
   },
   quiz: {
-    player: (quizId: string) => `/quiz/${quizId}/player`,
-    result: (quizId: string) => `/quiz/${quizId}/result`,
+    player: (quizId: number) => `/quiz/${quizId}/player`,
+    result: (quizId: number) => `/quiz/${quizId}/result`,
   },
   profile: {
     page: () => `/profile`,

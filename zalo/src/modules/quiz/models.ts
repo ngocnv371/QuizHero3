@@ -1,17 +1,17 @@
 export interface AnswerDto {
-  id: string
+  id: number
   text: string
   is_correct: boolean
 }
 
 export interface QuestionDto {
-  id: string
+  id: number
   text: string
   answers: AnswerDto[]
 }
 
 export interface QuizDto {
-  id: string
+  id: number
   topic_id: number
   name: string
   description: string

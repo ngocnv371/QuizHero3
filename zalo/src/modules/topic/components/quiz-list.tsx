@@ -14,7 +14,7 @@ const QuizList: React.FC = () => {
   const nav = useNavigate()
 
   const handleQuizClick = useCallback(
-    (quizId: string) => {
+    (quizId: number) => {
       const url = Routes.quiz.player(quizId)
       console.log('navigating to', url)
       nav(url)

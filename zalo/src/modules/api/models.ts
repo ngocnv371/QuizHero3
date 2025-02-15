@@ -4,12 +4,12 @@ export interface ListResultDto<T> {
 }
 
 export type CreateQuestionResultDto = {
-  question_id: string
+  question_id: number
   is_correct: boolean
 }
 
 export type CreateQuizResultDto = {
-  quiz_id: string
+  quiz_id: number
   question_results: CreateQuestionResultDto[]
 }
 

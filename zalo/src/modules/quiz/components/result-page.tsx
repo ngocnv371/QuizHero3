@@ -20,7 +20,7 @@ export const QuizResultPage: React.FC = () => {
 
   const handleRetry = useCallback(() => {
     console.log('go to retry page')
-    nav(Routes.quiz.player(quizId!), { animate: true, replace: true, relative: 'route' })
+    nav(Routes.quiz.player(+quizId!), { animate: true, replace: true, relative: 'route' })
   }, [nav, quizId])
 
   const handleHome = useCallback(() => {
