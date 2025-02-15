@@ -9,7 +9,7 @@ import { Leaderboard } from './leaderboard'
 export const TopicLeaderboard: React.FC = () => {
   const { topicId } = useParams()
 
-  const { data, isLoading } = useLeaderboardQuery(topicId!)
+  const { data, isLoading } = useLeaderboardQuery(+topicId!)
 
   return (
     <>

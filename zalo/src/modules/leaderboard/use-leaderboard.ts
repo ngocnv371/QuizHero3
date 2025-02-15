@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { client } from '../api/client'
 
-export function useLeaderboardQuery(topicId: string) {
+export function useLeaderboardQuery(topicId: number) {
   return useQuery({
     queryKey: ['leaderboard', topicId],
     queryFn: async () => {

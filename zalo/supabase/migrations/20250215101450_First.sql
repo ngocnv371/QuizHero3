@@ -65,21 +65,26 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA "extensions";
 
 
 
-CREATE OR REPLACE FUNCTION "public"."get_leaderboard_by_topic"("topic_id_param" integer) RETURNS TABLE("id" "text", "name" "text", "avatar_url" "text", "score" bigint)
-    LANGUAGE "plpgsql"
-    AS $$
+create or replace function get_leaderboard_by_topic(topic_id_param INT)
+returns table (
+  id uuid,
+  name character varying,
+  avatar_url character varying,
+  score bigint
+) as $$
 begin
   return query
   select u.id, u.name, u.avatar_url, max(r.score) as score
-  from users u
-  join quiz_results r on u.id = r.user_id
+  from
+  quiz_results r
+  join profiles u on u.id = r.user_id
   join quizzes q on q.id = r.quiz_id
   where q.topic_id = topic_id_param
   group by u.id, u.name, u.avatar_url
   order by score desc
   limit 10;
 end;
-$$;
+$$ language plpgsql;
 
 
 ALTER FUNCTION "public"."get_leaderboard_by_topic"("topic_id_param" integer) OWNER TO "postgres";
@@ -274,6 +279,41 @@ ALTER TABLE "public"."users" OWNER TO "postgres";
 
 COMMENT ON TABLE "public"."users" IS 'store transient users from Zalo';
 
+create table public.profiles (
+  id uuid not null references auth.users on delete cascade,
+  name character varying NOT NULL,
+  avatar_url character varying NOT NULL,
+  zalo_id character varying NOT NULL,
+  location1 character varying,
+  location2 character varying,
+
+  primary key (id)
+);
+
+alter table public.profiles enable row level security;
+CREATE POLICY "Enable read access for all users" ON "public"."profiles" FOR SELECT USING (true);
+
+-- inserts a row into public.profiles
+create function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = ''
+as $$
+begin
+  insert into public.profiles (id, name, zalo_id, avatar_url)
+  values (
+    new.id, new.raw_user_meta_data ->> 'name', 
+    new.raw_user_meta_data ->> 'zalo_id', 
+    new.raw_user_meta_data ->> 'avatar_url'
+  );
+  return new;
+end;
+$$;
+
+-- trigger the function every time a user is created
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
 
 
 ALTER TABLE ONLY "public"."answers"

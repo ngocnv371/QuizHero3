@@ -33,7 +33,7 @@ export const QuizResultPage: React.FC = () => {
       <Header title="Result" showBackIcon={true} className="no-divider" />
       <div className="px-4">
         <div className="text-center">
-          <Avatar size={122} src={user.user_metadata.avatarUrl} className="mt-6" />
+          <Avatar size={122} src={user.user_metadata.avatar_url} className="mt-6" />
           <h2>{user.user_metadata.name}</h2>
           <p>Score: {score}</p>
         </div>

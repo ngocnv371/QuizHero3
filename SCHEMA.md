@@ -10,7 +10,7 @@ A user can take a quiz multiple times. Only the latest attempt is accounted for 
 - Quizzes (id, title, topicId)
 - Questions (id, quizid, text)
 - Answers (id, questionId, text, isCorrect)
-- Users (id, name, location1, location2)
+- Profiles (id, name, avatar_url, zalo_id, location1, location2)
 - UserTopics (userId, topicId): represent if this user has added a topic to his favourites list
 - QuizResults (quizId, userId, score, date)
 - QuestionResults (quizResultId, questionId, isCorrect)

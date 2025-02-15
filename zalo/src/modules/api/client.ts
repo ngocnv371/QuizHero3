@@ -90,8 +90,8 @@ export const client = {
         options: {
           data: {
             name: userInfo.name,
-            zaloId: userInfo.id,
-            avatar: userInfo.avatar,
+            zalo_id: userInfo.id,
+            avatar_url: userInfo.avatar,
           },
         },
       })
@@ -195,18 +195,13 @@ export const client = {
       throw error2
     }
   },
-  getLeaderboard: async (topicId: string) => {
-    try {
-      const response = await fetch(`${apiUrl}/leaderboard?topicId=${topicId}`, {
-        method: 'GET',
-        headers: getDefaultHeaders(),
-      })
-      const data = await handleResponse(response)
-      return data as ListResultDto<LeaderboardItem>
-    } catch (error) {
+  getLeaderboard: async (topicId: number) => {
+    const { data, error, count } = await supabase.rpc('get_leaderboard_by_topic', { topic_id_param: topicId })
+    if (error) {
       console.error('Fetch error:', error)
       throw error
     }
+    return { items: data, totalCount: count } as ListResultDto<LeaderboardItem>
   },
   getFavourites: async () => {
     const { data, error } = await supabase.from('user_topics').select('*')
