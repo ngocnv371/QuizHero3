@@ -1,3 +1,5 @@
+import { getAccessToken, getUserInfo } from 'zmp-sdk'
+
 import { TopicDto } from '../explorer/models'
 import { LeaderboardItem } from '../leaderboard/models'
 import { QuizDto } from '../quiz/models'
@@ -11,6 +13,7 @@ import {
   UpdateLocationInputDto,
   UserLocationDto,
 } from './models'
+import { supabase } from './supabase'
 
 const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
 
@@ -19,6 +22,20 @@ const getDefaultHeaders = () => ({
   ['x-zalo-access-key']: `${_accessKey}`,
   accept: 'application/json',
 })
+
+async function wrappedGetAccessToken() {
+  return new Promise<string>((resolve, reject) => {
+    getAccessToken({
+      success(res) {
+        resolve(res)
+      },
+      fail(err) {
+        console.error('Failed to get access token', err)
+        reject(err)
+      },
+    })
+  })
+}
 
 const handleResponse = async (response: Response) => {
   if (!response.ok) {
@@ -35,6 +52,62 @@ const handleResponse = async (response: Response) => {
 export const client = {
   setToken: (accessKey: string) => {
     _accessKey = accessKey
+  },
+  signIn: async () => {
+    console.log('get access token')
+    let token = await wrappedGetAccessToken()
+    // HACK: use a default token for testing
+    if (!token) {
+      token = 'DEFAULT_ACCESS_TOKEN'
+    }
+    if (!token) {
+      console.error('no token')
+      throw new Error('no token')
+    }
+
+    const { userInfo } = await getUserInfo()
+    console.log('zalo user', userInfo)
+    const email = `u${userInfo.id}@zalo.com`
+    const password = userInfo.id
+
+    // attempt to sign in
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (!error) {
+      console.log('supabase signed in', data.session?.user?.email)
+      return data.session
+    }
+
+    // if the user doesn't exist, sign them up
+    if (error.code === 'invalid_credentials') {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name: userInfo.name,
+            zaloId: userInfo.id,
+            avatar: userInfo.avatar,
+          },
+        },
+      })
+      if (!error) {
+        console.log('supabase signed in', data.session?.user?.email)
+        return data.session
+      }
+
+      if (error.code === 'email_exists') {
+        console.error('supabase email exists', error)
+      }
+
+      throw error
+    }
+
+    console.error('Failed to sign in', error)
+    throw error
   },
   getTopics: async () => {
     try {
