@@ -14,3 +14,20 @@ A user can take a quiz multiple times. Only the latest attempt is accounted for 
 - UserTopics (userId, topicId): represent if this user has added a topic to his favourites list
 - QuizResults (quizId, userId, score, date)
 - QuestionResults (quizResultId, questionId, isCorrect)
+
+# Why did we gave up on Supabase?
+
+- Could not conveniently integrate with Zalo Auth since Supabase has its own Auth and only support email + phone + OAuth, while Zalo provided an encrypted `access_token` already.
+- We could do a `signIn` with a hardcoded password, but that's basically no security at all.
+- Maybe that's not so bad?
+    - The identity of users are not that critical
+    - Well, it is to the users
+
+# Consider AppWrite.io
+
+- The server SDK allows generate token for a specific user
+- So we could
+    - Resolve the Zalo user from token
+    - Create user
+    - Generate token
+- This is seamless
