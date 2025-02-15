@@ -110,17 +110,12 @@ export const client = {
     throw error
   },
   getTopics: async () => {
-    try {
-      const response = await fetch(`${apiUrl}/topics`, {
-        method: 'GET',
-        headers: getDefaultHeaders(),
-      })
-      const data = await handleResponse(response)
-      return data as ListResultDto<TopicDto>
-    } catch (error) {
+    const { data, error, count } = await supabase.from('topics').select('*')
+    if (error) {
       console.error('Fetch error:', error)
       throw error
     }
+    return { totalCount: count, items: data } as ListResultDto<TopicDto>
   },
   getQuickQuiz: async (topicId: string) => {
     try {
@@ -207,17 +202,12 @@ export const client = {
     }
   },
   getFavourites: async () => {
-    try {
-      const response = await fetch(`${apiUrl}/topics/favourites`, {
-        method: 'GET',
-        headers: getDefaultHeaders(),
-      })
-      const data = await handleResponse(response)
-      return data as ListResultDto<TopicDto>
-    } catch (error) {
+    const { data, count, error } = await supabase.from('user_topics').select('*')
+    if (error) {
       console.error('Fetch error:', error)
       throw error
     }
+    return { totalCount: count, items: data } as ListResultDto<TopicDto>
   },
   getUserLocation: async () => {
     try {
