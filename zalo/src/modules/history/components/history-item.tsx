@@ -30,14 +30,14 @@ export const HistoryItem: React.FC<Props> = ({ item }) => {
   return (
     <List.Item
       key={item.id}
-      prefix={<Avatar src={item.quiz.topic.logo_url} />}
-      title={item.quiz.topic.name}
+      prefix={<Avatar src={item.logo_url} />}
+      title={item.topic_name}
       subTitle={distance}
-      data-topic-id={item.quiz.topic.id}
+      data-topic-id={item.topic_id}
       onClick={handleClick}
-      suffix={<ScoreLabel score={item.score} maxScore={item.maxScore} />}
+      suffix={<ScoreLabel score={item.score} maxScore={item.max_score} />}
     >
-      {item.quiz.name}
+      {item.quiz_name}
     </List.Item>
   )
 }

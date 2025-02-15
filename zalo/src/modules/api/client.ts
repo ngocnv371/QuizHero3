@@ -5,7 +5,6 @@ import { LeaderboardItem } from '../leaderboard/models'
 import { QuizDto } from '../quiz/models'
 import {
   CreateQuizResultDto,
-  IdentityUserDto,
   ListResultDto,
   LocationDto,
   QuizResultDto,
@@ -165,7 +164,9 @@ export const client = {
       }
     } else {
       console.log('add like')
-      const { error } = await supabase.from('user_topics').upsert({ topic_id: topicId })
+      const { error } = await supabase.from('user_topics').upsert({
+        topic_id: topicId,
+      })
       if (error) {
         console.error('Fetch error:', error)
         throw error
@@ -184,7 +185,10 @@ export const client = {
       throw error
     }
 
-    const items = result.question_results.map((r) => ({ quiz_result_id: data!.id, ...r }))
+    const items = result.question_results.map((r) => ({
+      quiz_result_id: data!.id,
+      ...r,
+    }))
     const { error: error2 } = await supabase.from('question_results').insert(items)
     if (error2) {
       console.error('Insert question result error:', error2)
@@ -242,9 +246,7 @@ export const client = {
     }
   },
   getQuizResults: async (input: QuizResultQuery) => {
-    let query = supabase
-      .from('quiz_results')
-      .select('*, quiz:quizzes (name, topic_id, topic:topics (id, name, logo_url))')
+    let query = supabase.rpc('get_quiz_results_by_user')
     if (input.quiz_id) {
       query = query.eq('quiz_id', input.quiz_id)
     }
