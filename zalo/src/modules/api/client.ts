@@ -242,17 +242,18 @@ export const client = {
     }
   },
   getQuizResults: async (input: QuizResultQuery) => {
-    try {
-      const response = await fetch(`${apiUrl}/quiz-results?quizId=${input.quiz_id}`, {
-        method: 'GET',
-        headers: getDefaultHeaders(),
-      })
-      const data = await handleResponse(response)
-      return data as ListResultDto<QuizResultDto>
-    } catch (error) {
+    let query = supabase
+      .from('quiz_results')
+      .select('*, quiz:quizzes (name, topic_id, topic:topics (id, name, logo_url))')
+    if (input.quiz_id) {
+      query = query.eq('quiz_id', input.quiz_id)
+    }
+    const { data, error, count } = await query
+    if (error) {
       console.error('Fetch error:', error)
       throw error
     }
+    return { items: data, totalCount: count } as ListResultDto<QuizResultDto>
   },
   getLocations: async () => {
     try {

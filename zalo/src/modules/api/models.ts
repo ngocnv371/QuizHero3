@@ -36,14 +36,15 @@ export type QuizResultQuery = {
 
 export type QuizResultDto = {
   id: string
-  quizId: string
-  topicAvatarUrl: string
   score: number
-  maxScore: number
-  quiz: string
-  topicId: string
-  topic: string
-  creationTime: string
+  quiz: {
+    name: string
+    topic: {
+      name: string
+      logo_url: string
+    }
+  }
+  created_at: string
 }
 
 export type LocationDto = {

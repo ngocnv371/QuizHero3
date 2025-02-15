@@ -18,26 +18,26 @@ export const HistoryItem: React.FC<Props> = ({ item }) => {
     (e: React.MouseEvent) => {
       const id = e.currentTarget.getAttribute('data-topic-id')
       console.log('clicked', id)
-      nav(Routes.topic.page(id!), { animate: true, direction: 'forward', replace: false })
+      nav(Routes.topic.page(+id!), { animate: true, direction: 'forward', replace: false })
     },
     [nav],
   )
 
   const distance = useMemo(() => {
-    return dayjs(item.creationTime).fromNow()
-  }, [item.creationTime])
+    return dayjs(item.created_at).fromNow()
+  }, [item.created_at])
 
   return (
     <List.Item
       key={item.id}
-      prefix={<Avatar src={item.topicAvatarUrl} />}
-      title={item.topic}
+      prefix={<Avatar src={item.quiz.topic.logo_url} />}
+      title={item.quiz.topic.name}
       subTitle={distance}
-      data-topic-id={item.topicId}
+      data-topic-id={item.quiz.topic.id}
       onClick={handleClick}
       suffix={<ScoreLabel score={item.score} maxScore={item.maxScore} />}
     >
-      {item.quiz}
+      {item.quiz.name}
     </List.Item>
   )
 }
