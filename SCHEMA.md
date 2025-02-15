@@ -6,7 +6,7 @@ A user can take a quiz multiple times. Only the latest attempt is accounted for 
 
 # Tables
 
-- Topics (id, name, category)
+- Topics (id, name, category, logo_url, cover_url)
 - Quizzes (id, title, topicId)
 - Questions (id, quizid, text)
 - Answers (id, questionId, text, isCorrect)

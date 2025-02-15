@@ -2,8 +2,8 @@ export type TopicDto = {
   id: string
   name: string
   category: string
-  avatarUrl: string
-  coverUrl: string
+  logo_url: string
+  cover_url: string
   description: string
 }
 
