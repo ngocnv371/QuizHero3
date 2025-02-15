@@ -131,17 +131,13 @@ export const client = {
     }
   },
   getQuizzes: async (topicId: string) => {
-    try {
-      const response = await fetch(`${apiUrl}/quizzes?topicId=${topicId}`, {
-        method: 'GET',
-        headers: getDefaultHeaders(),
-      })
-      const data = await handleResponse(response)
-      return data as ListResultDto<QuizDto>
-    } catch (error) {
+    const { data, error, count } = await supabase.from('quizzes').select('*').eq('topic_id', topicId)
+    if (error) {
       console.error('Fetch error:', error)
       throw error
     }
+
+    return { totalCount: count, items: data } as ListResultDto<QuizDto>
   },
   getQuiz: async (quizId: string) => {
     try {
@@ -156,7 +152,7 @@ export const client = {
       throw error
     }
   },
-  likeTopic: async (topicId: string, liked: boolean) => {
+  likeTopic: async (topicId: number, liked: boolean) => {
     try {
       const response = await fetch(`${apiUrl}/topics/${topicId}/like`, {
         method: 'PUT',

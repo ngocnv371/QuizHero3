@@ -1,5 +1,5 @@
 export type TopicDto = {
-  id: string
+  id: number
   name: string
   category: string
   logo_url: string

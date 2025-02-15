@@ -11,7 +11,7 @@ import { Category, TopicDto } from './models'
 export type Explorer = {
   categories: Category[]
   topics: TopicDto[]
-  favourites: string[]
+  favourites: number[]
   isLoading: boolean
   showFavouritesOnly: boolean
   actions: {
@@ -19,8 +19,8 @@ export type Explorer = {
     clear: () => void
     startLoading: () => void
     stopLoading: () => void
-    updateFavourite: (payload: { topicId: string; liked: boolean }) => Promise<void>
-    loadFavourites: (ids: string[]) => void
+    updateFavourite: (payload: { topicId: number; liked: boolean }) => Promise<void>
+    loadFavourites: (ids: number[]) => void
     toggleShowFavourites: () => void
   }
 }
@@ -114,7 +114,7 @@ function categorizeTopics(topics: TopicDto[]) {
   }))
 }
 
-export function useTopicById(id: string) {
+export function useTopicById(id: number) {
   const { topics, isLoading } = useExplorer()
   const topic = useMemo(() => topics.find((t) => t.id === id), [topics, id])
   return { topic, isLoading }

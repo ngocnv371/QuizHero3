@@ -19,7 +19,7 @@ for (let i = 0; i <= 1.0; i += 0.01) {
 
 export const TopicPage: React.FC = () => {
   const { topicId } = useParams()
-  const { topic, isLoading } = useTopicById(topicId!)
+  const { topic, isLoading } = useTopicById(+topicId!)
   const { entry, ref } = useIntersectionObserver({ threshold })
 
   if (isLoading) {
@@ -40,11 +40,11 @@ export const TopicPage: React.FC = () => {
           entry && entry.intersectionRatio < 0.5 && 'opacity-1',
         )}
       />
-      <TopicCover coverUrl={topic.coverUrl || ''} />
+      <TopicCover coverUrl={topic.cover_url || ''} />
       <div className="relative translate-y-[-84px] h-[84px] mb-[-84px] flex px-4 items-end">
         <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-b from-[#00000000] to-[#000000]" />
         <div className="relative flex-shrink-0 translate-y-[42px] w-full flex justify-between">
-          <TopicAvatar avatarUrl={topic.avatarUrl || ''} />
+          <TopicAvatar avatarUrl={topic.logo_url || ''} />
           <div className="translate-y-[20px]">
             <LikeTopicButton topicId={topic.id} />
           </div>

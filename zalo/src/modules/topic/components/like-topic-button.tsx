@@ -6,7 +6,7 @@ import { useExplorer } from '@/modules/explorer/use-explorer'
 import { useProfile } from '../../auth/use-auth'
 
 interface LikeTopicButtonProps {
-  topicId: string
+  topicId: number
 }
 
 const LikeTopicButton: React.FC<LikeTopicButtonProps> = ({ topicId }) => {
