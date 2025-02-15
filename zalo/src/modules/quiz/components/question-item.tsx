@@ -9,13 +9,13 @@ import { AnswerDto, QuestionDto } from '../models'
 type Props = {
   question: QuestionDto
   showSolution?: boolean
-  onSelect?: (questionId: string, answerId: string) => void
+  onSelect?: (questionId: number, answerId: number) => void
 }
 
 const AnswerItem: React.FC<{
   answer: AnswerDto
   showSolution?: boolean
-  selectedAnswer?: string
+  selectedAnswer?: number
 }> = ({ answer, showSolution, selectedAnswer }) => {
   const isSelectedAnswer = selectedAnswer! == answer.id
   const correctAnswer = answer.is_correct
@@ -42,7 +42,7 @@ const AnswerItem: React.FC<{
 }
 
 export const QuestionItem: React.FC<Props> = ({ question, showSolution, onSelect }) => {
-  const [selectedAnswer, setSelectedAnswer] = React.useState<string>()
+  const [selectedAnswer, setSelectedAnswer] = React.useState<number>()
   const handleChanged = useCallback(
     (value: RadioValueType) => {
       if (showSolution) {
@@ -50,7 +50,7 @@ export const QuestionItem: React.FC<Props> = ({ question, showSolution, onSelect
         return
       }
 
-      setSelectedAnswer(value.toString())
+      setSelectedAnswer(+value)
     },
     [setSelectedAnswer, showSolution],
   )

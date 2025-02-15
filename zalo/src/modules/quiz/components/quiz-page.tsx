@@ -56,7 +56,7 @@ export const QuizPage: React.FC = () => {
   )
 
   const handleSelectAnswer = useCallback(
-    (questionId: string, answerId: string) => {
+    (questionId: number, answerId: number) => {
       console.log('select answer', answerId)
       actions.selectAnswer({ questionId, answerId })
     },

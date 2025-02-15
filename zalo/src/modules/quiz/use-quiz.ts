@@ -48,6 +48,7 @@ export const useQuiz = create(
         complete: async () => {
           const state = get()
           let score = 0
+          console.log('answers', state.selectedAnswers)
           const results = state.quiz.questions.map((question) => {
             const selectedAnswerId = state.selectedAnswers[question.id]
             const correctAnswer = question.answers.find((answer) => answer.is_correct)
