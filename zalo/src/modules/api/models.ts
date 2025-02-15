@@ -4,13 +4,13 @@ export interface ListResultDto<T> {
 }
 
 export type CreateQuestionResultDto = {
-  questionId: string
-  isCorrect: boolean
+  question_id: string
+  is_correct: boolean
 }
 
 export type CreateQuizResultDto = {
-  quizId: string
-  questionResults: CreateQuestionResultDto[]
+  quiz_id: string
+  question_results: CreateQuestionResultDto[]
 }
 
 export type IdentityUserDto = {
@@ -31,7 +31,7 @@ export type UpdateLocationInputDto = {
 }
 
 export type QuizResultQuery = {
-  quizId?: string
+  quiz_id?: string
 }
 
 export type QuizResultDto = {

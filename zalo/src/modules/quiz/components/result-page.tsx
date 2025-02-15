@@ -15,7 +15,7 @@ export const QuizResultPage: React.FC = () => {
 
   const handleLeaderboard = useCallback(() => {
     console.log('go to leaderboard page')
-    nav(Routes.topic.leaderboard(quiz.topicId), { animate: true, replace: true, relative: 'route' })
+    nav(Routes.topic.leaderboard(quiz.topic_id), { animate: true, replace: true, relative: 'route' })
   }, [nav, quiz])
 
   const handleRetry = useCallback(() => {
@@ -33,8 +33,8 @@ export const QuizResultPage: React.FC = () => {
       <Header title="Result" showBackIcon={true} className="no-divider" />
       <div className="px-4">
         <div className="text-center">
-          <Avatar size={122} src={user.extraProperties.avatarUrl} className="mt-6" />
-          <h2>{user.name}</h2>
+          <Avatar size={122} src={user.user_metadata.avatarUrl} className="mt-6" />
+          <h2>{user.user_metadata.name}</h2>
           <p>Score: {score}</p>
         </div>
         <div className="rounded-xl p-2">

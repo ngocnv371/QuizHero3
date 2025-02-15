@@ -143,17 +143,17 @@ export const client = {
     return { totalCount: count, items: data } as ListResultDto<QuizDto>
   },
   getQuiz: async (quizId: string) => {
-    try {
-      const response = await fetch(`${apiUrl}/quizzes/${quizId}`, {
-        method: 'GET',
-        headers: getDefaultHeaders(),
-      })
-      const data = await handleResponse(response)
-      return data as QuizDto
-    } catch (error) {
+    const { data, error } = await supabase
+      .from('quizzes')
+      .select('*, questions (*, answers (*))')
+      .eq('id', quizId)
+      .single()
+    if (error) {
       console.error('Fetch error:', error)
       throw error
     }
+
+    return data as QuizDto
   },
   likeTopic: async (topicId: number, liked: boolean) => {
     if (!liked) {
@@ -173,19 +173,22 @@ export const client = {
     }
   },
   createQuizResult: async (result: CreateQuizResultDto) => {
-    try {
-      const response = await fetch(`${apiUrl}/quiz-results`, {
-        method: 'POST',
-        headers: {
-          ...getDefaultHeaders(),
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(result),
-      })
-      await handleResponse(response)
-    } catch (error) {
-      console.error('Fetch error:', error)
+    const score = result.question_results.filter((r) => r.is_correct).length
+    const { data, error } = await supabase
+      .from('quiz_results')
+      .upsert({ quiz_id: result.quiz_id, score })
+      .select()
+      .single()
+    if (error) {
+      console.error('Insert quiz result error:', error)
       throw error
+    }
+
+    const items = result.question_results.map((r) => ({ quiz_result_id: data!.id, ...r }))
+    const { error: error2 } = await supabase.from('question_results').insert(items)
+    if (error2) {
+      console.error('Insert question result error:', error2)
+      throw error2
     }
   },
   getLeaderboard: async (topicId: string) => {
@@ -240,7 +243,7 @@ export const client = {
   },
   getQuizResults: async (input: QuizResultQuery) => {
     try {
-      const response = await fetch(`${apiUrl}/quiz-results?quizId=${input.quizId}`, {
+      const response = await fetch(`${apiUrl}/quiz-results?quizId=${input.quiz_id}`, {
         method: 'GET',
         headers: getDefaultHeaders(),
       })

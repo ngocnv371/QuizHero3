@@ -1,7 +1,7 @@
 export interface AnswerDto {
   id: string
   text: string
-  isCorrect: boolean
+  is_correct: boolean
 }
 
 export interface QuestionDto {
@@ -12,8 +12,7 @@ export interface QuestionDto {
 
 export interface QuizDto {
   id: string
-  topicId: string
-  topicName: string
+  topic_id: number
   name: string
   description: string
   questions: QuestionDto[]

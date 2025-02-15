@@ -6,6 +6,7 @@ import { persist } from 'zustand/middleware'
 import { storage } from '@/utils/storage'
 
 import { client } from '../api/client'
+import { CreateQuestionResultDto, CreateQuizResultDto } from '../api/models'
 import { AnswerDto, QuestionDto, QuizDto } from './models'
 
 export type QuizState = {
@@ -49,19 +50,19 @@ export const useQuiz = create(
           let score = 0
           const results = state.quiz.questions.map((question) => {
             const selectedAnswerId = state.selectedAnswers[question.id]
-            const correctAnswer = question.answers.find((answer) => answer.isCorrect)
-            const isCorrect = correctAnswer?.id === selectedAnswerId
-            if (isCorrect) {
+            const correctAnswer = question.answers.find((answer) => answer.is_correct)
+            const is_correct = correctAnswer?.id === selectedAnswerId
+            if (is_correct) {
               score++
             }
-            return { questionId: question.id, isCorrect }
+            return { question_id: question.id, is_correct } as CreateQuestionResultDto
           })
           console.log('score', score, results)
 
           const result = {
-            quizId: state.quiz.id,
-            questionResults: results,
-          }
+            quiz_id: state.quiz.id,
+            question_results: results,
+          } as CreateQuizResultDto
           await client.createQuizResult(result)
 
           set(

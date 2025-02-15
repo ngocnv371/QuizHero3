@@ -12,9 +12,9 @@ export const Routes = {
     page: () => `/history`,
   },
   topic: {
-    page: (id: string) => `/topics/${id}`,
-    quizzes: (id: string) => `/topics/${id}/quizzes`,
-    leaderboard: (id: string) => `/topics/${id}/leaderboard`,
+    page: (id: number) => `/topics/${id}`,
+    quizzes: (id: number) => `/topics/${id}/quizzes`,
+    leaderboard: (id: number) => `/topics/${id}/leaderboard`,
   },
   quiz: {
     player: (quizId: string) => `/quiz/${quizId}/player`,
