@@ -28,7 +28,7 @@
     "@formatjs/intl-numberformat": "^8.10.0",
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@react-spring/web": "^9.7.3",
-    "@supabase/supabase-js": "^2.47.10",
+    "@supabase/supabase-js": "^2.48.1",
     "@tanstack/react-query": "^5.51.23",
     "@use-gesture/react": "^10.3.0",
     "@xuannghia/html2canvas": "^1.4.2",
