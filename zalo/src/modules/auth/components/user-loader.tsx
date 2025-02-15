@@ -13,9 +13,9 @@ export function UserLoader() {
   useEffect(
     () => {
       if (user?.id) {
-        console.log('Welcome back', user.name)
+        console.log('Welcome back', user.user_metadata.name)
         openSnackbar({
-          text: `Welcome back, ${user.name}`,
+          text: `Welcome back, ${user.user_metadata.name}`,
           type: 'success',
           duration: 3000,
         })

@@ -219,19 +219,6 @@ export const client = {
       throw error
     }
   },
-  getProfile: async () => {
-    try {
-      const response = await fetch(`${apiUrl}/zalo/profile`, {
-        method: 'GET',
-        headers: getDefaultHeaders(),
-      })
-      const data = await handleResponse(response)
-      return data as IdentityUserDto
-    } catch (error) {
-      console.error('Fetch error:', error)
-      throw error
-    }
-  },
   getUserLocation: async () => {
     try {
       const response = await fetch(`${apiUrl}/user-locations`, {

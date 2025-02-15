@@ -9,10 +9,9 @@ export function useProfileQuery() {
     queryKey: ['loadProfile'],
     queryFn: async () => {
       const session = await client.signIn()
-      const info = await client.getProfile()
-      actions.load(info)
+      actions.load(session!.user)
       console.log('authenticated', session)
-      return info
+      return session?.user
     },
   })
 }

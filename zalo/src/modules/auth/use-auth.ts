@@ -1,24 +1,23 @@
+import { User } from '@supabase/supabase-js'
 import { produce } from 'immer'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { storage } from '@/utils/storage'
 
-import { IdentityUserDto } from '../api/models'
-
 export type ProfileState = {
-  profile: IdentityUserDto
+  profile: User
   isLoading: boolean
   error: string
   actions: {
-    load: (payload: IdentityUserDto) => void
+    load: (payload: User) => void
   }
 }
 
 export const useProfile = create(
   persist<ProfileState>(
     (set) => ({
-      profile: {} as IdentityUserDto,
+      profile: {} as User,
       isLoading: false,
       error: '',
       actions: {
