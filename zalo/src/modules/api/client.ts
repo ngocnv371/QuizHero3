@@ -18,6 +18,7 @@ import { supabase } from './supabase'
 const apiUrl = `${import.meta.env.VITE_API_URL}/api/app`
 
 let _accessKey = ''
+let _userUid = ''
 const getDefaultHeaders = () => ({
   ['x-zalo-access-key']: `${_accessKey}`,
   accept: 'application/json',
@@ -78,6 +79,7 @@ export const client = {
 
     if (!error) {
       console.log('supabase signed in', data.session?.user?.email)
+      _userUid = data.user.id
       return data.session
     }
 
@@ -96,6 +98,7 @@ export const client = {
       })
       if (!error) {
         console.log('supabase signed in', data.session?.user?.email)
+        _userUid = data.user!.id
         return data.session
       }
 
@@ -153,19 +156,20 @@ export const client = {
     }
   },
   likeTopic: async (topicId: number, liked: boolean) => {
-    try {
-      const response = await fetch(`${apiUrl}/topics/${topicId}/like`, {
-        method: 'PUT',
-        headers: {
-          ...getDefaultHeaders(),
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ liked }),
-      })
-      await handleResponse(response)
-    } catch (error) {
-      console.error('Fetch error:', error)
-      throw error
+    if (!liked) {
+      console.log('remove like')
+      const { error } = await supabase.from('user_topics').delete().eq('topic_id', topicId)
+      if (error) {
+        console.error('Fetch error:', error)
+        throw error
+      }
+    } else {
+      console.log('add like')
+      const { error } = await supabase.from('user_topics').upsert({ topic_id: topicId })
+      if (error) {
+        console.error('Fetch error:', error)
+        throw error
+      }
     }
   },
   createQuizResult: async (result: CreateQuizResultDto) => {
@@ -198,12 +202,12 @@ export const client = {
     }
   },
   getFavourites: async () => {
-    const { data, count, error } = await supabase.from('user_topics').select('*')
+    const { data, error } = await supabase.from('user_topics').select('*')
     if (error) {
       console.error('Fetch error:', error)
       throw error
     }
-    return { totalCount: count, items: data } as ListResultDto<TopicDto>
+    return data.map((d: { topic_id: number }) => d.topic_id)
   },
   getUserLocation: async () => {
     try {

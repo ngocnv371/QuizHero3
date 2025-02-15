@@ -10,8 +10,8 @@ export function useFavouritesQuery(enabled: boolean) {
     queryFn: async () => {
       console.log('fetching favourites')
       actions.startLoading()
-      const { items } = await client.getFavourites()
-      actions.loadFavourites(items.map((i) => i.id))
+      const items = await client.getFavourites()
+      actions.loadFavourites(items)
       console.log('fetched favourites', items)
       actions.stopLoading()
       return items
