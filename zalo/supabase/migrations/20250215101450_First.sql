@@ -48,6 +48,28 @@ $$ language plpgsql;
 
 ALTER FUNCTION "public"."get_leaderboard_by_topic"("topic_id_param" integer) OWNER TO "postgres";
 
+CREATE OR REPLACE FUNCTION public.get_quiz_results_by_user()
+ RETURNS TABLE(
+  topic_id bigint, topic_name character varying, logo_url text, 
+  quiz_name character varying, id bigint, quiz_id bigint, user_id uuid, 
+  score bigint, created_at timestamp with time zone, max_score bigint
+  )
+ LANGUAGE plpgsql
+AS $function$
+begin
+    return query
+    select q.topic_id, t.name as topic_name, t.logo_url, q.name as quiz_name, 
+      qr.id, qr.quiz_id, qr.user_id, qr.score, qr.created_at, 
+      (select count(*) from questions r where r.quiz_id = qr.quiz_id) as max_score
+    from quiz_results qr
+    join quizzes q on q.id = qr.quiz_id
+    join topics t on q.topic_id = t.id
+    where qr.user_id = (select auth.uid());
+end;
+$function$
+
+ALTER FUNCTION "public"."get_quiz_results_by_user"() OWNER TO "postgres";
+
 SET default_tablespace = '';
 
 SET default_table_access_method = "heap";
@@ -201,7 +223,7 @@ ALTER TABLE "public"."users" OWNER TO "postgres";
 
 COMMENT ON TABLE "public"."users" IS 'store transient users from Zalo';
 
-create table public.profiles (
+CREATE TABLE IF NOT EXISTS public.profiles (
   id uuid not null references auth.users on delete cascade,
   name character varying NOT NULL,
   avatar_url character varying NOT NULL,
@@ -214,6 +236,15 @@ create table public.profiles (
 
 alter table public.profiles enable row level security;
 CREATE POLICY "Enable read access for all users" ON "public"."profiles" FOR SELECT USING (true);
+
+CREATE TABLE IF NOT EXISTS public.locations (
+    "id"	character varying primary key,
+    "name"	character varying,
+    "parent_id"	character varying
+);
+
+alter table public.locations enable row level security;
+CREATE POLICY "Enable read access for all users" ON "public"."locations" FOR SELECT USING (true);
 
 -- inserts a row into public.profiles
 create function public.handle_new_user()
@@ -336,6 +367,10 @@ GRANT USAGE ON SCHEMA "public" TO "service_role";
 GRANT ALL ON FUNCTION "public"."get_leaderboard_by_topic"("topic_id_param" integer) TO "anon";
 GRANT ALL ON FUNCTION "public"."get_leaderboard_by_topic"("topic_id_param" integer) TO "authenticated";
 GRANT ALL ON FUNCTION "public"."get_leaderboard_by_topic"("topic_id_param" integer) TO "service_role";
+
+GRANT ALL ON FUNCTION "public"."get_quiz_results_by_user"() TO "anon";
+GRANT ALL ON FUNCTION "public"."get_quiz_results_by_user"() TO "authenticated";
+GRANT ALL ON FUNCTION "public"."get_quiz_results_by_user"() TO "service_role";
 
 GRANT ALL ON TABLE "public"."answers" TO "anon";
 GRANT ALL ON TABLE "public"."answers" TO "authenticated";
