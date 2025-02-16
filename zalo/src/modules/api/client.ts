@@ -212,30 +212,16 @@ export const client = {
     return data.map((d: { topic_id: number }) => d.topic_id)
   },
   getUserLocation: async () => {
-    try {
-      const response = await fetch(`${apiUrl}/user-locations`, {
-        method: 'GET',
-        headers: getDefaultHeaders(),
-      })
-      const data = await handleResponse(response)
-      return data as UserLocationDto
-    } catch (error) {
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', _userUid).single()
+    if (error) {
       console.error('Fetch error:', error)
       throw error
     }
+    return { locationId: data.location2 } as UserLocationDto
   },
   updateUserLocation: async (input: UpdateLocationInputDto) => {
-    try {
-      const response = await fetch(`${apiUrl}/user-locations`, {
-        method: 'PUT',
-        headers: {
-          ...getDefaultHeaders(),
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(input),
-      })
-      await handleResponse(response)
-    } catch (error) {
+    const { error } = await supabase.from('profiles').update({ location2: input.locationId }).eq('id', _userUid)
+    if (error) {
       console.error('Fetch error:', error)
       throw error
     }
@@ -253,16 +239,11 @@ export const client = {
     return { items: data, totalCount: count } as ListResultDto<QuizResultDto>
   },
   getLocations: async () => {
-    try {
-      const response = await fetch(`${apiUrl}/locations?MaxResultCount=1000`, {
-        method: 'GET',
-        headers: getDefaultHeaders(),
-      })
-      const data = await handleResponse(response)
-      return data as ListResultDto<LocationDto>
-    } catch (error) {
+    const { data, error, count } = await supabase.from('locations').select('*')
+    if (error) {
       console.error('Fetch error:', error)
       throw error
     }
+    return { items: data, totalCount: count } as ListResultDto<LocationDto>
   },
 }

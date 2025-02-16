@@ -20,7 +20,7 @@ export const ProvincePicker: React.FC<Props> = ({ parent, value, onChange }) => 
     }
 
     return data
-      .filter((d) => d.parentId === parent)
+      .filter((d) => d.parent_id === parent)
       .map((c) => ({ displayName: c.name, value: c.id, key: c.id }) as PickerColumnOption)
   }, [data, parent])
 

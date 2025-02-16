@@ -23,7 +23,7 @@ export const LocationForm: React.FC = () => {
       return
     }
 
-    setCity(location.parentId)
+    setCity(location.parent_id)
     setProvince(location.id)
     setIsPristine(true)
   }, [location])

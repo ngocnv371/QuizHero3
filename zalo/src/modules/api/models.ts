@@ -48,5 +48,5 @@ export type QuizResultDto = {
 export type LocationDto = {
   id: string
   name: string
-  parentId: string
+  parent_id: string
 }

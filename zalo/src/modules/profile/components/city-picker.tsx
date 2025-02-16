@@ -19,7 +19,7 @@ export const CityPicker: React.FC<Props> = ({ value, onChange }) => {
     }
 
     return data
-      .filter((d) => !d.parentId)
+      .filter((d) => !d.parent_id)
       .map((c) => ({ displayName: c.name, value: c.id, key: c.id }) as PickerColumnOption)
   }, [data])
 

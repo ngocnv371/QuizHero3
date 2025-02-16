@@ -13,8 +13,8 @@ export const UserItem: React.FC = () => {
 
   return (
     <List.Item
-      title={user.name}
-      prefix={<Avatar src={user.extraProperties.avatarUrl} />}
+      title={user.user_metadata.name}
+      prefix={<Avatar src={user.user_metadata.avatar_url} />}
       subTitle="This is you"
     ></List.Item>
   )
