@@ -1,6 +1,32 @@
 -- topics
+INSERT INTO topics("name", "category", "description", "logo_url", "cover_url") VALUES
+	('General', 'General', 'Common sense', 'https://picsum.photos/150?id=general', 'https://picsum.photos/300/200?id=general'),
+	('Math', 'Natural Science', 'Basic math', 'https://picsum.photos/150?id=math', 'https://picsum.photos/300/200?id=math');
 
 -- quizzes
+INSERT INTO quizzes("topic_id", "name", "description") VALUES
+	(1, 'General', 'General knowledge quiz');
+
+-- questions
+INSERT INTO questions("quiz_id", "text") VALUES
+	(1, 'What is the color of the sky?'),
+	(1, 'How many fingers in a hand?'),
+	(1, 'How many hours in a day?');
+
+-- answers
+INSERT INTO answers("question_id", "text", "is_correct") VALUES
+	(1, 'Blue', true),
+	(1, 'Red', false),
+	(1, 'Green', false),
+	(1, 'Yellow', false),
+	(2, '5', true),
+	(2, '4', false),
+	(2, '6', false),
+	(2, '7', false),
+	(3, '24', true),
+	(3, '12', false),
+	(3, '48', false),
+	(3, '36', false);
 
 -- locations
 INSERT INTO locations ("id", "name", "parent_id") VALUES
