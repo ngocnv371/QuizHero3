@@ -72,7 +72,7 @@ $$;
 
 ALTER FUNCTION "public"."get_quiz_results_by_user"() OWNER TO "postgres";
 
-CREATE OR REPLACE FUNCTION "public"."handle_new_user"() RETURNS "trigger"
+CREATE OR REPLACE FUNCTION "public"."create_user_profile"() RETURNS "trigger"
     LANGUAGE "plpgsql" SECURITY DEFINER
     SET "search_path" TO ''
     AS $$
@@ -87,12 +87,12 @@ begin
 end;
 $$;
 
-ALTER FUNCTION "public"."handle_new_user"() OWNER TO "postgres";
+ALTER FUNCTION "public"."create_user_profile"() OWNER TO "postgres";
 
 -- trigger the function every time a user is created
 create trigger on_auth_user_created
   after insert on auth.users
-  for each row execute procedure public.handle_new_user();
+  for each row execute procedure public.create_user_profile();
 
 SET default_tablespace = '';
 
@@ -382,9 +382,9 @@ GRANT ALL ON FUNCTION "public"."get_quiz_results_by_user"() TO "anon";
 GRANT ALL ON FUNCTION "public"."get_quiz_results_by_user"() TO "authenticated";
 GRANT ALL ON FUNCTION "public"."get_quiz_results_by_user"() TO "service_role";
 
-GRANT ALL ON FUNCTION "public"."handle_new_user"() TO "anon";
-GRANT ALL ON FUNCTION "public"."handle_new_user"() TO "authenticated";
-GRANT ALL ON FUNCTION "public"."handle_new_user"() TO "service_role";
+GRANT ALL ON FUNCTION "public"."create_user_profile"() TO "anon";
+GRANT ALL ON FUNCTION "public"."create_user_profile"() TO "authenticated";
+GRANT ALL ON FUNCTION "public"."create_user_profile"() TO "service_role";
 
 GRANT ALL ON TABLE "public"."answers" TO "anon";
 GRANT ALL ON TABLE "public"."answers" TO "authenticated";
