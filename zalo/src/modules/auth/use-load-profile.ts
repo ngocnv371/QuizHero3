@@ -13,5 +13,6 @@ export function useProfileQuery() {
       console.log('authenticated', session)
       return session?.user
     },
+    staleTime: 1000 * 60 * 60,
   })
 }
