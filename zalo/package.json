@@ -22,7 +22,7 @@
     "deploy:live": "pnpm run build && zmp-cli deploy --existing --testing --desc",
     "lint": "eslint --ext .ts,.tsx src",
     "fix": "eslint --ext .ts,.tsx src --fix",
-    "supabase": "supabase start --exclude vector",
+    "supabase": "npx supabase start --exclude vector",
     "build-api": "nswag openapi2tsclient /input:https://localhost:44350/swagger/v1/swagger.json /output:src/modules/api/swagger.ts"
   },
   "dependencies": {
